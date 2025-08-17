@@ -26,3 +26,9 @@ dist-ssr
 .vercel
 
 .maquettes
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
