@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/experimental-ct-react';
-import App from './App';
+import LoginForm from './components/pages/login/LoginPage';
 
 test("@F01", async ({ mount, page }) => {
   // Comments indicate specifications for F01
-  const component = await mount(<App />)
+  const component = await mount(<LoginForm />)
   page.on('dialog', async(dialog) => {
     // When I enter a name and submit, an alert pops up
     // saying "Hello <name>"
