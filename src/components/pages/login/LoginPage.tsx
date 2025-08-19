@@ -1,3 +1,4 @@
+import LogoTitle from "../LogoTitle";
 import LoginForm from "./LoginForm";
 import styled from "styled-components";
 
@@ -5,6 +6,7 @@ export default function LoginPage() {
 
   return (
     <LoginPageStyled>
+      <LogoTitle/>
       <LoginForm/>
     </LoginPageStyled>
   )
