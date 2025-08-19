@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router";
+import styled from "styled-components";
+import { theme } from "../../../theme/theme.ts"
 
 export default function LoginForm() {
   const [userName, setUserName] = useState('');
@@ -18,18 +20,22 @@ export default function LoginForm() {
   }
 
   return (
-    <form action='submit' onSubmit={handleSubmit}>
+    <LoginFormStyled action='submit' onSubmit={handleSubmit}>
       <h1>Welcome to our place !</h1>
       <br/>
       <h2>Log in</h2>
       <input name='name' type='text' required
-          placeholder='Enter your name...'
+          placeholder='Enter your name'
           value={userName}
           onChange={handleChange}>
       </input>
       <button>
-        Get to your space
+        Get to my space
       </button>
-    </form>
+    </LoginFormStyled>
   )
 }
+
+const LoginFormStyled = styled.form`
+  border: 1px solid ${theme.colors.dark};
+`
