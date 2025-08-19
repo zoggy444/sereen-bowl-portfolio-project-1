@@ -4,8 +4,8 @@ const colors:{ [key: string]: string } = {
   white: "#fff",
   background_white: "#f5f5f7",
   background_dark: "#292729",
-  primary: "#ffa01b",
-  primary_burger: "#ff9f1b",
+  primary: "#1ebb94ff",
+  primary_burger: "#2bca95ff",
   green: "green",
   success: "#60bd4f",
   red: "#e25549",
@@ -39,6 +39,7 @@ const fonts: { [key: string]: string } = {
   P4: "36px",
   P5: "48px",
   P6: "60px",
+  P7: "90px"
 }
 const gridUnit = 8
 const borderRadius: { [key: string]: string | number } = {
