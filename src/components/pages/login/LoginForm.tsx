@@ -3,6 +3,9 @@ import type { FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { theme } from "../../../theme/theme.ts"
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { MdKeyboardArrowRight } from "react-icons/md";
+
 
 export default function LoginForm() {
   const [userName, setUserName] = useState('');
@@ -21,21 +24,94 @@ export default function LoginForm() {
 
   return (
     <LoginFormStyled action='submit' onSubmit={handleSubmit}>
-      <h1>Welcome to our place !</h1>
-      <br/>
-      <h2>Log in</h2>
-      <input name='name' type='text' required
-          placeholder='Enter your name'
-          value={userName}
-          onChange={handleChange}>
-      </input>
-      <button>
-        Get to my space
+      <h1 className="amatic-sc-bold">Welcome to our place !</h1>
+      <hr/>
+      <h2 className="amatic-sc-bold">Log in</h2>
+      <div className="inputWrapper open-sans-medium">
+        <IoPersonCircleOutline className="inputIcon"/>
+        <input name='name' type='text' required
+            placeholder='Enter your name'
+            value={userName}
+            onChange={handleChange}>
+        </input>
+      </div>
+      <button className="open-sans-medium">
+        <span>Get to my space</span>
+        <MdKeyboardArrowRight />
       </button>
     </LoginFormStyled>
   )
 }
 
 const LoginFormStyled = styled.form`
-  border: 1px solid ${theme.colors.dark};
+  color: ${theme.colors.white};
+  text-shadow: ${theme.colors.dark} 10px 0 10px;
+  min-width: 400px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+
+  h1 {
+    text-align: center;
+    font-size: ${theme.fonts.P5};
+  }
+
+  h2 {
+    text-align: center;
+    font-size: ${theme.fonts.P4};
+  }
+
+  hr {
+    border-top: 3px solid ${theme.colors.primary_burger};
+    width: 100%;
+  }
+
+  .inputWrapper {
+    padding: ${theme.spacing.sm} ${theme.spacing.md};
+    margin-bottom: ${theme.spacing.md};
+    border-radius: ${theme.borderRadius.round};
+    background-color: ${theme.colors.white};
+
+    display: flex;
+    align-items: center;
+  }
+
+  .inputIcon {
+    color: ${theme.colors.greyDark};
+    font-size: ${theme.fonts.P0};
+    margin-right: ${theme.spacing.sm}
+  }
+
+  input {
+    border: none;
+    font-size: ${theme.fonts.P0};
+  }
+  ::placeholder {
+    color: ${theme.colors.greyMedium};
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+    color: ${theme.colors.white};
+    background-color: ${theme.colors.primary};
+    border: none;
+    border-radius: ${theme.borderRadius.round};
+    padding: ${theme.spacing.xs};
+
+    span {
+      font-size: ${theme.fonts.P0};
+      margin-right: ${theme.spacing.xs};
+    }
+    svg {
+      font-size: ${theme.fonts.P2};
+      margin-top: ${theme.spacing.xs};
+      margin-bottom: ${theme.spacing.xxs};
+    }
+  }
 `
