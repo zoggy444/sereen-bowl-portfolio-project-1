@@ -69,7 +69,7 @@ const LoginFormStyled = styled.form`
   }
 
   .inputWrapper {
-    padding: ${theme.spacing.sm} ${theme.spacing.md};
+    padding: ${theme.spacing.md};
     margin-bottom: ${theme.spacing.md};
     border-radius: ${theme.borderRadius.round};
     background-color: ${theme.colors.white};
@@ -80,7 +80,7 @@ const LoginFormStyled = styled.form`
 
   .inputIcon {
     color: ${theme.colors.greyDark};
-    font-size: ${theme.fonts.P0};
+    font-size: ${theme.fonts.P1};
     margin-right: ${theme.spacing.sm}
   }
 
@@ -97,10 +97,9 @@ const LoginFormStyled = styled.form`
     align-items: center;
     justify-content: center;
 
-    
     color: ${theme.colors.white};
     background-color: ${theme.colors.primary};
-    border: none;
+    border: 1px solid ${theme.colors.primary};
     border-radius: ${theme.borderRadius.round};
     padding: ${theme.spacing.xs};
 
@@ -113,5 +112,14 @@ const LoginFormStyled = styled.form`
       margin-top: ${theme.spacing.xs};
       margin-bottom: ${theme.spacing.xxs};
     }
+  }
+  button:hover{
+    color: ${theme.colors.primary};
+    background-color: ${theme.colors.white};
+    cursor: pointer;
+  }
+  button:active {
+    color: ${theme.colors.white};
+    background-color: ${theme.colors.primary};
   }
 `
