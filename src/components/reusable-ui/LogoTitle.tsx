@@ -19,12 +19,11 @@ const LogoTitleStyle = styled.div`
   align-items: center;
   padding-right: ${theme.spacing.sm};
 
-  color: ${theme.colors.primary_burger};
+  color: ${theme.colors.primary_bowl};
   font-size: ${theme.fonts.P7};
 
   svg {
     width: 150px;
     height: 150px;
   }
-
 `;

@@ -1,17 +1,17 @@
-import { MdKeyboardArrowRight } from 'react-icons/md'
 import styled from 'styled-components';
-import { theme } from '../../../theme/theme';
+import { theme } from '../../theme/theme';
+import type { ButtonPrimaryProps } from '../../types';
 
-export default function LoginButton() {
+export default function ButtonPrimary({label, Icon}: ButtonPrimaryProps) {
   return (
-    <LoginButtonStyled className="open-sans-medium">
-      <span>Get to my space</span>
-      <MdKeyboardArrowRight />
-    </LoginButtonStyled>
+    <ButtonPrimaryStyled className="open-sans-medium">
+      <span>{label}</span>
+      <Icon />
+    </ButtonPrimaryStyled>
   )
 }
 
-const LoginButtonStyled = styled.button`
+const ButtonPrimaryStyled = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,8 +28,7 @@ const LoginButtonStyled = styled.button`
   }
   svg {
     font-size: ${theme.fonts.P2};
-    margin-top: ${theme.spacing.xs};
-    margin-bottom: ${theme.spacing.xxs};
+    margin: ${theme.spacing.xs};
   }
 
   &:hover{

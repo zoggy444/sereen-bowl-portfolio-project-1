@@ -2,9 +2,11 @@ import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { IoPersonCircleOutline } from 'react-icons/io5'
+import { MdKeyboardArrowRight } from 'react-icons/md'
 import { theme } from "../../../theme/theme.ts"
-import LoginButton from "./LoginButton.tsx";
-import LoginInput from "./LoginInput.tsx";
+import ButtonPrimary from "../../reusable-ui/ButtonPrimary.tsx";
+import InputText from "../../reusable-ui/InputText.tsx";
 
 
 export default function LoginForm() {
@@ -27,15 +29,22 @@ export default function LoginForm() {
       <h1 className="amatic-sc-bold">Welcome to our place !</h1>
       <hr/>
       <h2 className="amatic-sc-bold">Log in</h2>
-      <LoginInput userName={userName} onChange={handleChange}/>
-      <LoginButton/>
+      <InputText name='name' type='text' required
+        Icon={IoPersonCircleOutline}
+        value={userName}
+        placeholder='Enter your name'
+        onChange={handleChange}
+      />
+      <ButtonPrimary
+        label="Get to my space"
+        Icon={MdKeyboardArrowRight}/>
     </LoginFormStyled>
   )
 }
 
 const LoginFormStyled = styled.form`
   color: ${theme.colors.white};
-  text-shadow: ${theme.colors.dark} 10px 0 10px;
+  text-shadow: ${theme.colors.dark} 0 0 30px;
   min-width: 400px;
 
   display: flex;
@@ -54,7 +63,10 @@ const LoginFormStyled = styled.form`
   }
 
   hr {
-    border-top: 3px solid ${theme.colors.primary_burger};
+    border-top: 3px solid ${theme.colors.primary_bowl};
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
     width: 100%;
   }
 `

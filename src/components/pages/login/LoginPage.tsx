@@ -1,4 +1,4 @@
-import LogoTitle from "../LogoTitle";
+import LogoTitle from "../../reusable-ui/LogoTitle";
 import LoginForm from "./LoginForm";
 import styled from "styled-components";
 

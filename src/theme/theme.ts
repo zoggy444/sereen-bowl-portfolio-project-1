@@ -1,11 +1,11 @@
-const colors:{ [key: string]: string } = {
+const colors = {
   dark: "#17161a",
   incognito: "#333",
   white: "#fff",
   background_white: "#f5f5f7",
   background_dark: "#292729",
   primary: "#1ebb94ff",
-  primary_burger: "#2bca95ff",
+  primary_bowl: "#2bca95ff",
   green: "green",
   success: "#60bd4f",
   red: "#e25549",
@@ -16,9 +16,9 @@ const colors:{ [key: string]: string } = {
   greySemiDark: "#93a2b1",
   greyDark: "#6f737e",
   greyBlue: "#747b91",
-}
+} as const;
 
-const spacing: { [key: string]: string } = {
+const spacing = {
   xxs: "4px",
   xs: "8px",
   sm: "12px",
@@ -26,9 +26,9 @@ const spacing: { [key: string]: string } = {
   lg: "32px",
   xl: "52px",
   xxl: "84px",
-}
+} as const;
 
-const fonts: { [key: string]: string } = {
+const fonts = {
   XXXS: "8px",
   XXS: "10px",
   XS: "12px",
@@ -40,27 +40,27 @@ const fonts: { [key: string]: string } = {
   P5: "48px",
   P6: "60px",
   P7: "90px"
-}
+} as const;
 const gridUnit = 8
-const borderRadius: { [key: string]: string | number } = {
+const borderRadius = {
   subtle: 1,
   round: "5px",
   extraRound: "15px",
   circle: "50%",
-}
-const shadows: { [key: string]: string } = {
+} as const;
+const shadows = {
   strong: "0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset",
   medium: "0px -2px 8px -2px rgb(0 0 0 / 20%",
   soft: "0 -2px 8px -2px rgb(0 0 0 / 10%",
-}
-const weights: { [key: string]: number } = {
+} as const;
+const weights = {
   light: 300,
   regular: 400,
   medium: 500,
   semiBold: 600,
   bold: 700,
   heavy: 800,
-}
+} as const;
 
 export const theme = {
   colors,
