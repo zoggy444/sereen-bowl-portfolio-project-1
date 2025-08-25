@@ -1,14 +1,18 @@
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
+import styled from "styled-components";
+import NavBar from "./Navbar";
 
 export default function OrderPage() {
   const { userName } = useParams();
 
   return (
-    <div>
-      <h1>Bonjour {userName}</h1>
-      <Link to="/">
-        <button>Déconnexion</button>
-      </Link>
-    </div>
-  )
+    <OrderPageStyled>
+      <div className="container">
+        <NavBar userName={userName || "inconnu"} />
+        <div className="main"></div>
+      </div>
+    </OrderPageStyled>
+  );
 }
+
+const OrderPageStyled = styled.div``;
