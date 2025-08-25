@@ -1,6 +1,13 @@
 import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router";
+import styled from "styled-components";
+import { IoPersonCircleOutline } from 'react-icons/io5'
+import { MdKeyboardArrowRight } from 'react-icons/md'
+import { theme } from "../../../theme/theme.ts"
+import ButtonPrimary from "../../reusable-ui/ButtonPrimary.tsx";
+import InputText from "../../reusable-ui/InputText.tsx";
+
 
 export default function LoginForm() {
   const [userName, setUserName] = useState('');
@@ -18,18 +25,48 @@ export default function LoginForm() {
   }
 
   return (
-    <form action='submit' onSubmit={handleSubmit}>
-      <h1>Welcome to our place !</h1>
-      <br/>
-      <h2>Log in</h2>
-      <input name='name' type='text' required
-          placeholder='Enter your name...'
-          value={userName}
-          onChange={handleChange}>
-      </input>
-      <button>
-        Get to your space
-      </button>
-    </form>
+    <LoginFormStyled action='submit' onSubmit={handleSubmit}>
+      <h1 className="amatic-sc-bold">Welcome to our place !</h1>
+      <hr/>
+      <h2 className="amatic-sc-bold">Log in</h2>
+      <InputText name='name' type='text' required
+        Icon={IoPersonCircleOutline}
+        value={userName}
+        placeholder='Enter your name'
+        onChange={handleChange}
+      />
+      <ButtonPrimary
+        label="Get to my space"
+        Icon={MdKeyboardArrowRight}/>
+    </LoginFormStyled>
   )
 }
+
+const LoginFormStyled = styled.form`
+  color: ${theme.colors.white};
+  text-shadow: ${theme.colors.dark} 0 0 30px;
+  min-width: 400px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+
+  h1 {
+    text-align: center;
+    font-size: ${theme.fonts.P5};
+  }
+
+  h2 {
+    text-align: center;
+    font-size: ${theme.fonts.P4};
+  }
+
+  hr {
+    border-top: 3px solid ${theme.colors.primary_bowl};
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+    width: 100%;
+  }
+`
