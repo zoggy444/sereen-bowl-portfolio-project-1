@@ -11,4 +11,13 @@ export default function NavBar({ userName }: { userName: string }) {
   );
 }
 
-const NavBarStyled = styled.div``;
+const NavBarStyled = styled.div`
+  height: 15%;
+  max-height: 100px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: beige;
+`;

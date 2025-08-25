@@ -1,10 +1,10 @@
 import { Link } from "react-router";
 import styled from "styled-components";
 
-export default function NavRight({userName}:{userName:string}) {
+export default function NavRight({ userName }: { userName: string }) {
   return (
     <NavRightStyled>
-      <h1>Bonjour {userName}</h1>
+      <div>Bonjour {userName}</div>
       <Link to="/">
         <button>Déconnexion</button>
       </Link>
