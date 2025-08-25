@@ -4,7 +4,7 @@ import LogoTitle from "../../reusable-ui/LogoTitle";
 export default function NavLeft() {
   return (
     <NavLeftStyled>
-      <LogoTitle/>
+      <LogoTitle size="md" />
     </NavLeftStyled>
   );
 }
