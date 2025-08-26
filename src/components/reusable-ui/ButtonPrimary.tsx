@@ -1,14 +1,14 @@
-import styled from 'styled-components';
-import { theme } from '../../theme/theme';
-import type { ButtonPrimaryProps } from '../../types';
+import styled from "styled-components";
+import { theme } from "../../theme/theme";
+import type { ButtonPrimaryProps } from "../../types";
 
-export default function ButtonPrimary({label, Icon}: ButtonPrimaryProps) {
+export default function ButtonPrimary({ label, Icon }: ButtonPrimaryProps) {
   return (
-    <ButtonPrimaryStyled className="open-sans-medium">
+    <ButtonPrimaryStyled>
       <span>{label}</span>
       <Icon />
     </ButtonPrimaryStyled>
-  )
+  );
 }
 
 const ButtonPrimaryStyled = styled.button`
@@ -31,7 +31,7 @@ const ButtonPrimaryStyled = styled.button`
     margin: ${theme.spacing.xs};
   }
 
-  &:hover{
+  &:hover {
     color: ${theme.colors.primary};
     background-color: ${theme.colors.white};
     cursor: pointer;

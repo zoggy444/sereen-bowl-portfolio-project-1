@@ -6,7 +6,7 @@ import { theme } from "../../../theme/theme";
 export default function Profile({ userName }: { userName: string }) {
   return (
     <ProfileStyled>
-      <div className="card-info open-sans-medium">
+      <div className="card-info">
         <div>
           Hey, <strong>{userName}</strong>
         </div>
