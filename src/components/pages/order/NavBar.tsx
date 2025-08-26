@@ -13,7 +13,7 @@ export default function NavBar({ userName }: { userName: string }) {
 }
 
 const NavBarStyled = styled.div`
-  height: 15%;
+  height: 15vh;
   max-height: 100px;
 
   display: flex;
@@ -23,7 +23,8 @@ const NavBarStyled = styled.div`
   background-color: ${theme.colors.white};
 
   border-radius: ${theme.borderRadius.extraRound}
-    ${theme.borderRadius.extraRound} 0 0;
+    ${theme.borderRadius.extraRound} ${theme.borderRadius.none}
+    ${theme.borderRadius.none};
   padding-left: ${theme.spacing.md};
   padding-right: ${theme.spacing.xxl};
 `;

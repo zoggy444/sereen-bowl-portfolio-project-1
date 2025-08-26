@@ -25,14 +25,15 @@ const OrderPageStyled = styled.div`
   align-items: center;
   justify-content: center;
   .container {
-    width: 90%;
+    width: 95vw;
     max-width: 1400px;
-    height: 98%;
+    height: 98vh;
     .main {
-      height: 85%;
+      height: 85vh;
       background-color: ${theme.colors.greyExtraLight};
-      box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
-      border-radius: 0px 0px 15px 15px;
+      box-shadow: ${theme.shadows.strong};
+      border-radius: ${theme.borderRadius.none} ${theme.borderRadius.none}
+        ${theme.borderRadius.extraRound} ${theme.borderRadius.extraRound};
     }
   }
 `;
