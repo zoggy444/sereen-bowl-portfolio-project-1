@@ -46,7 +46,8 @@ const ProfileStyled = styled.div`
   svg {
     font-size: ${theme.fonts.P4};
     color: ${theme.colors.greyBlue};
-    padding: ${theme.spacing.xxs} ${theme.spacing.none} ${theme.spacing.xxs}
-      ${theme.spacing.sm};
+    padding-left: ${theme.spacing.sm};
+    padding-top: ${theme.spacing.xxs};
+    padding-bottom: ${theme.spacing.xxs};
   }
 `;
