@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import NavLeft from "./NavLeft";
 import NavRight from "./NavRight";
 import { theme } from "../../../theme/theme";
 import type { NavBarProps } from "../../../types";
+import LogoTitle from "../../reusable-ui/LogoTitle";
+import { refreshPage } from "../../../utils/window";
 
 export default function NavBar({ userName }: NavBarProps) {
   return (
     <NavBarStyled>
-      <NavLeft />
+      <LogoTitle size="md" onClick={refreshPage} className="logo-navbar" />
       <NavRight userName={userName} />
     </NavBarStyled>
   );
@@ -28,4 +29,8 @@ const NavBarStyled = styled.div`
     ${theme.borderRadius.none};
   padding-left: ${theme.spacing.md};
   padding-right: ${theme.spacing.xxl};
+
+  .logo-navbar {
+    cursor: pointer;
+  }
 `;

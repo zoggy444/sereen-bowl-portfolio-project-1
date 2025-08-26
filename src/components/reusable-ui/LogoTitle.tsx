@@ -2,14 +2,14 @@ import styled from "styled-components";
 import { theme } from "../../theme/theme";
 import type { LogoTitleProps } from "../../types";
 
-export default function LogoTitle({ size, reloadOnClick }: LogoTitleProps) {
-  const onClick = function () {
-    if (reloadOnClick) window.location.reload();
-  };
-
+export default function LogoTitle({
+  size,
+  onClick,
+  className,
+}: LogoTitleProps) {
   return (
     <LogoTitleStyle
-      className={`amatic-sc-bold logo-title-${size}`}
+      className={`amatic-sc-bold logo-title-${size} ${className}`}
       onClick={onClick}
     >
       SEREEN
@@ -27,7 +27,6 @@ const LogoTitleStyle = styled.a`
   align-items: center;
 
   color: ${theme.colors.primary_bowl};
-  cursor: pointer;
 
   &.logo-title-lg {
     padding-right: ${theme.spacing.sm};

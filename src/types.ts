@@ -3,7 +3,8 @@ import type { IconType } from "react-icons";
 
 export type LogoTitleProps = {
   size: "lg" | "md";
-  reloadOnClick: boolean;
+  onClick: () => void;
+  className?: string;
 };
 
 export type InputTextProps = {
