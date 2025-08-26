@@ -2,8 +2,15 @@ import styled from "styled-components";
 import { theme } from "../../theme/theme";
 
 export default function LogoTitle({ size }: { size: "lg" | "md" }) {
+  const onClick = function () {
+    window.location.reload();
+  };
+
   return (
-    <LogoTitleStyle className={`amatic-sc-bold logo-title-${size}`}>
+    <LogoTitleStyle
+      className={`amatic-sc-bold logo-title-${size}`}
+      onClick={onClick}
+    >
       SEREEN
       <svg>
         <image xlinkHref="../../../favicon.svg" />
@@ -13,11 +20,13 @@ export default function LogoTitle({ size }: { size: "lg" | "md" }) {
   );
 }
 
-const LogoTitleStyle = styled.div`
+const LogoTitleStyle = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
+
   color: ${theme.colors.primary_bowl};
+  cursor: pointer;
 
   &.logo-title-lg {
     padding-right: ${theme.spacing.sm};
@@ -31,11 +40,11 @@ const LogoTitleStyle = styled.div`
 
   &.logo-title-md {
     padding-right: ${theme.spacing.xs};
-    font-size: ${theme.fonts.P2};
+    font-size: ${theme.fonts.P4};
 
     svg {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
     }
     svg * {
       width: 100%;
