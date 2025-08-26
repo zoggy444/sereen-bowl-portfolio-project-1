@@ -30,7 +30,7 @@ const OrderPageStyled = styled.div`
     height: 98%;
     .main {
       height: 85%;
-      background-color: ${theme.colors.greyLight};
+      background-color: ${theme.colors.greyExtraLight};
       box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
       border-radius: 0px 0px 15px 15px;
     }
