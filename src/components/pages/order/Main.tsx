@@ -6,7 +6,7 @@ export default function Main() {
 }
 
 const MainStyled = styled.div`
-  height: 85vh;
+  height: 83vh;
   background-color: ${theme.colors.greyExtraLight};
   box-shadow: ${theme.shadows.strong};
   border-bottom-left-radius: ${theme.borderRadius.extraRound};
