@@ -3,7 +3,7 @@ import type { IconType } from "react-icons";
 
 export type LogoTitleProps = {
   size: "lg" | "md";
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
 };
 
