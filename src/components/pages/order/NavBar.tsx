@@ -2,8 +2,9 @@ import styled from "styled-components";
 import NavLeft from "./NavLeft";
 import NavRight from "./NavRight";
 import { theme } from "../../../theme/theme";
+import type { NavBarProps } from "../../../types";
 
-export default function NavBar({ userName }: { userName: string }) {
+export default function NavBar({ userName }: NavBarProps) {
   return (
     <NavBarStyled>
       <NavLeft />

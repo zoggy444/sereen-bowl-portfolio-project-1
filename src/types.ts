@@ -1,6 +1,11 @@
 import type { ChangeEventHandler, ComponentPropsWithoutRef } from "react";
 import type { IconType } from "react-icons";
 
+export type LogoTitleProps = {
+  size: "lg" | "md";
+  reloadOnClick: boolean;
+};
+
 export type InputTextProps = {
   Icon: IconType;
   value: string;
@@ -11,4 +16,16 @@ export type InputTextProps = {
 export type ButtonPrimaryProps = {
   label: string;
   Icon: IconType;
-}
+};
+
+export type NavBarProps = {
+  userName: string;
+};
+
+export type NavRightProps = {
+  userName: string;
+};
+
+export type ProfileProps = {
+  userName: string;
+};

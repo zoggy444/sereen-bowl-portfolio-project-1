@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { theme } from "../../theme/theme";
+import type { LogoTitleProps } from "../../types";
 
-export default function LogoTitle({ size }: { size: "lg" | "md" }) {
+export default function LogoTitle({ size, reloadOnClick }: LogoTitleProps) {
   const onClick = function () {
-    window.location.reload();
+    if (reloadOnClick) window.location.reload();
   };
 
   return (

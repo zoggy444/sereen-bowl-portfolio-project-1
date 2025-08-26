@@ -2,8 +2,9 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import { Link } from "react-router";
 import styled from "styled-components";
 import { theme } from "../../../theme/theme";
+import type { ProfileProps } from "../../../types";
 
-export default function Profile({ userName }: { userName: string }) {
+export default function Profile({ userName }: ProfileProps) {
   return (
     <ProfileStyled>
       <div className="card-info">
