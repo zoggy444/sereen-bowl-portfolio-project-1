@@ -12,11 +12,13 @@ export default function Main() {
       <div className="product-grid">
         {products.map((p) => (
           <div className="product-card" key={p.id}>
-            <img src={`/src${p.imageSource}`} />
+            <div className="product-image">
+              <img src={`/src${p.imageSource}`} alt="product-image" />
+            </div>
             <div className="product-detail">
-              <div className="product-name amatic-sc-regular">{p.title}</div>
+              <div className="product-name amatic-sc-bold">{p.title}</div>
               <div className="product-buy">
-                <div>{p.price}</div>
+                <div className="product-price">{p.price}</div>
                 <ButtonPrimary label="Ajouter" className="button-buy" />
               </div>
             </div>
@@ -42,7 +44,7 @@ const MainStyled = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(330px, 1fr));
-    gap: 60px;
+    grid-row-gap: 60px;
   }
 
   .product-card {
@@ -62,11 +64,20 @@ const MainStyled = styled.div`
     padding-right: ${theme.spacing.md};
     padding-bottom: ${theme.spacing.sm};
     border-radius: ${theme.borderRadius.extraRound};
-    background: #e84343;
+    background: ${theme.colors.white};
+    box-shadow: ${theme.shadows.card};
 
-    img {
+    .product-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       height: 145px;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        aspect-ratio: 1;
+      }
     }
 
     .product-name {
@@ -80,6 +91,10 @@ const MainStyled = styled.div`
       align-items: center;
 
       padding: ${theme.spacing.xxs};
+
+      .product-price {
+        color: ${theme.colors.primary};
+      }
 
       .button-buy {
         width: 95px;
