@@ -2,20 +2,21 @@ import styled from "styled-components";
 import { theme } from "../../../theme/theme";
 import "../../../index.css";
 import ButtonPrimary from "../../reusable-ui/ButtonPrimary";
+import { fakeMenu2 } from "../../../fakeData/fakeMenu";
 
 export default function Main() {
-  const products = Array<string>(12).fill("product");
+  const products = fakeMenu2;
 
   return (
     <MainStyled>
       <div className="product-grid">
         {products.map((p) => (
-          <div className="product-card">
-            <img />
+          <div className="product-card" key={p.id}>
+            <img src={`/src${p.imageSource}`} />
             <div className="product-detail">
-              <div className="product-name amatic-sc-regular">{p}</div>
+              <div className="product-name amatic-sc-regular">{p.title}</div>
               <div className="product-buy">
-                <div>5.60 €</div>
+                <div>{p.price}</div>
                 <ButtonPrimary label="Ajouter" className="button-buy" />
               </div>
             </div>
@@ -66,7 +67,6 @@ const MainStyled = styled.div`
     img {
       width: 100%;
       height: 145px;
-      background-color: bisque;
     }
 
     .product-name {
