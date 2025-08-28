@@ -16,7 +16,8 @@ export type InputTextProps = {
 
 export type ButtonPrimaryProps = {
   label: string;
-  Icon: IconType;
+  className?: string;
+  Icon?: IconType;
 };
 
 export type NavBarProps = {
