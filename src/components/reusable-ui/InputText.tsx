@@ -9,7 +9,7 @@ export default function InputText({
   ...otherProps
 }: InputTextProps) {
   return (
-    <InputTextStyled className="open-sans-medium">
+    <InputTextStyled>
       <Icon className="input-icon" />
       <input value={value} onChange={onChange} {...otherProps}></input>
     </InputTextStyled>

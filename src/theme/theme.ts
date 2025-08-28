@@ -11,6 +11,7 @@ const colors = {
   red: "#e25549",
   redSecondary: "#c4151c",
   blue: "#51a7e1",
+  greyExtraLight: "#F5F5F7",
   greyLight: "#e4e5e9",
   greyMedium: "#a7a8ad",
   greySemiDark: "#93a2b1",
@@ -19,6 +20,7 @@ const colors = {
 } as const;
 
 const spacing = {
+  none: "0px",
   xxs: "4px",
   xs: "8px",
   sm: "12px",
@@ -39,10 +41,11 @@ const fonts = {
   P4: "36px",
   P5: "48px",
   P6: "60px",
-  P7: "90px"
+  P7: "90px",
 } as const;
-const gridUnit = 8
+const gridUnit = 8;
 const borderRadius = {
+  none: "0px",
   subtle: 1,
   round: "5px",
   extraRound: "15px",
@@ -70,4 +73,4 @@ export const theme = {
   shadows,
   weights,
   spacing,
-}
+};
