@@ -5,12 +5,12 @@ import type { MenuProps } from "../../../types";
 export default function Menu({ products }: MenuProps) {
   return (
     <MenuStyled>
-      {products.map((p) => (
+      {products.map(({ id, title, imageSource, price }) => (
         <MenuCard
-          key={p.id}
-          title={p.title}
-          src={`/src${p.imageSource}`}
-          price={p.price}
+          key={id}
+          title={title}
+          src={`/src${imageSource}`}
+          price={price}
         />
       ))}
     </MenuStyled>

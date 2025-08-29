@@ -28,6 +28,7 @@ const NavBarStyled = styled.div`
   border-top-right-radius: ${theme.borderRadius.extraRound};
   padding-left: ${theme.spacing.md};
   padding-right: ${theme.spacing.xxl};
+  border-bottom: 1px solid ${theme.colors.greyLight};
 
   .logo-navbar {
     cursor: pointer;
