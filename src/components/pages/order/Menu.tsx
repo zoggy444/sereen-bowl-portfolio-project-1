@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import MenuCard from "./MenuCard";
+import type { MenuProps } from "../../../types";
 
-export default function Menu({ products }) {
+export default function Menu({ products }: MenuProps) {
   return (
     <MenuStyled>
       {products.map((p) => (

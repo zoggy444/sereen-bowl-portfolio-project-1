@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import ButtonPrimary from "../../reusable-ui/ButtonPrimary";
 import { theme } from "../../../theme/theme";
+import type { ProductDetailProps } from "../../../types";
 
-export default function ProductDetail({ product }) {
+export default function ProductDetail({ product }: ProductDetailProps) {
   return (
     <ProductDetailStyled>
       <div className="product-name amatic-sc-bold">{product.title}</div>

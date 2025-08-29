@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { theme } from "../../../theme/theme";
 import Image from "../../reusable-ui/Image";
 import ProductDetail from "./ProductDetail";
+import type { MenuCardProps } from "../../../types";
 
-export default function MenuCard({ product }) {
+export default function MenuCard({ product }: MenuCardProps) {
   return (
     <MenuCardStyled key={product.id}>
-      <Image product={product} />
+      <Image src={`/src${product.imageSource}`} alt="product-image"/>
       <ProductDetail product={product} />
     </MenuCardStyled>
   );

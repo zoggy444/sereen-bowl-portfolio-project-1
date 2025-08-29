@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import type { ImageType } from "../../types";
 
-export default function Image({ product }) {
+export default function Image({ src, alt }: ImageType) {
   return (
     <ImageStyled>
-      <img src={`/src${product.imageSource}`} alt="product-image" />
+      <img src={src} alt={alt} />
     </ImageStyled>
   );
 }
