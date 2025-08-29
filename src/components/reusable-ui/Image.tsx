@@ -18,6 +18,6 @@ const ImageStyled = styled.div`
   img {
     max-width: 100%;
     max-height: 100%;
-    aspect-ratio: 1;
+    object-fit: contain;
   }
 `;
