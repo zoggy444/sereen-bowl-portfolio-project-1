@@ -4,11 +4,11 @@ import Image from "../../reusable-ui/Image";
 import ProductDetail from "./ProductDetail";
 import type { MenuCardProps } from "../../../types";
 
-export default function MenuCard({ product }: MenuCardProps) {
+export default function MenuCard({ src, title, price }: MenuCardProps) {
   return (
-    <MenuCardStyled key={product.id}>
-      <Image src={`/src${product.imageSource}`} alt="product-image"/>
-      <ProductDetail product={product} />
+    <MenuCardStyled>
+      <Image src={src} alt="product-image" />
+      <ProductDetail title={title} price={price} />
     </MenuCardStyled>
   );
 }

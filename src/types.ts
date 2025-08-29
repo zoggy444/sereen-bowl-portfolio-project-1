@@ -42,9 +42,12 @@ export type MenuProps = {
 };
 
 export type MenuCardProps = {
-  product: ProductType;
-};
+  src: string;
+  title: string;
+  price: number;
+} & ComponentPropsWithoutRef<"img">;
 
 export type ProductDetailProps = {
-  product: ProductType;
+  title: string;
+  price: number;
 };

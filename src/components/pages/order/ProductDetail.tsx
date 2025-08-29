@@ -4,12 +4,12 @@ import { theme } from "../../../theme/theme";
 import type { ProductDetailProps } from "../../../types";
 import { formatPrice } from "../../../utils/maths";
 
-export default function ProductDetail({ product }: ProductDetailProps) {
+export default function ProductDetail({ title, price }: ProductDetailProps) {
   return (
     <ProductDetailStyled>
-      <div className="product-name amatic-sc-bold">{product.title}</div>
+      <div className="product-name amatic-sc-bold">{title}</div>
       <div className="product-buy">
-        <div className="product-price">{formatPrice(product.price)}</div>
+        <div className="product-price">{formatPrice(price)}</div>
         <ButtonPrimary label="Ajouter" className="button-buy" />
       </div>
     </ProductDetailStyled>
