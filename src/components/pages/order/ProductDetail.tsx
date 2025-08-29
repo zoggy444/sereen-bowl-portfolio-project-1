@@ -20,6 +20,9 @@ const ProductDetailStyled = styled.div`
   .product-name {
     font-size: ${theme.fonts.P4};
     max-height: 46px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .product-buy {
