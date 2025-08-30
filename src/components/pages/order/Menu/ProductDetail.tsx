@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import ButtonPrimary from "../../reusable-ui/ButtonPrimary";
-import { theme } from "../../../theme/theme";
-import type { ProductDetailProps } from "../../../types";
-import { formatPrice } from "../../../utils/maths";
+import ButtonPrimary from "../../../reusable-ui/ButtonPrimary";
+import { theme } from "../../../../theme/theme";
+import type { ProductDetailProps } from "../../../../types";
+import { formatPrice } from "../../../../utils/maths";
 
 export default function ProductDetail({ title, price }: ProductDetailProps) {
   return (

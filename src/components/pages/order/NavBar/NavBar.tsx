@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import NavRight from "./NavRight";
-import { theme } from "../../../theme/theme";
-import type { NavBarProps } from "../../../types";
-import LogoTitle from "../../reusable-ui/LogoTitle";
-import { refreshPage } from "../../../utils/window";
+import { theme } from "../../../../theme/theme";
+import type { NavBarProps } from "../../../../types";
+import LogoTitle from "../../../reusable-ui/LogoTitle";
+import { refreshPage } from "../../../../utils/window";
 
 export default function NavBar({ userName }: NavBarProps) {
   return (

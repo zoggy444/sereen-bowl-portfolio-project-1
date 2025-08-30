@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../../theme/theme";
 import "../../../index.css";
 import { fakeMenu2 } from "../../../fakeData/fakeMenu";
-import Menu from "./Menu";
+import Menu from "./Menu/Menu";
 
 export default function Main() {
   const products = fakeMenu2;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { theme } from "../../../theme/theme";
-import Image from "../../reusable-ui/Image";
+import { theme } from "../../../../theme/theme";
+import Image from "../../../reusable-ui/Image";
 import ProductDetail from "./ProductDetail";
-import type { MenuCardProps } from "../../../types";
+import type { MenuCardProps } from "../../../../types";
 
 export default function MenuCard({ src, title, price }: MenuCardProps) {
   return (
