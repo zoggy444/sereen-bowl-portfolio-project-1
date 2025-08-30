@@ -7,11 +7,11 @@ import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function OrderPage() {
-  const [adminMode, setAdminMode] = useState(false);
+  const [isAdminMode, setISAdminMode] = useState(false);
   const { userName } = useParams();
 
   const toggleMode = () => {
-    if (!adminMode) {
+    if (!isAdminMode) {
       toast.info("Admin mode activated", {
         theme: "dark",
         position: "bottom-right",
@@ -24,7 +24,7 @@ export default function OrderPage() {
       });
     }
 
-    setAdminMode(!adminMode);
+    setISAdminMode(!isAdminMode);
   };
 
   return (
@@ -32,7 +32,7 @@ export default function OrderPage() {
       <div className="container">
         <NavBar
           userName={userName || "inconnu"}
-          isChecked={adminMode}
+          isChecked={isAdminMode}
           onToggle={toggleMode}
           labelIfChecked="Quit admin mode"
           labelIfUnchecked="Enter admin mode"
