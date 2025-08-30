@@ -2,12 +2,16 @@ import type { ChangeEventHandler, ComponentPropsWithoutRef } from "react";
 import type { IconType } from "react-icons";
 import { fakeMenu1 } from "./fakeData/fakeMenu";
 
+// data types
+
 export type ProductType = (typeof fakeMenu1)[0];
 
-export type LogoTitleProps = {
-  size: "lg" | "md";
-  onClick?: () => void;
+// reusable comp types
+
+export type ButtonPrimaryProps = {
+  label: string;
   className?: string;
+  Icon?: IconType;
 };
 
 export type ImageType = ComponentPropsWithoutRef<"img">;
@@ -19,23 +23,13 @@ export type InputTextProps = {
   onChange: ChangeEventHandler<HTMLInputElement>;
 } & ComponentPropsWithoutRef<"input">;
 
-export type ButtonPrimaryProps = {
-  label: string;
+export type LogoTitleProps = {
+  size: "lg" | "md";
+  onClick?: () => void;
   className?: string;
-  Icon?: IconType;
 };
 
-export type NavBarProps = {
-  userName: string;
-};
-
-export type NavRightProps = {
-  userName: string;
-};
-
-export type ProfileProps = {
-  userName: string;
-};
+// unique comp types
 
 export type MenuProps = {
   products: ProductType[];
@@ -47,7 +41,19 @@ export type MenuCardProps = {
   price: number;
 } & ComponentPropsWithoutRef<"img">;
 
+export type NavBarProps = {
+  userName: string;
+};
+
+export type NavRightProps = {
+  userName: string;
+};
+
 export type ProductDetailProps = {
   title: string;
   price: number;
+};
+
+export type ProfileProps = {
+  userName: string;
 };
