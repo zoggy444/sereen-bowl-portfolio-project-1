@@ -14,6 +14,13 @@ export type ButtonPrimaryProps = {
   Icon?: IconType;
 };
 
+export type ButtonToggleProps = {
+  isChecked: boolean;
+  onToggle: () => void;
+  labelIfChecked: string;
+  labelIfUnchecked: string;
+};
+
 export type ImageType = ComponentPropsWithoutRef<"img">;
 
 export type InputTextProps = {
