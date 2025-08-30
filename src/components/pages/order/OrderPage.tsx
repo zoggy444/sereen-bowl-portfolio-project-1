@@ -3,14 +3,26 @@ import styled from "styled-components";
 import NavBar from "./NavBar/NavBar";
 import { theme } from "../../../theme/theme";
 import Main from "./Main";
+import { useState } from "react";
 
 export default function OrderPage() {
+  const [adminMode, setAdminMode] = useState(false);
   const { userName } = useParams();
+
+  const toggleMode = () => {
+    setAdminMode(!adminMode);
+  };
 
   return (
     <OrderPageStyled>
       <div className="container">
-        <NavBar userName={userName || "inconnu"} />
+        <NavBar
+          userName={userName || "inconnu"}
+          isChecked={adminMode}
+          onToggle={toggleMode}
+          labelIfChecked="Quit admin mode"
+          labelIfUnchecked="Enter admin mode"
+        />
         <Main />
       </div>
     </OrderPageStyled>

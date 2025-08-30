@@ -50,10 +50,18 @@ export type MenuCardProps = {
 
 export type NavBarProps = {
   userName: string;
+  isChecked: boolean;
+  onToggle: () => void;
+  labelIfChecked: string;
+  labelIfUnchecked: string;
 };
 
 export type NavRightProps = {
   userName: string;
+  isChecked: boolean;
+  onToggle: () => void;
+  labelIfChecked: string;
+  labelIfUnchecked: string;
 };
 
 export type ProductDetailProps = {
