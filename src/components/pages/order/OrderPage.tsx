@@ -4,12 +4,26 @@ import NavBar from "./NavBar/NavBar";
 import { theme } from "../../../theme/theme";
 import Main from "./Main";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function OrderPage() {
   const [adminMode, setAdminMode] = useState(false);
   const { userName } = useParams();
 
   const toggleMode = () => {
+    if (!adminMode) {
+      toast.info("Admin mode activated", {
+        theme: "dark",
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+
     setAdminMode(!adminMode);
   };
 
@@ -25,6 +39,7 @@ export default function OrderPage() {
         />
         <Main />
       </div>
+      <ToastContainer />
     </OrderPageStyled>
   );
 }
@@ -37,9 +52,22 @@ const OrderPageStyled = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   .container {
     width: 95vw;
     max-width: 1400px;
     height: 98vh;
+  }
+
+  .Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--info {
+    background: ${theme.colors.background_dark};
+    max-width: 300px;
+    .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter {
+      margin-right: 20px;
+      margin-left: 5px;
+    }
+    div {
+      line-height: 1.3em;
+    }
   }
 `;
