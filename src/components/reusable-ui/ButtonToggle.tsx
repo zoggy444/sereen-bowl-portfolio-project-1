@@ -1,6 +1,6 @@
-import styled from "styled-components/macro"
-import { theme } from "../../theme/theme"
-import type { ButtonToggleProps } from "../../types"
+import styled from "styled-components";
+import { theme } from "../../theme/theme";
+import type { ButtonToggleProps } from "../../types";
 
 export default function ButtonToggle({
   isChecked,
@@ -24,7 +24,7 @@ export default function ButtonToggle({
         data-unchecked={labelIfUnchecked}
       ></label>
     </ButtonToggleStyled>
-  )
+  );
 }
 
 const ButtonToggleStyled = styled.div`
@@ -100,7 +100,7 @@ const ButtonToggleStyled = styled.div`
       left: auto;
       opacity: 1;
       color: ${theme.colors.primary};
-      font-weight: ${theme.fonts.weights.bold};
+      font-weight: ${theme.weights.bold};
     }
 
     // small circle when not checked
@@ -131,4 +131,4 @@ const ButtonToggleStyled = styled.div`
       background-color: ${theme.colors.primary};
     }
   }
-`
+`;
