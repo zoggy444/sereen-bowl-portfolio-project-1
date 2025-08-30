@@ -4,7 +4,8 @@ import NavBar from "./NavBar/NavBar";
 import { theme } from "../../../theme/theme";
 import Main from "./Main";
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import ToastAdmin from "./ToastAdmin";
 
 export default function OrderPage() {
   const [isAdminMode, setISAdminMode] = useState(false);
@@ -39,7 +40,7 @@ export default function OrderPage() {
         />
         <Main />
       </div>
-      <ToastContainer />
+      <ToastAdmin />
     </OrderPageStyled>
   );
 }
@@ -57,17 +58,5 @@ const OrderPageStyled = styled.div`
     width: 95vw;
     max-width: 1400px;
     height: 98vh;
-  }
-
-  .Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--info {
-    background: ${theme.colors.background_dark};
-    max-width: 300px;
-    .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter {
-      margin-right: 20px;
-      margin-left: 5px;
-    }
-    div {
-      line-height: 1.3em;
-    }
   }
 `;
