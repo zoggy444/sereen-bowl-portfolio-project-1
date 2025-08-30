@@ -1,11 +1,16 @@
 import type { ChangeEventHandler, ComponentPropsWithoutRef } from "react";
 import type { IconType } from "react-icons";
+import { fakeMenu1 } from "./fakeData/fakeMenu";
+
+export type ProductType = (typeof fakeMenu1)[0];
 
 export type LogoTitleProps = {
   size: "lg" | "md";
   onClick?: () => void;
   className?: string;
 };
+
+export type ImageType = ComponentPropsWithoutRef<"img">;
 
 export type InputTextProps = {
   Icon: IconType;
@@ -16,7 +21,8 @@ export type InputTextProps = {
 
 export type ButtonPrimaryProps = {
   label: string;
-  Icon: IconType;
+  className?: string;
+  Icon?: IconType;
 };
 
 export type NavBarProps = {
@@ -29,4 +35,19 @@ export type NavRightProps = {
 
 export type ProfileProps = {
   userName: string;
+};
+
+export type MenuProps = {
+  products: ProductType[];
+};
+
+export type MenuCardProps = {
+  src: string;
+  title: string;
+  price: number;
+} & ComponentPropsWithoutRef<"img">;
+
+export type ProductDetailProps = {
+  title: string;
+  price: number;
 };

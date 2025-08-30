@@ -2,11 +2,15 @@ import styled from "styled-components";
 import { theme } from "../../theme/theme";
 import type { ButtonPrimaryProps } from "../../types";
 
-export default function ButtonPrimary({ label, Icon }: ButtonPrimaryProps) {
+export default function ButtonPrimary({
+  label,
+  className,
+  Icon,
+}: ButtonPrimaryProps) {
   return (
-    <ButtonPrimaryStyled>
+    <ButtonPrimaryStyled className={className}>
       <span>{label}</span>
-      <Icon />
+      {Icon && <Icon />}
     </ButtonPrimaryStyled>
   );
 }
@@ -22,10 +26,6 @@ const ButtonPrimaryStyled = styled.button`
   background-color: ${theme.colors.primary};
   border: 1px solid ${theme.colors.primary};
 
-  span {
-    font-size: ${theme.fonts.P0};
-    margin-right: ${theme.spacing.xs};
-  }
   svg {
     font-size: ${theme.fonts.P2};
     margin: ${theme.spacing.xs};
