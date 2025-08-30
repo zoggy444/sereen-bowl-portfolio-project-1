@@ -6,12 +6,7 @@ export default function Menu({ products }: MenuProps) {
   return (
     <MenuStyled>
       {products.map(({ id, title, imageSource, price }) => (
-        <MenuCard
-          key={id}
-          title={title}
-          src={`/src${imageSource}`}
-          price={price}
-        />
+        <MenuCard key={id} title={title} src={`${imageSource}`} price={price} />
       ))}
     </MenuStyled>
   );
