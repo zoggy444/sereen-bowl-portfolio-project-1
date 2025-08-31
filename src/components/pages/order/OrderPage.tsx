@@ -6,6 +6,9 @@ import Main from "./Main";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import ToastAdmin from "./ToastAdmin";
+import { AiOutlinePlus } from "react-icons/ai";
+import { MdModeEditOutline } from "react-icons/md";
+import { FiChevronDown } from "react-icons/fi";
 
 export default function OrderPage() {
   const [isAdminMode, setISAdminMode] = useState(false);
@@ -40,7 +43,21 @@ export default function OrderPage() {
         />
         <Main />
         <div className="admin-panel">
-          <div className="tab-container"></div>
+          <div className="tab-container">
+            <div className="tab">
+              <FiChevronDown />
+            </div>
+            <div className="tab-radio-group">
+              <div className="tab">
+                <AiOutlinePlus />
+                <span>Add a product</span>
+              </div>
+              <div className="tab">
+                <MdModeEditOutline />
+                <span>Edit a product</span>
+              </div>
+            </div>
+          </div>
           <div className="panel-content"></div>
         </div>
       </div>
@@ -66,7 +83,6 @@ const OrderPageStyled = styled.div`
     .admin-panel {
       position: relative;
       top: -264px;
-      background-color: beige;
       height: 264px;
       width: 95vw;
       max-width: 1400px;
@@ -76,7 +92,36 @@ const OrderPageStyled = styled.div`
 
       .tab-container {
         height: ${theme.gridUnit * 5}px;
-        border: 1px solid red;
+
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        gap: 1px;
+        padding-left: ${theme.gridUnit * 8}px;
+
+        font-size: ${theme.fonts.P0};
+
+        .tab-radio-group {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-end;
+        }
+        .tab {
+          height: ${theme.gridUnit * 5 - 2}px;
+          border-top: 1px solid ${theme.colors.greyLight};
+          border-left: 1px solid ${theme.colors.greyLight};
+          border-right: 1px solid ${theme.colors.greyLight};
+          border-bottom: 2px solid ${theme.colors.greyLight};
+          border-top-right-radius: ${theme.borderRadius.round};
+          border-top-left-radius: ${theme.borderRadius.round};
+          padding-left: ${theme.gridUnit * 3}px;
+          padding-right: ${theme.gridUnit * 3}px;
+          background-color: ${theme.colors.white};
+          display: flex;
+          align-items: center;
+          gap: ${theme.gridUnit}px;
+          color: ${theme.colors.greySemiDark};
+        }
       }
 
       .panel-content {
