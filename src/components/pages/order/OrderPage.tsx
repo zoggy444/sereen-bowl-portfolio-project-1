@@ -39,6 +39,10 @@ export default function OrderPage() {
           labelIfUnchecked="Enter admin mode"
         />
         <Main />
+        <div className="admin-panel">
+          <div className="tab-container"></div>
+          <div className="panel-content"></div>
+        </div>
       </div>
       <ToastAdmin />
     </OrderPageStyled>
@@ -58,5 +62,27 @@ const OrderPageStyled = styled.div`
     width: 95vw;
     max-width: 1400px;
     height: 98vh;
+
+    .admin-panel {
+      position: relative;
+      top: -264px;
+      background-color: beige;
+      height: 264px;
+      width: 95vw;
+      max-width: 1400px;
+
+      display: flex;
+      flex-direction: column;
+
+      .tab-container {
+        height: ${theme.gridUnit * 5}px;
+        border: 1px solid red;
+      }
+
+      .panel-content {
+        background-color: bisque;
+        flex: 1;
+      }
+    }
   }
 `;
