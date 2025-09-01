@@ -10,12 +10,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 import Tab from "../../reusable-ui/Tab";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
+import PanelContent from "./PanelContent";
 
 export default function OrderPage() {
   const [isAdminMode, setISAdminMode] = useState(false);
   const { userName } = useParams();
   const [isPanelFolded, setIsPanelFolded] = useState(false);
   const [tabCurrent, setTabCurrent] = useState("add-product");
+  const [adminPanelContent, setAdminPanelContent] = useState("Add a product");
 
   const toggleMode = () => {
     if (!isAdminMode) {
@@ -81,7 +83,7 @@ export default function OrderPage() {
               />
             </div>
           </div>
-          <div className="panel-content"></div>
+          <PanelContent content={adminPanelContent} />
         </div>
       </div>
       <ToastAdmin />
@@ -129,11 +131,6 @@ const OrderPageStyled = styled.div`
           justify-content: flex-start;
           align-items: flex-end;
         }
-      }
-
-      .panel-content {
-        background-color: bisque;
-        flex: 1;
       }
     }
   }
