@@ -15,10 +15,11 @@ export default function Tab({
   IconIfChecked?: IconType;
   IconIfUnchecked?: IconType;
   label?: string;
-  onClick: (id: string) => void;
+  onClick: (id?: "add-product" | "edit-product") => void;
 }) {
   const onTabClick = () => {
-    return onClick(id);
+    if (id === "add-product" || id === "edit-product") return onClick(id);
+    return onClick(undefined);
   };
   if (!isChecked) {
     return (

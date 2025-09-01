@@ -1,8 +1,15 @@
 import styled from "styled-components";
 import { theme } from "../../../theme/theme";
 
-export default function PanelContent({ content }: { content: string }) {
-  return <PanelContentStyled>{content}</PanelContentStyled>;
+export default function PanelContent({
+  isFolded,
+  content,
+}: {
+  isFolded: boolean;
+  content: string;
+}) {
+  if (!isFolded) return <PanelContentStyled>{content}</PanelContentStyled>;
+  return <PanelFoldedStyled />;
 }
 
 const PanelContentStyled = styled.div`
@@ -18,4 +25,8 @@ const PanelContentStyled = styled.div`
   background-color: ${theme.colors.white};
 
   font-size: ${theme.fonts.P0};
+`;
+
+const PanelFoldedStyled = styled.div`
+  display: none;
 `;

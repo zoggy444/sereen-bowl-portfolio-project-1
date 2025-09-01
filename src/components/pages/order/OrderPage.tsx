@@ -12,6 +12,11 @@ import Tab from "../../reusable-ui/Tab";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import PanelContent from "./PanelContent";
 
+const panelContentData = {
+  "add-product": "Add a product",
+  "edit-product": "Edit a product",
+} as const;
+
 export default function OrderPage() {
   const [isAdminMode, setISAdminMode] = useState(false);
   const { userName } = useParams();
@@ -40,8 +45,12 @@ export default function OrderPage() {
     setIsPanelFolded(!isPanelFolded);
   };
 
-  const handleTabClick = (id: string) => {
-    if (id !== "fold") setTabCurrent(id);
+  const handleTabClick = (id: "add-product" | "edit-product" | undefined) => {
+    if (id && id !== tabCurrent) {
+      setTabCurrent(id);
+      setAdminPanelContent(panelContentData[id]);
+      setIsPanelFolded(false);
+    }
   };
 
   return (
@@ -83,7 +92,7 @@ export default function OrderPage() {
               />
             </div>
           </div>
-          <PanelContent content={adminPanelContent} />
+          <PanelContent isFolded={isPanelFolded} content={adminPanelContent} />
         </div>
       </div>
       <ToastAdmin />
@@ -114,6 +123,7 @@ const OrderPageStyled = styled.div`
 
       display: flex;
       flex-direction: column;
+      justify-content: flex-end;
 
       .tab-container {
         height: ${theme.gridUnit * 5}px;
