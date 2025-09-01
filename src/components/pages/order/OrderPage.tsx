@@ -9,11 +9,13 @@ import ToastAdmin from "./ToastAdmin";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 import Tab from "../../reusable-ui/Tab";
-import { FaChevronDown } from "react-icons/fa6";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 
 export default function OrderPage() {
   const [isAdminMode, setISAdminMode] = useState(false);
   const { userName } = useParams();
+  const [isPanelFolded, setIsPanelFolded] = useState(false);
+  const [tabCurrent, setTabCurrent] = useState("add-product");
 
   const toggleMode = () => {
     if (!isAdminMode) {
@@ -32,6 +34,14 @@ export default function OrderPage() {
     setISAdminMode(!isAdminMode);
   };
 
+  const togglePanelFolded = () => {
+    setIsPanelFolded(!isPanelFolded);
+  };
+
+  const handleTabClick = (id: string) => {
+    if (id !== "fold") setTabCurrent(id);
+  };
+
   return (
     <OrderPageStyled>
       <div className="container">
@@ -45,17 +55,29 @@ export default function OrderPage() {
         <Main />
         <div className="admin-panel">
           <div className="tab-container">
-            <Tab isChecked={false} Icon={FaChevronDown} />
+            <Tab
+              id="fold"
+              isChecked={isPanelFolded}
+              IconIfChecked={FaChevronUp}
+              IconIfUnchecked={FaChevronDown}
+              onClick={togglePanelFolded}
+            />
             <div className="tab-radio-group">
               <Tab
-                isChecked={true}
-                Icon={AiOutlinePlus}
+                id="add-product"
+                isChecked={tabCurrent === "add-product"}
+                IconIfChecked={AiOutlinePlus}
+                IconIfUnchecked={AiOutlinePlus}
                 label="Add a product"
+                onClick={handleTabClick}
               />
               <Tab
-                isChecked={false}
-                Icon={MdModeEditOutline}
+                id="edit-product"
+                isChecked={tabCurrent === "edit-product"}
+                IconIfChecked={MdModeEditOutline}
+                IconIfUnchecked={MdModeEditOutline}
                 label="Edit a product"
+                onClick={handleTabClick}
               />
             </div>
           </div>

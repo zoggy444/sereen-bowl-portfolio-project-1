@@ -3,31 +3,40 @@ import { theme } from "../../theme/theme";
 import type { IconType } from "react-icons";
 
 export default function Tab({
+  id,
   isChecked,
-  Icon,
+  IconIfChecked,
+  IconIfUnchecked,
   label,
+  onClick,
 }: {
+  id: string;
   isChecked: boolean;
-  Icon: IconType;
+  IconIfChecked?: IconType;
+  IconIfUnchecked?: IconType;
   label?: string;
+  onClick: (id: string) => void;
 }) {
+  const onTabClick = () => {
+    return onClick(id);
+  };
   if (!isChecked) {
     return (
-      <TabUncheckedStyled>
-        {Icon && <Icon />}
+      <TabUncheckedStyled onClick={onTabClick}>
+        {IconIfUnchecked && <IconIfUnchecked />}
         {label && <span>{label}</span>}
       </TabUncheckedStyled>
     );
   }
   return (
-    <TabCheckedStyled>
-      {Icon && <Icon />}
+    <TabCheckedStyled onClick={onTabClick}>
+      {IconIfChecked && <IconIfChecked />}
       {label && <span>{label}</span>}
     </TabCheckedStyled>
   );
 }
 
-const TabUncheckedStyled = styled.div`
+const TabUncheckedStyled = styled.button`
   box-sizing: border-box;
   height: ${theme.gridUnit * 5 - 2}px;
   padding-left: ${theme.gridUnit * 3}px;
@@ -49,11 +58,12 @@ const TabUncheckedStyled = styled.div`
   color: ${theme.colors.greySemiDark};
 `;
 
-const TabCheckedStyled = styled.div`
+const TabCheckedStyled = styled.button`
   height: ${theme.gridUnit * 5 - 2}px;
   padding-left: ${theme.gridUnit * 3}px;
   padding-right: ${theme.gridUnit * 3}px;
 
+  border: none;
   border-top-right-radius: ${theme.borderRadius.round};
   border-top-left-radius: ${theme.borderRadius.round};
 
