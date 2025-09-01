@@ -5,53 +5,46 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 import { theme } from "../../../theme/theme";
+import { useContext } from "react";
+import AdminPanelContext from "../../../context/AdminPanelContext";
 
-export default function AdminPanel({
-  isVisible,
-  isFolded,
-  tabCurrent,
-  panelContent,
-  toggleFolded,
-  onTabClick,
-}: {
-  isVisible: boolean;
-  isFolded: boolean;
-  tabCurrent: "add-product" | "edit-product";
-  panelContent: string;
-  toggleFolded: () => void;
-  onTabClick: (id: "add-product" | "edit-product" | undefined) => void;
-}) {
+export default function AdminPanel({ isVisible }: { isVisible: boolean }) {
+  const { panelState, panelHandlers } = useContext(AdminPanelContext);
+
   if (isVisible) {
     return (
       <AdminPanelStyled>
         <div className="tab-container">
           <Tab
             id="fold"
-            isChecked={isFolded}
+            isChecked={!panelState.isFolded}
             IconIfChecked={FaChevronUp}
             IconIfUnchecked={FaChevronDown}
-            onClick={toggleFolded}
+            onClick={panelHandlers.toggleFolded}
           />
           <div className="tab-radio-group">
             <Tab
               id="add-product"
-              isChecked={tabCurrent === "add-product"}
+              isChecked={panelState.tabCurrent === "add-product"}
               IconIfChecked={AiOutlinePlus}
               IconIfUnchecked={AiOutlinePlus}
               label="Add a product"
-              onClick={onTabClick}
+              onClick={panelHandlers.onTabClick}
             />
             <Tab
               id="edit-product"
-              isChecked={tabCurrent === "edit-product"}
+              isChecked={panelState.tabCurrent === "edit-product"}
               IconIfChecked={MdModeEditOutline}
               IconIfUnchecked={MdModeEditOutline}
               label="Edit a product"
-              onClick={onTabClick}
+              onClick={panelHandlers.onTabClick}
             />
           </div>
         </div>
-        <PanelContent isFolded={isFolded} content={panelContent} />
+        <PanelContent
+          isFolded={panelState.isFolded}
+          content={panelState.panelContent}
+        />
       </AdminPanelStyled>
     );
   }

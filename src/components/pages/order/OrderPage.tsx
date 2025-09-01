@@ -7,6 +7,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import ToastAdmin from "./ToastAdmin";
 import AdminPanel from "./AdminPanel";
+import AdminPanelContext from "../../../context/AdminPanelContext";
 
 const panelContentData = {
   "add-product": "Add a product",
@@ -51,6 +52,18 @@ export default function OrderPage() {
     }
   };
 
+  const panelContext = {
+    panelState: {
+      isFolded: isPanelFolded,
+      tabCurrent: tabCurrent,
+      panelContent: adminPanelContent,
+    },
+    panelHandlers: {
+      toggleFolded: togglePanelFolded,
+      onTabClick: handleTabClick,
+    },
+  };
+
   return (
     <OrderPageStyled>
       <div className="container">
@@ -62,14 +75,9 @@ export default function OrderPage() {
           labelIfUnchecked="Enter admin mode"
         />
         <Main />
-        <AdminPanel
-          isVisible={isAdminMode}
-          isFolded={isPanelFolded}
-          tabCurrent={tabCurrent}
-          panelContent={adminPanelContent}
-          toggleFolded={togglePanelFolded}
-          onTabClick={handleTabClick}
-        />
+        <AdminPanelContext.Provider value={panelContext}>
+          <AdminPanel isVisible={isAdminMode} />
+        </AdminPanelContext.Provider>
       </div>
       <ToastAdmin />
     </OrderPageStyled>
