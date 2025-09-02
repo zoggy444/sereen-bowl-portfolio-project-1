@@ -1,22 +1,15 @@
 import styled from "styled-components";
 import { theme } from "../../theme/theme";
-import type { IconType } from "react-icons";
+import type { TabProps } from "../../types";
 
 export default function Tab({
   id,
+  label,
   isChecked,
   IconIfChecked,
   IconIfUnchecked,
-  label,
   onClick,
-}: {
-  id: string;
-  isChecked: boolean;
-  IconIfChecked?: IconType;
-  IconIfUnchecked?: IconType;
-  label?: string;
-  onClick: (id?: "add-product" | "edit-product") => void;
-}) {
+}: TabProps) {
   const onTabClick = () => {
     if (id === "add-product" || id === "edit-product") return onClick(id);
     return onClick(undefined);

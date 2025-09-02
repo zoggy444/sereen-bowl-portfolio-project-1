@@ -1,13 +1,8 @@
 import styled from "styled-components";
 import { theme } from "../../../theme/theme";
+import type { PanelContentProps } from "../../../types";
 
-export default function PanelContent({
-  isFolded,
-  content,
-}: {
-  isFolded: boolean;
-  content: string;
-}) {
+export default function PanelContent({ isFolded, content }: PanelContentProps) {
   if (!isFolded) return <PanelContentStyled>{content}</PanelContentStyled>;
   return <PanelFoldedStyled />;
 }

@@ -7,8 +7,9 @@ import { MdModeEditOutline } from "react-icons/md";
 import { theme } from "../../../theme/theme";
 import { useContext } from "react";
 import AdminPanelContext from "../../../context/AdminPanelContext";
+import type { AdminPanelProps } from "../../../types";
 
-export default function AdminPanel({ isVisible }: { isVisible: boolean }) {
+export default function AdminPanel({ isVisible }: AdminPanelProps) {
   const { panelState, panelHandlers } = useContext(AdminPanelContext);
 
   if (isVisible) {

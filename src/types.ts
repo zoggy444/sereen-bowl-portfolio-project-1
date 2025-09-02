@@ -36,7 +36,20 @@ export type LogoTitleProps = {
   className?: string;
 };
 
+export type TabProps = {
+  id: string;
+  label?: string;
+  isChecked: boolean;
+  IconIfChecked?: IconType;
+  IconIfUnchecked?: IconType;
+  onClick: (id?: "add-product" | "edit-product") => void;
+};
+
 // unique comp types
+
+export type AdminPanelProps = {
+  isVisible: boolean;
+};
 
 export type MenuProps = {
   products: ProductType[];
@@ -62,6 +75,11 @@ export type NavRightProps = {
   onToggle: () => void;
   labelIfChecked: string;
   labelIfUnchecked: string;
+};
+
+export type PanelContentProps = {
+  isFolded: boolean;
+  content: string;
 };
 
 export type ProductDetailProps = {
