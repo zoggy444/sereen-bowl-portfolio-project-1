@@ -8,6 +8,10 @@ import { toast } from "react-toastify";
 import ToastAdmin from "./ToastAdmin";
 import AdminPanel from "./AdminPanel";
 import AdminPanelContext from "../../../context/AdminPanelContext";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { AiOutlinePlus } from "react-icons/ai";
+import { MdModeEditOutline } from "react-icons/md";
+import type { TabProps } from "../../../types";
 
 const panelContentData = {
   "add-product": "Add a product",
@@ -21,6 +25,7 @@ export default function OrderPage() {
   const [tabCurrent, setTabCurrent] = useState<"add-product" | "edit-product">(
     "add-product"
   );
+  const [tabs, setTabs] = useState<TabProps[]>([]);
   const [adminPanelContent, setAdminPanelContent] = useState("Add a product");
 
   const toggleMode = () => {
@@ -46,6 +51,12 @@ export default function OrderPage() {
 
   const handleTabClick = (id: "add-product" | "edit-product" | undefined) => {
     if (id && id !== tabCurrent) {
+      const newTabs = tabs.map((tab) => {
+        if (tab.id === "fold") return tab;
+        if (tab.id === id) return { ...tab, isChecked: true };
+        return { ...tab, isChecked: false };
+      });
+      setTabs(newTabs);
       setTabCurrent(id);
       setAdminPanelContent(panelContentData[id]);
       setIsPanelFolded(false);
@@ -56,6 +67,31 @@ export default function OrderPage() {
     panelState: {
       isFolded: isPanelFolded,
       tabCurrent: tabCurrent,
+      tabs: [
+        {
+          id: "fold",
+          isChecked: !isPanelFolded,
+          IconIfChecked: FaChevronUp,
+          IconIfUnchecked: FaChevronDown,
+          onClick: togglePanelFolded,
+        },
+        {
+          id: "add-product",
+          label: "Add a product",
+          isChecked: tabCurrent === "add-product",
+          IconIfChecked: AiOutlinePlus,
+          IconIfUnchecked: AiOutlinePlus,
+          onClick: handleTabClick,
+        },
+        {
+          id: "edit-product",
+          label: "Edit a product",
+          isChecked: tabCurrent === "edit-product",
+          IconIfChecked: MdModeEditOutline,
+          IconIfUnchecked: MdModeEditOutline,
+          onClick: handleTabClick,
+        },
+      ],
       panelContent: adminPanelContent,
     },
     panelHandlers: {
