@@ -49,7 +49,7 @@ export default function OrderPage() {
     setIsPanelFolded(!isPanelFolded);
   };
 
-  const handleTabClick = (id: "add-product" | "edit-product" | undefined) => {
+  const handleTabClick = (id?: "add-product" | "edit-product" | undefined) => {
     if (id && id !== tabCurrent) {
       const newTabs = tabs.map((tab) => {
         if (tab.id === "fold") return tab;

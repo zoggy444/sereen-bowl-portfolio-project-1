@@ -3,9 +3,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { MdModeEditOutline } from "react-icons/md";
 
-const onClickDefault = (id: "add-product" | "edit-product" | undefined) => {
-  return id;
-};
+const onClickDefault = () => {};
 
 export default createContext({
   panelState: {
