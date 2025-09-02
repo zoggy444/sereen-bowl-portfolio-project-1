@@ -10,10 +10,13 @@ export default function Tab({
   IconIfUnchecked,
   onClick,
 }: TabProps) {
+  
   const onTabClick = () => {
+    if (!onClick) return;
     if (id === "add-product" || id === "edit-product") return onClick(id);
     return onClick(undefined);
   };
+
   if (!isChecked) {
     return (
       <TabUncheckedStyled onClick={onTabClick}>

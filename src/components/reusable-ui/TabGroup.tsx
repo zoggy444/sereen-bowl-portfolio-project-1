@@ -2,8 +2,11 @@ import styled from "styled-components";
 import { theme } from "../../theme/theme";
 import type { TabProps } from "../../types";
 import Tab from "./Tab";
+import { useContext } from "react";
+import AdminPanelContext from "../../context/AdminPanelContext";
 
 export default function TabGroup({ tabs }: { tabs: TabProps[] }) {
+  const { panelHandlers } = useContext(AdminPanelContext);
   return (
     <TabGroupStyled>
       <>
@@ -14,7 +17,11 @@ export default function TabGroup({ tabs }: { tabs: TabProps[] }) {
             isChecked={props.isChecked}
             IconIfChecked={props.IconIfChecked}
             IconIfUnchecked={props.IconIfUnchecked}
-            onClick={props.onClick}
+            onClick={
+              props.id === "fold"
+                ? panelHandlers.toggleFolded
+                : panelHandlers.onTabClick
+            }
           />
         ))}
       </>

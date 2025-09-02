@@ -8,13 +8,18 @@ import type { AdminPanelProps } from "../../../types";
 export default function AdminPanel({ isVisible }: AdminPanelProps) {
   const { panelState } = useContext(AdminPanelContext);
 
+  const panelContent =
+    panelState.contentTabs
+      .filter((tab) => tab.isChecked)
+      .map((tab) => tab.panelContent)[0] || "";
+
   if (isVisible) {
     return (
       <AdminPanelStyled>
-        <TabGroup tabs={panelState.tabs} />
+        <TabGroup tabs={[panelState.foldTab].concat(panelState.contentTabs)} />
         <PanelContent
-          isFolded={panelState.isFolded}
-          content={panelState.panelContent}
+          isFolded={panelState.foldTab.isChecked}
+          content={panelContent}
         />
       </AdminPanelStyled>
     );

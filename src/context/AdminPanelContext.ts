@@ -2,28 +2,26 @@ import { createContext } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { MdModeEditOutline } from "react-icons/md";
+import type { AdminPanelContextType } from "../types";
 
 const onClickDefault = () => {};
 
-export default createContext({
+export default createContext<AdminPanelContextType>({
   panelState: {
-    isFolded: false,
-    tabCurrent: "add-product",
-    tabs: [
-      {
-        id: "fold",
-        isChecked: false,
-        IconIfChecked: FaChevronUp,
-        IconIfUnchecked: FaChevronDown,
-        onClick: onClickDefault,
-      },
+    foldTab: {
+      id: "fold",
+      isChecked: false,
+      IconIfChecked: FaChevronUp,
+      IconIfUnchecked: FaChevronDown,
+    },
+    contentTabs: [
       {
         id: "add-product",
         label: "Add a product",
         isChecked: true,
         IconIfChecked: AiOutlinePlus,
         IconIfUnchecked: AiOutlinePlus,
-        onClick: onClickDefault,
+        panelContent: "Add a product",
       },
       {
         id: "edit-product",
@@ -31,13 +29,12 @@ export default createContext({
         isChecked: false,
         IconIfChecked: MdModeEditOutline,
         IconIfUnchecked: MdModeEditOutline,
-        onClick: onClickDefault,
+        panelContent: "Edit a product",
       },
     ],
-    panelContent: "Add a product",
   },
   panelHandlers: {
-    toggleFolded: () => {},
+    toggleFolded: onClickDefault,
     onTabClick: onClickDefault,
   },
 });

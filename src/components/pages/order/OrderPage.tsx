@@ -13,20 +13,33 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 import type { TabProps } from "../../../types";
 
-const panelContentData = {
-  "add-product": "Add a product",
-  "edit-product": "Edit a product",
-} as const;
-
 export default function OrderPage() {
   const [isAdminMode, setISAdminMode] = useState(false);
   const { userName } = useParams();
-  const [isPanelFolded, setIsPanelFolded] = useState(false);
-  const [tabCurrent, setTabCurrent] = useState<"add-product" | "edit-product">(
-    "add-product"
-  );
-  const [tabs, setTabs] = useState<TabProps[]>([]);
-  const [adminPanelContent, setAdminPanelContent] = useState("Add a product");
+  const [foldTab, setFoldTab] = useState<TabProps>({
+    id: "fold",
+    isChecked: false,
+    IconIfChecked: FaChevronUp,
+    IconIfUnchecked: FaChevronDown,
+  });
+  const [contentTabs, setContentTabs] = useState<TabProps[]>([
+    {
+      id: "add-product",
+      label: "Add a product",
+      isChecked: true,
+      IconIfChecked: AiOutlinePlus,
+      IconIfUnchecked: AiOutlinePlus,
+      panelContent: "Add a product",
+    },
+    {
+      id: "edit-product",
+      label: "Edit a product",
+      isChecked: false,
+      IconIfChecked: MdModeEditOutline,
+      IconIfUnchecked: MdModeEditOutline,
+      panelContent: "Edit a product",
+    },
+  ]);
 
   const toggleMode = () => {
     if (!isAdminMode) {
@@ -46,53 +59,24 @@ export default function OrderPage() {
   };
 
   const togglePanelFolded = () => {
-    setIsPanelFolded(!isPanelFolded);
+    const newFoldTab = { ...foldTab, isChecked: !foldTab.isChecked };
+    setFoldTab(newFoldTab);
   };
 
   const handleTabClick = (id?: "add-product" | "edit-product" | undefined) => {
-    if (id && id !== tabCurrent) {
-      const newTabs = tabs.map((tab) => {
-        if (tab.id === "fold") return tab;
+    if (id) {
+      const newTabs = contentTabs.map((tab) => {
         if (tab.id === id) return { ...tab, isChecked: true };
         return { ...tab, isChecked: false };
       });
-      setTabs(newTabs);
-      setTabCurrent(id);
-      setAdminPanelContent(panelContentData[id]);
-      setIsPanelFolded(false);
+      setContentTabs(newTabs);
     }
   };
 
   const panelContext = {
     panelState: {
-      isFolded: isPanelFolded,
-      tabCurrent: tabCurrent,
-      tabs: [
-        {
-          id: "fold",
-          isChecked: !isPanelFolded,
-          IconIfChecked: FaChevronUp,
-          IconIfUnchecked: FaChevronDown,
-          onClick: togglePanelFolded,
-        },
-        {
-          id: "add-product",
-          label: "Add a product",
-          isChecked: tabCurrent === "add-product",
-          IconIfChecked: AiOutlinePlus,
-          IconIfUnchecked: AiOutlinePlus,
-          onClick: handleTabClick,
-        },
-        {
-          id: "edit-product",
-          label: "Edit a product",
-          isChecked: tabCurrent === "edit-product",
-          IconIfChecked: MdModeEditOutline,
-          IconIfUnchecked: MdModeEditOutline,
-          onClick: handleTabClick,
-        },
-      ],
-      panelContent: adminPanelContent,
+      foldTab: foldTab,
+      contentTabs: contentTabs,
     },
     panelHandlers: {
       toggleFolded: togglePanelFolded,

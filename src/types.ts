@@ -40,15 +40,21 @@ export type TabProps = {
   id: string;
   label?: string;
   isChecked: boolean;
+  panelContent?: string;
   IconIfChecked?: IconType;
   IconIfUnchecked?: IconType;
-  onClick: (id?: "add-product" | "edit-product") => void;
+  onClick?: (id?: "add-product" | "edit-product") => void;
 };
 
 // unique comp types
 
 export type AdminPanelProps = {
   isVisible: boolean;
+};
+
+export type AdminPanelContextType = {
+  panelState: PanelStateType;
+  panelHandlers: PanelHandlersType;
 };
 
 export type MenuProps = {
@@ -80,6 +86,16 @@ export type NavRightProps = {
 export type PanelContentProps = {
   isFolded: boolean;
   content: string;
+};
+
+export type PanelHandlersType = {
+  toggleFolded: () => void;
+  onTabClick: (id?: "add-product" | "edit-product" | undefined) => void;
+};
+
+export type PanelStateType = {
+  foldTab: TabProps;
+  contentTabs: TabProps[];
 };
 
 export type ProductDetailProps = {
