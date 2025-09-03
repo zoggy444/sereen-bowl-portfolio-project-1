@@ -62,8 +62,9 @@ export default function OrderPage() {
     setISAdminMode(!isAdminMode);
   };
 
-  const togglePanelFolded = () => {
-    const newFoldTab = { ...foldTab, isChecked: !foldTab.isChecked };
+  const togglePanelFolded = (force?: boolean) => {
+    const newIsChecked = force !== undefined ? force : !foldTab.isChecked;
+    const newFoldTab = { ...foldTab, isChecked: newIsChecked };
     setFoldTab(newFoldTab);
   };
 
@@ -77,6 +78,7 @@ export default function OrderPage() {
           return { ...tab, isChecked: false };
         });
         setContentTabs(newTabs);
+        if (foldTab.isChecked) togglePanelFolded(false);
       }
     }
   };
