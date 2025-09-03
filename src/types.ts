@@ -102,3 +102,8 @@ export type ProductDetailProps = {
 export type ProfileProps = {
   userName: string;
 };
+
+export type TabContainerProps = {
+  foldTab: TabProps<FoldTabIDType>;
+  contentTabs: TabProps<ContentTabIDType>[];
+};

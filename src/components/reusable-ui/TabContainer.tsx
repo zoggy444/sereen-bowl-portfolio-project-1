@@ -1,13 +1,28 @@
 import styled from "styled-components";
 import { theme } from "../../theme/theme";
-import type { TabIDType, TabProps } from "../../types";
+import type {
+  TabProps,
+  TabContainerProps,
+  ContentTabIDType,
+} from "../../types";
 import Tab from "./Tab";
 
-export default function TabGroup({ tabs }: { tabs: TabProps<TabIDType>[] }) {
+export default function TabContainer({
+  foldTab,
+  contentTabs,
+}: TabContainerProps) {
   return (
-    <TabGroupStyled>
+    <TabContainerStyled>
       <>
-        {tabs.map(({ ...props }: TabProps<TabIDType>) => (
+        <Tab
+          id={foldTab.id}
+          label={foldTab.label}
+          isChecked={foldTab.isChecked}
+          IconIfChecked={foldTab.IconIfChecked}
+          IconIfUnchecked={foldTab.IconIfUnchecked}
+          onClick={foldTab.onClick}
+        />
+        {contentTabs.map(({ ...props }: TabProps<ContentTabIDType>) => (
           <Tab
             key={props.id}
             id={props.id}
@@ -19,11 +34,11 @@ export default function TabGroup({ tabs }: { tabs: TabProps<TabIDType>[] }) {
           />
         ))}
       </>
-    </TabGroupStyled>
+    </TabContainerStyled>
   );
 }
 
-const TabGroupStyled = styled.div`
+const TabContainerStyled = styled.div`
   height: ${theme.gridUnit * 5}px;
 
   display: flex;
