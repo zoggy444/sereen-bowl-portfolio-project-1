@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import PanelContent from "./PanelContent";
 import { useContext } from "react";
-import AdminPanelContext from "../../../context/AdminPanelContext";
-import TabContainer from "../../reusable-ui/TabContainer";
-import type { AdminPanelProps } from "../../../types";
+import AdminPanelContext from "../../../../context/AdminPanelContext";
+import TabContainer from "./TabContainer";
+import type { AdminPanelProps } from "../../../../types";
 
 export default function AdminPanel({ isVisible }: AdminPanelProps) {
   const { foldTab, contentTabs } = useContext(AdminPanelContext);

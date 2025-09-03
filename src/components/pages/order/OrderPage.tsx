@@ -6,7 +6,7 @@ import Main from "./Main";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import ToastAdmin from "./ToastAdmin";
-import AdminPanel from "./AdminPanel";
+import AdminPanel from "./AdminPanel/AdminPanel";
 import AdminPanelContext from "../../../context/AdminPanelContext";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";

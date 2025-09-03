@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { theme } from "../../theme/theme";
+import { theme } from "../../../../theme/theme";
 import type {
   TabProps,
   TabContainerProps,
   ContentTabIDType,
-} from "../../types";
-import Tab from "./Tab";
+} from "../../../../types";
+import Tab from "../../../reusable-ui/Tab";
 
 export default function TabContainer({
   foldTab,
