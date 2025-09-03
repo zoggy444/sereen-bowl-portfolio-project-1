@@ -1,15 +1,15 @@
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
-import type { ProfileProps } from "../../../../types";
 
-export default function Profile({ userName }: ProfileProps) {
+export default function Profile() {
+  const { userName } = useParams();
   return (
     <ProfileStyled>
       <div className="card-info">
         <div>
-          Hey, <strong>{userName}</strong>
+          Hey, <strong>{userName || "inconnu(e)"}</strong>
         </div>
         <Link to="/">Se déconnecter</Link>
       </div>

@@ -1,4 +1,3 @@
-import { useParams } from "react-router";
 import styled from "styled-components";
 import NavBar from "./NavBar/NavBar";
 import { theme } from "../../../theme/theme";
@@ -13,10 +12,10 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 import type { ContentTabIDType, FoldTabIDType, TabProps } from "../../../types";
 import { dummyOnClick } from "../../../utils/props";
+import IsAdminModeContext from "../../../context/isAdminModeContext";
 
 export default function OrderPage() {
-  const [isAdminMode, setISAdminMode] = useState(false);
-  const { userName } = useParams();
+  const [isAdminMode, setIsAdminMode] = useState(false);
   const [foldTab, setFoldTab] = useState<TabProps<FoldTabIDType>>({
     id: "fold",
     isChecked: false,
@@ -59,7 +58,7 @@ export default function OrderPage() {
       });
     }
 
-    setISAdminMode(!isAdminMode);
+    setIsAdminMode(!isAdminMode);
   };
 
   const togglePanelFolded = (force?: boolean) => {
@@ -92,20 +91,19 @@ export default function OrderPage() {
 
   return (
     <OrderPageStyled>
-      <div className="container">
-        <NavBar
-          userName={userName || "inconnu"}
-          isChecked={isAdminMode}
-          onToggle={toggleMode}
-          labelIfChecked="Quit admin mode"
-          labelIfUnchecked="Enter admin mode"
-        />
-        <Main />
-        <AdminPanelContext.Provider value={panelContext}>
-          <AdminPanel isVisible={isAdminMode} />
-        </AdminPanelContext.Provider>
-      </div>
-      <ToastAdmin />
+      <IsAdminModeContext.Provider value={{ isAdminMode, toggleMode }}>
+        <div className="container">
+          <NavBar
+            labelIfChecked="Quit admin mode"
+            labelIfUnchecked="Enter admin mode"
+          />
+          <Main />
+          <AdminPanelContext.Provider value={panelContext}>
+            <AdminPanel isVisible={isAdminMode} />
+          </AdminPanelContext.Provider>
+        </div>
+        <ToastAdmin />
+      </IsAdminModeContext.Provider>
     </OrderPageStyled>
   );
 }

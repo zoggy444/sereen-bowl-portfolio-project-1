@@ -74,17 +74,11 @@ export type MenuCardProps = {
 } & ComponentPropsWithoutRef<"img">;
 
 export type NavBarProps = {
-  userName: string;
-  isChecked: boolean;
-  onToggle: () => void;
   labelIfChecked: string;
   labelIfUnchecked: string;
 };
 
 export type NavRightProps = {
-  userName: string;
-  isChecked: boolean;
-  onToggle: () => void;
   labelIfChecked: string;
   labelIfUnchecked: string;
 };
@@ -97,10 +91,6 @@ export type PanelContentProps = {
 export type ProductDetailProps = {
   title: string;
   price: number;
-};
-
-export type ProfileProps = {
-  userName: string;
 };
 
 export type TabContainerProps = {

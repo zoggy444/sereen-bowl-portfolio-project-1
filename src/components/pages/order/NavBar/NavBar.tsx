@@ -6,9 +6,6 @@ import LogoTitle from "../../../reusable-ui/LogoTitle";
 import { refreshPage } from "../../../../utils/window";
 
 export default function NavBar({
-  userName,
-  isChecked,
-  onToggle,
   labelIfChecked,
   labelIfUnchecked,
 }: NavBarProps) {
@@ -16,9 +13,6 @@ export default function NavBar({
     <NavBarStyled>
       <LogoTitle size="md" onClick={refreshPage} className="logo-navbar" />
       <NavRight
-        userName={userName}
-        isChecked={isChecked}
-        onToggle={onToggle}
         labelIfChecked={labelIfChecked}
         labelIfUnchecked={labelIfUnchecked}
       />
