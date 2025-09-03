@@ -27,14 +27,14 @@ const ProfileStyled = styled.div`
     flex-direction: column;
     align-items: flex-end;
 
-    font-size: ${theme.fonts.P2};
+    font-size: ${theme.fonts.size.P2};
 
     strong {
       color: ${theme.colors.primary};
     }
 
     a {
-      font-size: ${theme.fonts.XS};
+      font-size: ${theme.fonts.size.XS};
       color: ${theme.colors.greyBlue};
       text-decoration: none;
 
@@ -44,7 +44,7 @@ const ProfileStyled = styled.div`
     }
   }
   svg {
-    font-size: ${theme.fonts.P4};
+    font-size: ${theme.fonts.size.P4};
     color: ${theme.colors.greyBlue};
     padding-left: ${theme.spacing.sm};
     padding-top: ${theme.spacing.xxs};

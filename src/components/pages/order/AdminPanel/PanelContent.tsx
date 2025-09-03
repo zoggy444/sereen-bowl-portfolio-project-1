@@ -19,7 +19,7 @@ const PanelContentStyled = styled.div`
   padding-top: ${theme.spacing.md};
   background-color: ${theme.colors.white};
 
-  font-size: ${theme.fonts.P0};
+  font-size: ${theme.fonts.size.P0};
 `;
 
 const PanelFoldedStyled = styled.div`

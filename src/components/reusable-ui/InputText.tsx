@@ -27,13 +27,13 @@ const InputTextStyled = styled.div`
 
   .input-icon {
     color: ${theme.colors.greyDark};
-    font-size: ${theme.fonts.P1};
+    font-size: ${theme.fonts.size.P1};
     margin-right: ${theme.spacing.sm};
   }
 
   input {
     border: none;
-    font-size: ${theme.fonts.P0};
+    font-size: ${theme.fonts.size.P0};
     width: 100%;
     &::placeholder {
       color: ${theme.colors.greyMedium};

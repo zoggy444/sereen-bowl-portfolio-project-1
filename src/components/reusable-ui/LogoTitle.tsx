@@ -30,7 +30,7 @@ const LogoTitleStyle = styled.a`
 
   &.logo-title-lg {
     padding-right: ${theme.spacing.sm};
-    font-size: ${theme.fonts.P7};
+    font-size: ${theme.fonts.size.P7};
 
     svg {
       width: 150px;
@@ -40,7 +40,7 @@ const LogoTitleStyle = styled.a`
 
   &.logo-title-md {
     padding-right: ${theme.spacing.xs};
-    font-size: ${theme.fonts.P4};
+    font-size: ${theme.fonts.size.P4};
 
     svg {
       width: 60px;

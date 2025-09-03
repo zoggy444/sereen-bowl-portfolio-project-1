@@ -47,5 +47,5 @@ const TabContainerStyled = styled.div`
   gap: 1px;
   padding-left: ${theme.gridUnit * 8}px;
 
-  font-size: ${theme.fonts.P0};
+  font-size: ${theme.fonts.size.P0};
 `;
