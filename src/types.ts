@@ -6,6 +6,12 @@ import { fakeMenu1 } from "./fakeData/fakeMenu";
 
 export type ProductType = (typeof fakeMenu1)[0];
 
+export type FoldTabIDType = "fold";
+
+export type ContentTabIDType = "add-product" | "edit-product";
+
+export type TabIDType = FoldTabIDType | ContentTabIDType;
+
 // reusable comp types
 
 export type ButtonPrimaryProps = {
@@ -36,14 +42,14 @@ export type LogoTitleProps = {
   className?: string;
 };
 
-export type TabProps = {
-  id: string;
+export type TabProps<T> = {
+  id: T;
   label?: string;
   isChecked: boolean;
   panelContent?: string;
   IconIfChecked?: IconType;
   IconIfUnchecked?: IconType;
-  onClick?: (id?: "add-product" | "edit-product") => void;
+  onClick: (id: T) => void;
 };
 
 // unique comp types
@@ -53,8 +59,8 @@ export type AdminPanelProps = {
 };
 
 export type AdminPanelContextType = {
-  panelState: PanelStateType;
-  panelHandlers: PanelHandlersType;
+  foldTab: TabProps<FoldTabIDType>;
+  contentTabs: TabProps<ContentTabIDType>[];
 };
 
 export type MenuProps = {
@@ -86,16 +92,6 @@ export type NavRightProps = {
 export type PanelContentProps = {
   isFolded: boolean;
   content: string;
-};
-
-export type PanelHandlersType = {
-  toggleFolded: () => void;
-  onTabClick: (id?: "add-product" | "edit-product" | undefined) => void;
-};
-
-export type PanelStateType = {
-  foldTab: TabProps;
-  contentTabs: TabProps[];
 };
 
 export type ProductDetailProps = {

@@ -3,10 +3,14 @@ import PanelContent from "./PanelContent";
 import { useContext } from "react";
 import AdminPanelContext from "../../../context/AdminPanelContext";
 import TabGroup from "../../reusable-ui/TabGroup";
-import type { AdminPanelProps } from "../../../types";
+import type { AdminPanelProps, TabIDType, TabProps } from "../../../types";
 
 export default function AdminPanel({ isVisible }: AdminPanelProps) {
   const { foldTab, contentTabs } = useContext(AdminPanelContext);
+
+  const allTabs: TabProps<TabIDType>[] = [
+    foldTab as TabProps<TabIDType>,
+  ].concat(contentTabs as TabProps<TabIDType>[]);
 
   const panelContent =
     contentTabs
@@ -16,7 +20,7 @@ export default function AdminPanel({ isVisible }: AdminPanelProps) {
   if (isVisible) {
     return (
       <AdminPanelStyled>
-        <TabGroup tabs={[foldTab].concat(contentTabs)} />
+        <TabGroup tabs={allTabs} />
         <PanelContent isFolded={foldTab.isChecked} content={panelContent} />
       </AdminPanelStyled>
     );

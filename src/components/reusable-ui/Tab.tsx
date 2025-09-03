@@ -2,16 +2,15 @@ import styled from "styled-components";
 import { theme } from "../../theme/theme";
 import type { TabProps } from "../../types";
 
-export default function Tab({
+export default function Tab<T>({
   id,
   label,
   isChecked,
   IconIfChecked,
   IconIfUnchecked,
   onClick,
-}: TabProps) {
+}: TabProps<T>) {
   const onTabClick = () => {
-    if (!onClick) return;
     return onClick(id);
   };
 

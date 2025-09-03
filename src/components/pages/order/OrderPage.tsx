@@ -11,18 +11,20 @@ import AdminPanelContext from "../../../context/AdminPanelContext";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
-import type { TabProps } from "../../../types";
+import type { ContentTabIDType, FoldTabIDType, TabProps } from "../../../types";
+import { dummyOnClick } from "../../../utils/props";
 
 export default function OrderPage() {
   const [isAdminMode, setISAdminMode] = useState(false);
   const { userName } = useParams();
-  const [foldTab, setFoldTab] = useState<TabProps>({
+  const [foldTab, setFoldTab] = useState<TabProps<FoldTabIDType>>({
     id: "fold",
     isChecked: false,
     IconIfChecked: FaChevronUp,
     IconIfUnchecked: FaChevronDown,
+    onClick: dummyOnClick,
   });
-  const [contentTabs, setContentTabs] = useState<TabProps[]>([
+  const [contentTabs, setContentTabs] = useState<TabProps<ContentTabIDType>[]>([
     {
       id: "add-product",
       label: "Add a product",
@@ -30,6 +32,7 @@ export default function OrderPage() {
       IconIfChecked: AiOutlinePlus,
       IconIfUnchecked: AiOutlinePlus,
       panelContent: "Add a product",
+      onClick: dummyOnClick,
     },
     {
       id: "edit-product",
@@ -38,6 +41,7 @@ export default function OrderPage() {
       IconIfChecked: MdModeEditOutline,
       IconIfUnchecked: MdModeEditOutline,
       panelContent: "Edit a product",
+      onClick: dummyOnClick,
     },
   ]);
 

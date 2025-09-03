@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { theme } from "../../theme/theme";
-import type { TabProps } from "../../types";
+import type { TabIDType, TabProps } from "../../types";
 import Tab from "./Tab";
-export default function TabGroup({ tabs }: { tabs: TabProps[] }) {
+
+export default function TabGroup({ tabs }: { tabs: TabProps<TabIDType>[] }) {
   return (
     <TabGroupStyled>
       <>
-        {tabs.map(({ ...props }: TabProps) => (
+        {tabs.map(({ ...props }: TabProps<TabIDType>) => (
           <Tab
             key={props.id}
             id={props.id}
