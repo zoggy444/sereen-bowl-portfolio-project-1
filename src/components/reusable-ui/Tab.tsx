@@ -50,6 +50,10 @@ const TabUncheckedStyled = styled.button`
 
   background-color: ${theme.colors.white};
   color: ${theme.colors.greySemiDark};
+
+  span:hover {
+    text-decoration: underline;
+  }
 `;
 
 const TabCheckedStyled = styled.button`
@@ -68,4 +72,8 @@ const TabCheckedStyled = styled.button`
 
   background-color: ${theme.colors.background_dark};
   color: ${theme.colors.white};
+
+  span:hover {
+    text-decoration: underline;
+  }
 `;
