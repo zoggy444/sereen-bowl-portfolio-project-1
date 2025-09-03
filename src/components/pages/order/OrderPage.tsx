@@ -63,25 +63,25 @@ export default function OrderPage() {
     setFoldTab(newFoldTab);
   };
 
-  const handleTabClick = (id?: "add-product" | "edit-product" | undefined) => {
+  const handleTabClick = (id: "add-product" | "edit-product" | "fold") => {
     if (id) {
-      const newTabs = contentTabs.map((tab) => {
-        if (tab.id === id) return { ...tab, isChecked: true };
-        return { ...tab, isChecked: false };
-      });
-      setContentTabs(newTabs);
+      if (id === "fold") {
+        togglePanelFolded();
+      } else {
+        const newTabs = contentTabs.map((tab) => {
+          if (tab.id === id) return { ...tab, isChecked: true };
+          return { ...tab, isChecked: false };
+        });
+        setContentTabs(newTabs);
+      }
     }
   };
 
   const panelContext = {
-    panelState: {
-      foldTab: foldTab,
-      contentTabs: contentTabs,
-    },
-    panelHandlers: {
-      toggleFolded: togglePanelFolded,
-      onTabClick: handleTabClick,
-    },
+    foldTab: { ...foldTab, onClick: handleTabClick },
+    contentTabs: contentTabs.map((tab) => {
+      return { ...tab, onClick: handleTabClick };
+    }),
   };
 
   return (

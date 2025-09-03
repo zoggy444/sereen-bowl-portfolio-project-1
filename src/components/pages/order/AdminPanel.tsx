@@ -6,21 +6,18 @@ import TabGroup from "../../reusable-ui/TabGroup";
 import type { AdminPanelProps } from "../../../types";
 
 export default function AdminPanel({ isVisible }: AdminPanelProps) {
-  const { panelState } = useContext(AdminPanelContext);
+  const { foldTab, contentTabs } = useContext(AdminPanelContext);
 
   const panelContent =
-    panelState.contentTabs
+    contentTabs
       .filter((tab) => tab.isChecked)
       .map((tab) => tab.panelContent)[0] || "";
 
   if (isVisible) {
     return (
       <AdminPanelStyled>
-        <TabGroup tabs={[panelState.foldTab].concat(panelState.contentTabs)} />
-        <PanelContent
-          isFolded={panelState.foldTab.isChecked}
-          content={panelContent}
-        />
+        <TabGroup tabs={[foldTab].concat(contentTabs)} />
+        <PanelContent isFolded={foldTab.isChecked} content={panelContent} />
       </AdminPanelStyled>
     );
   }
