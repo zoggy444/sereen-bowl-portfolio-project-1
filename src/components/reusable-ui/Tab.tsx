@@ -5,7 +5,7 @@ import type { TabProps } from "../../types";
 export default function Tab<T>({
   id,
   label,
-  isChecked,
+  isActive,
   IconIfChecked,
   IconIfUnchecked,
   onClick,
@@ -14,7 +14,7 @@ export default function Tab<T>({
     return onClick(id);
   };
 
-  if (!isChecked) {
+  if (!isActive) {
     return (
       <TabUncheckedStyled onClick={onTabClick}>
         {IconIfUnchecked && <IconIfUnchecked />}

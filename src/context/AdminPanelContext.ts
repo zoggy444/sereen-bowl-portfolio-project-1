@@ -8,7 +8,7 @@ import { dummyOnClick } from "../utils/props";
 export default createContext<AdminPanelContextType>({
   foldTab: {
     id: "fold",
-    isChecked: false,
+    isActive: false,
     IconIfChecked: FaChevronUp,
     IconIfUnchecked: FaChevronDown,
     onClick: dummyOnClick,
@@ -17,7 +17,7 @@ export default createContext<AdminPanelContextType>({
     {
       id: "add-product",
       label: "Add a product",
-      isChecked: true,
+      isActive: true,
       IconIfChecked: AiOutlinePlus,
       IconIfUnchecked: AiOutlinePlus,
       panelContent: "Add a product",
@@ -26,7 +26,7 @@ export default createContext<AdminPanelContextType>({
     {
       id: "edit-product",
       label: "Edit a product",
-      isChecked: false,
+      isActive: false,
       IconIfChecked: MdModeEditOutline,
       IconIfUnchecked: MdModeEditOutline,
       panelContent: "Edit a product",

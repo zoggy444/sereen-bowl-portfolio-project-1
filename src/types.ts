@@ -45,7 +45,7 @@ export type LogoTitleProps = {
 export type TabProps<T> = {
   id: T;
   label?: string;
-  isChecked: boolean;
+  isActive: boolean;
   panelContent?: string;
   IconIfChecked?: IconType;
   IconIfUnchecked?: IconType;

@@ -18,7 +18,7 @@ export default function OrderPage() {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [foldTab, setFoldTab] = useState<TabProps<FoldTabIDType>>({
     id: "fold",
-    isChecked: false,
+    isActive: false,
     IconIfChecked: FaChevronUp,
     IconIfUnchecked: FaChevronDown,
     onClick: dummyOnClick,
@@ -27,7 +27,7 @@ export default function OrderPage() {
     {
       id: "add-product",
       label: "Add a product",
-      isChecked: true,
+      isActive: true,
       IconIfChecked: AiOutlinePlus,
       IconIfUnchecked: AiOutlinePlus,
       panelContent: "Add a product",
@@ -36,7 +36,7 @@ export default function OrderPage() {
     {
       id: "edit-product",
       label: "Edit a product",
-      isChecked: false,
+      isActive: false,
       IconIfChecked: MdModeEditOutline,
       IconIfUnchecked: MdModeEditOutline,
       panelContent: "Edit a product",
@@ -62,8 +62,8 @@ export default function OrderPage() {
   };
 
   const togglePanelFolded = (force?: boolean) => {
-    const newIsChecked = force !== undefined ? force : !foldTab.isChecked;
-    const newFoldTab = { ...foldTab, isChecked: newIsChecked };
+    const newIsChecked = force !== undefined ? force : !foldTab.isActive;
+    const newFoldTab = { ...foldTab, isActive: newIsChecked };
     setFoldTab(newFoldTab);
   };
 
@@ -73,11 +73,11 @@ export default function OrderPage() {
         togglePanelFolded();
       } else {
         const newTabs = contentTabs.map((tab) => {
-          if (tab.id === id) return { ...tab, isChecked: true };
-          return { ...tab, isChecked: false };
+          if (tab.id === id) return { ...tab, isActive: true };
+          return { ...tab, isActive: false };
         });
         setContentTabs(newTabs);
-        if (foldTab.isChecked) togglePanelFolded(false);
+        if (foldTab.isActive) togglePanelFolded(false);
       }
     }
   };

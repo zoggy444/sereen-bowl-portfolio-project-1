@@ -10,14 +10,14 @@ export default function AdminPanel({ isVisible }: AdminPanelProps) {
 
   const panelContent =
     contentTabs
-      .filter((tab) => tab.isChecked)
+      .filter((tab) => tab.isActive)
       .map((tab) => tab.panelContent)[0] || "";
 
   if (isVisible) {
     return (
       <AdminPanelStyled>
         <TabContainer foldTab={foldTab} contentTabs={contentTabs} />
-        <PanelContent isFolded={foldTab.isChecked} content={panelContent} />
+        <PanelContent isFolded={foldTab.isActive} content={panelContent} />
       </AdminPanelStyled>
     );
   }

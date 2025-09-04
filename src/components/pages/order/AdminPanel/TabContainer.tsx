@@ -17,7 +17,7 @@ export default function TabContainer({
         <Tab
           id={foldTab.id}
           label={foldTab.label}
-          isChecked={foldTab.isChecked}
+          isActive={foldTab.isActive}
           IconIfChecked={foldTab.IconIfChecked}
           IconIfUnchecked={foldTab.IconIfUnchecked}
           onClick={foldTab.onClick}
@@ -27,7 +27,7 @@ export default function TabContainer({
             key={props.id}
             id={props.id}
             label={props.label}
-            isChecked={props.isChecked}
+            isActive={props.isActive}
             IconIfChecked={props.IconIfChecked}
             IconIfUnchecked={props.IconIfUnchecked}
             onClick={props.onClick}
