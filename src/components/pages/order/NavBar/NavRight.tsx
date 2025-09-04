@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import type { NavRightProps } from "../../../../types";
 import ButtonToggle from "../../../reusable-ui/ButtonToggle";
 import { useContext } from "react";
-import isAdminModeContext from "../../../../context/isAdminModeContext";
+import isAdminModeContext from "../../../../context/IsAdminModeContext";
 
 export default function NavRight({
   labelIfChecked,

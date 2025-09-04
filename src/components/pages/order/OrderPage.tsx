@@ -6,43 +6,10 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import ToastAdmin from "./ToastAdmin";
 import AdminPanel from "./AdminPanel/AdminPanel";
-import AdminPanelContext from "../../../context/AdminPanelContext";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { AiOutlinePlus } from "react-icons/ai";
-import { MdModeEditOutline } from "react-icons/md";
-import type { ContentTabIDType, FoldTabIDType, TabProps } from "../../../types";
-import { dummyOnClick } from "../../../utils/props";
-import IsAdminModeContext from "../../../context/isAdminModeContext";
+import IsAdminModeContext from "../../../context/IsAdminModeContext";
 
 export default function OrderPage() {
   const [isAdminMode, setIsAdminMode] = useState(false);
-  const [foldTab, setFoldTab] = useState<TabProps<FoldTabIDType>>({
-    id: "fold",
-    isActive: false,
-    IconIfChecked: FaChevronUp,
-    IconIfUnchecked: FaChevronDown,
-    onClick: dummyOnClick,
-  });
-  const [contentTabs, setContentTabs] = useState<TabProps<ContentTabIDType>[]>([
-    {
-      id: "add-product",
-      label: "Add a product",
-      isActive: true,
-      IconIfChecked: AiOutlinePlus,
-      IconIfUnchecked: AiOutlinePlus,
-      panelContent: "Add a product",
-      onClick: dummyOnClick,
-    },
-    {
-      id: "edit-product",
-      label: "Edit a product",
-      isActive: false,
-      IconIfChecked: MdModeEditOutline,
-      IconIfUnchecked: MdModeEditOutline,
-      panelContent: "Edit a product",
-      onClick: dummyOnClick,
-    },
-  ]);
 
   const toggleMode = () => {
     if (!isAdminMode) {
@@ -61,34 +28,6 @@ export default function OrderPage() {
     setIsAdminMode(!isAdminMode);
   };
 
-  const togglePanelFolded = (force?: boolean) => {
-    const newIsChecked = force !== undefined ? force : !foldTab.isActive;
-    const newFoldTab = { ...foldTab, isActive: newIsChecked };
-    setFoldTab(newFoldTab);
-  };
-
-  const handleTabClick = (id: "add-product" | "edit-product" | "fold") => {
-    if (id) {
-      if (id === "fold") {
-        togglePanelFolded();
-      } else {
-        const newTabs = contentTabs.map((tab) => {
-          if (tab.id === id) return { ...tab, isActive: true };
-          return { ...tab, isActive: false };
-        });
-        setContentTabs(newTabs);
-        if (foldTab.isActive) togglePanelFolded(false);
-      }
-    }
-  };
-
-  const panelContext = {
-    foldTab: { ...foldTab, onClick: handleTabClick },
-    contentTabs: contentTabs.map((tab) => {
-      return { ...tab, onClick: handleTabClick };
-    }),
-  };
-
   return (
     <OrderPageStyled>
       <IsAdminModeContext.Provider value={{ isAdminMode, toggleMode }}>
@@ -98,9 +37,7 @@ export default function OrderPage() {
             labelIfUnchecked="Enter admin mode"
           />
           <Main />
-          <AdminPanelContext.Provider value={panelContext}>
-            <AdminPanel isVisible={isAdminMode} />
-          </AdminPanelContext.Provider>
+          <AdminPanel />
         </div>
         <ToastAdmin />
       </IsAdminModeContext.Provider>

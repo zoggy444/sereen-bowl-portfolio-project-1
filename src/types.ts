@@ -46,22 +46,12 @@ export type TabProps<T> = {
   id: T;
   label?: string;
   isActive: boolean;
-  panelContent?: string;
   IconIfChecked?: IconType;
   IconIfUnchecked?: IconType;
   onClick: (id: T) => void;
 };
 
 // unique comp types
-
-export type AdminPanelProps = {
-  isVisible: boolean;
-};
-
-export type AdminPanelContextType = {
-  foldTab: TabProps<FoldTabIDType>;
-  contentTabs: TabProps<ContentTabIDType>[];
-};
 
 export type MenuProps = {
   products: ProductType[];
@@ -91,6 +81,11 @@ export type PanelContentProps = {
 export type ProductDetailProps = {
   title: string;
   price: number;
+};
+
+export type TabConfigType = {
+  foldTab: TabProps<FoldTabIDType>;
+  contentTabs: (TabProps<ContentTabIDType> & { panelContent: string })[];
 };
 
 export type TabContainerProps = {
