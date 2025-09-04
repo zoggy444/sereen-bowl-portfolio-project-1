@@ -4,13 +4,11 @@ import { useContext, useState } from "react";
 import TabContainer from "./TabContainer";
 import type {
   ContentTabIDType,
-  TabConfigType,
+  PanelConfigType,
   TabIDType,
 } from "../../../../types";
-import { AiOutlinePlus } from "react-icons/ai";
-import { MdModeEditOutline } from "react-icons/md";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import isAdminModeContext from "../../../../context/IsAdminModeContext";
+import getTabsConfig from "./getPanelConfig";
 
 export default function AdminPanel() {
   const [isFolded, setIsFolded] = useState(false);
@@ -34,48 +32,18 @@ export default function AdminPanel() {
     }
   };
 
-  const tabConfig: TabConfigType = {
-    foldTab: {
-      id: "fold",
-      isActive: isFolded,
-      IconIfChecked: FaChevronUp,
-      IconIfUnchecked: FaChevronDown,
-      onClick: handleTabClick,
-    },
-    contentTabs: [
-      {
-        id: "add-product",
-        label: "Add a product",
-        isActive: selectedTab === "add-product",
-        IconIfChecked: AiOutlinePlus,
-        IconIfUnchecked: AiOutlinePlus,
-        panelContent: "Add a product",
-        onClick: handleTabClick,
-      },
-      {
-        id: "edit-product",
-        label: "Edit a product",
-        isActive: selectedTab === "edit-product",
-        IconIfChecked: MdModeEditOutline,
-        IconIfUnchecked: MdModeEditOutline,
-        panelContent: "Edit a product",
-        onClick: handleTabClick,
-      },
-    ],
-  };
-
-  const panelContent =
-    tabConfig.contentTabs
-      .filter((tab) => tab.isActive)
-      .map((tab) => tab.panelContent)[0] || "";
+  const { foldTab, contentTabs, panelContent }: PanelConfigType = getTabsConfig(
+    {
+      isFolded,
+      selectedTab,
+      handleTabClick,
+    }
+  );
 
   if (isAdminMode) {
     return (
       <AdminPanelStyled>
-        <TabContainer
-          foldTab={tabConfig.foldTab}
-          contentTabs={tabConfig.contentTabs}
-        />
+        <TabContainer foldTab={foldTab} contentTabs={contentTabs} />
         <PanelContent isFolded={isFolded} content={panelContent} />
       </AdminPanelStyled>
     );

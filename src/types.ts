@@ -83,9 +83,16 @@ export type ProductDetailProps = {
   price: number;
 };
 
-export type TabConfigType = {
+export type PanelConfigParamType = {
+  isFolded: boolean;
+  selectedTab: ContentTabIDType;
+  handleTabClick: (id: TabIDType) => void;
+};
+
+export type PanelConfigType = {
   foldTab: TabProps<FoldTabIDType>;
-  contentTabs: (TabProps<ContentTabIDType> & { panelContent: string })[];
+  contentTabs: TabProps<ContentTabIDType>[];
+  panelContent: string;
 };
 
 export type TabContainerProps = {
