@@ -1,14 +1,21 @@
 import type { ChangeEventHandler, ComponentPropsWithoutRef } from "react";
 import type { IconType } from "react-icons";
-import { fakeMenu1 } from "./fakeData/fakeMenu";
 
 // data types
-
-export type ProductType = (typeof fakeMenu1)[0];
 
 export type FoldTabIDType = "fold";
 
 export type ContentTabIDType = "add-product" | "edit-product";
+
+export type ProductType = {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  imageSource: string;
+  isAvailable: boolean;
+  isAdvertised: boolean;
+};
 
 export type TabIDType = FoldTabIDType | ContentTabIDType;
 

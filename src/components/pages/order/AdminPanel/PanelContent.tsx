@@ -4,7 +4,7 @@ import type { PanelContentProps } from "../../../../types";
 
 export default function PanelContent({ isFolded, content }: PanelContentProps) {
   if (!isFolded) return <PanelContentStyled>{content}</PanelContentStyled>;
-  return <PanelFoldedStyled />;
+  return; //<PanelFoldedStyled />;
 }
 
 const PanelContentStyled = styled.div`
