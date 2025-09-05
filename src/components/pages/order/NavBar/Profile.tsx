@@ -1,15 +1,15 @@
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
-import type { ProfileProps } from "../../../../types";
 
-export default function Profile({ userName }: ProfileProps) {
+export default function Profile() {
+  const { userName } = useParams();
   return (
     <ProfileStyled>
       <div className="card-info">
         <div>
-          Hey, <strong>{userName}</strong>
+          Hey, <strong>{userName || "inconnu(e)"}</strong>
         </div>
         <Link to="/">Se déconnecter</Link>
       </div>
@@ -27,14 +27,14 @@ const ProfileStyled = styled.div`
     flex-direction: column;
     align-items: flex-end;
 
-    font-size: ${theme.fonts.P2};
+    font-size: ${theme.fonts.size.P2};
 
     strong {
       color: ${theme.colors.primary};
     }
 
     a {
-      font-size: ${theme.fonts.XS};
+      font-size: ${theme.fonts.size.XS};
       color: ${theme.colors.greyBlue};
       text-decoration: none;
 
@@ -44,7 +44,7 @@ const ProfileStyled = styled.div`
     }
   }
   svg {
-    font-size: ${theme.fonts.P4};
+    font-size: ${theme.fonts.size.P4};
     color: ${theme.colors.greyBlue};
     padding-left: ${theme.spacing.sm};
     padding-top: ${theme.spacing.xxs};

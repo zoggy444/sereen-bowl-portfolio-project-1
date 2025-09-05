@@ -6,6 +6,12 @@ import { fakeMenu1 } from "./fakeData/fakeMenu";
 
 export type ProductType = (typeof fakeMenu1)[0];
 
+export type FoldTabIDType = "fold";
+
+export type ContentTabIDType = "add-product" | "edit-product";
+
+export type TabIDType = FoldTabIDType | ContentTabIDType;
+
 // reusable comp types
 
 export type ButtonPrimaryProps = {
@@ -36,6 +42,15 @@ export type LogoTitleProps = {
   className?: string;
 };
 
+export type TabProps<T> = {
+  id: T;
+  label?: string;
+  isActive: boolean;
+  IconIfChecked?: IconType;
+  IconIfUnchecked?: IconType;
+  onClick: (id: T) => void;
+};
+
 // unique comp types
 
 export type MenuProps = {
@@ -49,19 +64,18 @@ export type MenuCardProps = {
 } & ComponentPropsWithoutRef<"img">;
 
 export type NavBarProps = {
-  userName: string;
-  isChecked: boolean;
-  onToggle: () => void;
   labelIfChecked: string;
   labelIfUnchecked: string;
 };
 
 export type NavRightProps = {
-  userName: string;
-  isChecked: boolean;
-  onToggle: () => void;
   labelIfChecked: string;
   labelIfUnchecked: string;
+};
+
+export type PanelContentProps = {
+  isFolded: boolean;
+  content: string;
 };
 
 export type ProductDetailProps = {
@@ -69,6 +83,19 @@ export type ProductDetailProps = {
   price: number;
 };
 
-export type ProfileProps = {
-  userName: string;
+export type PanelConfigParamType = {
+  isFolded: boolean;
+  selectedTab: ContentTabIDType;
+  handleTabClick: (id: TabIDType) => void;
+};
+
+export type PanelConfigType = {
+  foldTab: TabProps<FoldTabIDType>;
+  contentTabs: TabProps<ContentTabIDType>[];
+  panelContent: string;
+};
+
+export type TabContainerProps = {
+  foldTab: TabProps<FoldTabIDType>;
+  contentTabs: TabProps<ContentTabIDType>[];
 };

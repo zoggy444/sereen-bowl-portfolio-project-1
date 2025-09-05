@@ -27,7 +27,7 @@ const ButtonPrimaryStyled = styled.button`
   border: 1px solid ${theme.colors.primary};
 
   svg {
-    font-size: ${theme.fonts.P2};
+    font-size: ${theme.fonts.size.P2};
     margin: ${theme.spacing.xs};
   }
 

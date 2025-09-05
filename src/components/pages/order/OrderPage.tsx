@@ -1,4 +1,3 @@
-import { useParams } from "react-router";
 import styled from "styled-components";
 import NavBar from "./NavBar/NavBar";
 import { theme } from "../../../theme/theme";
@@ -6,10 +5,11 @@ import Main from "./Main";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import ToastAdmin from "./ToastAdmin";
+import AdminPanel from "./AdminPanel/AdminPanel";
+import IsAdminModeContext from "../../../context/IsAdminModeContext";
 
 export default function OrderPage() {
-  const [isAdminMode, setISAdminMode] = useState(false);
-  const { userName } = useParams();
+  const [isAdminMode, setIsAdminMode] = useState(false);
 
   const toggleMode = () => {
     if (!isAdminMode) {
@@ -25,22 +25,22 @@ export default function OrderPage() {
       });
     }
 
-    setISAdminMode(!isAdminMode);
+    setIsAdminMode(!isAdminMode);
   };
 
   return (
     <OrderPageStyled>
-      <div className="container">
-        <NavBar
-          userName={userName || "inconnu"}
-          isChecked={isAdminMode}
-          onToggle={toggleMode}
-          labelIfChecked="Quit admin mode"
-          labelIfUnchecked="Enter admin mode"
-        />
-        <Main />
-      </div>
-      <ToastAdmin />
+      <IsAdminModeContext.Provider value={{ isAdminMode, toggleMode }}>
+        <div className="container">
+          <NavBar
+            labelIfChecked="Quit admin mode"
+            labelIfUnchecked="Enter admin mode"
+          />
+          <Main />
+          <AdminPanel />
+        </div>
+        <ToastAdmin />
+      </IsAdminModeContext.Provider>
     </OrderPageStyled>
   );
 }

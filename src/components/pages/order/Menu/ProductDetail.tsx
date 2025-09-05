@@ -18,7 +18,7 @@ export default function ProductDetail({ title, price }: ProductDetailProps) {
 
 const ProductDetailStyled = styled.div`
   .product-name {
-    font-size: ${theme.fonts.P4};
+    font-size: ${theme.fonts.size.P4};
     max-height: 46px;
     white-space: nowrap;
     overflow: hidden;
@@ -39,7 +39,7 @@ const ProductDetailStyled = styled.div`
     .button-buy {
       width: 95px;
       height: 38px;
-      font-size: ${theme.fonts.XXS};
+      font-size: ${theme.fonts.size.XXS};
     }
   }
 `;

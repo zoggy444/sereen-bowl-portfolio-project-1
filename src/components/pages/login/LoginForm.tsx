@@ -2,44 +2,44 @@ import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { IoPersonCircleOutline } from 'react-icons/io5'
-import { MdKeyboardArrowRight } from 'react-icons/md'
-import { theme } from "../../../theme/theme.ts"
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { theme } from "../../../theme/theme.ts";
 import ButtonPrimary from "../../reusable-ui/ButtonPrimary.tsx";
 import InputText from "../../reusable-ui/InputText.tsx";
 
-
 export default function LoginForm() {
-  const [userName, setUserName] = useState('');
-  const navigate = useNavigate()
+  const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setUserName('');
+    setUserName("");
     navigate(`/order/${userName}`);
-  }
+  };
 
   const handleChange = (e: ChangeEvent) => {
     e.preventDefault();
-    setUserName((e.target as HTMLTextAreaElement).value)
-  }
+    setUserName((e.target as HTMLTextAreaElement).value);
+  };
 
   return (
-    <LoginFormStyled action='submit' onSubmit={handleSubmit}>
+    <LoginFormStyled action="submit" onSubmit={handleSubmit}>
       <h1 className="amatic-sc-bold">Welcome to our place !</h1>
-      <hr/>
+      <hr />
       <h2 className="amatic-sc-bold">Log in</h2>
-      <InputText name='name' type='text' required
+      <InputText
+        name="name"
+        type="text"
+        required
         Icon={IoPersonCircleOutline}
         value={userName}
-        placeholder='Enter your name'
+        placeholder="Enter your name"
         onChange={handleChange}
       />
-      <ButtonPrimary
-        label="Get to my space"
-        Icon={MdKeyboardArrowRight}/>
+      <ButtonPrimary label="Get to my space" Icon={MdKeyboardArrowRight} />
     </LoginFormStyled>
-  )
+  );
 }
 
 const LoginFormStyled = styled.form`
@@ -54,12 +54,12 @@ const LoginFormStyled = styled.form`
 
   h1 {
     text-align: center;
-    font-size: ${theme.fonts.P5};
+    font-size: ${theme.fonts.size.P5};
   }
 
   h2 {
     text-align: center;
-    font-size: ${theme.fonts.P4};
+    font-size: ${theme.fonts.size.P4};
   }
 
   hr {
@@ -69,4 +69,4 @@ const LoginFormStyled = styled.form`
     border-left: none;
     width: 100%;
   }
-`
+`;
