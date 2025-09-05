@@ -14,24 +14,9 @@ export default function TabContainer({
   return (
     <TabContainerStyled>
       <>
-        <Tab
-          id={foldTab.id}
-          label={foldTab.label}
-          isActive={foldTab.isActive}
-          IconIfChecked={foldTab.IconIfChecked}
-          IconIfUnchecked={foldTab.IconIfUnchecked}
-          onClick={foldTab.onClick}
-        />
+        <Tab {...foldTab} />
         {contentTabs.map(({ ...props }: TabProps<ContentTabIDType>) => (
-          <Tab
-            key={props.id}
-            id={props.id}
-            label={props.label}
-            isActive={props.isActive}
-            IconIfChecked={props.IconIfChecked}
-            IconIfUnchecked={props.IconIfUnchecked}
-            onClick={props.onClick}
-          />
+          <Tab key={props.id} {...props} />
         ))}
       </>
     </TabContainerStyled>
