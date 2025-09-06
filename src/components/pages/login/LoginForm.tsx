@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { theme } from "../../../theme/theme.ts";
-import ButtonPrimary from "../../reusable-ui/ButtonPrimary.tsx";
+import Button from "../../reusable-ui/Button.tsx";
 import InputText from "../../reusable-ui/InputText.tsx";
 
 export default function LoginForm() {
@@ -37,7 +37,7 @@ export default function LoginForm() {
         placeholder="Enter your name"
         onChange={handleChange}
       />
-      <ButtonPrimary label="Get to my space" Icon={MdKeyboardArrowRight} />
+      <Button label="Get to my space" Icon={MdKeyboardArrowRight} />
     </LoginFormStyled>
   );
 }

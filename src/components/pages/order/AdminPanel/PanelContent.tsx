@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import type { PanelContentProps } from "../../../../types";
-import ButtonPrimary from "../../../reusable-ui/ButtonPrimary";
+import Button from "../../../reusable-ui/Button";
 import InputText from "../../../reusable-ui/InputText";
 import { MdOutlineEuro } from "react-icons/md";
 import { useState, type ChangeEvent, type FormEvent } from "react";
@@ -70,8 +70,9 @@ export default function PanelContent({ isFolded, content }: PanelContentProps) {
                 onChange={onInputChange}
               />
             </div>
-            <ButtonPrimary
+            <Button
               label="Add new product to menu"
+              intent="success"
               className="button-submit"
             />
           </form>
@@ -121,7 +122,6 @@ const PanelContentStyled = styled.div`
   }
   .button-submit {
     grid-area: 4 / 2 / 5 / 3;
-    background-color: ${theme.colors.success};
   }
 `;
 

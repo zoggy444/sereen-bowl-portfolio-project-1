@@ -3,9 +3,11 @@ import type { IconType } from "react-icons";
 
 // data types
 
+export type ContentTabIDType = "add-product" | "edit-product";
+
 export type FoldTabIDType = "fold";
 
-export type ContentTabIDType = "add-product" | "edit-product";
+export type IntentType = "primary" | "success";
 
 export type ProductType = {
   id: number;
@@ -21,8 +23,9 @@ export type TabIDType = FoldTabIDType | ContentTabIDType;
 
 // reusable comp types
 
-export type ButtonPrimaryProps = {
+export type ButtonProps = {
   label: string;
+  intent?: IntentType;
   className?: string;
   Icon?: IconType;
 };

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ButtonPrimary from "../../../reusable-ui/ButtonPrimary";
+import Button from "../../../reusable-ui/Button";
 import { theme } from "../../../../theme/theme";
 import type { ProductDetailProps } from "../../../../types";
 import { formatPrice } from "../../../../utils/maths";
@@ -10,7 +10,7 @@ export default function ProductDetail({ title, price }: ProductDetailProps) {
       <div className="product-name amatic-sc-bold">{title}</div>
       <div className="product-buy">
         <div className="product-price">{formatPrice(price)}</div>
-        <ButtonPrimary label="Ajouter" className="button-buy" />
+        <Button label="Ajouter" className="button-buy" />
       </div>
     </ProductDetailStyled>
   );
