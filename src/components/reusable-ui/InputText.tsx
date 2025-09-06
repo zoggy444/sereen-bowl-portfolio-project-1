@@ -8,8 +8,10 @@ export default function InputText({
   onChange,
   ...otherProps
 }: InputTextProps) {
+  const className = otherProps.className ?? "";
+  otherProps = { ...otherProps, className: "" };
   return (
-    <InputTextStyled>
+    <InputTextStyled className={className}>
       <Icon className="input-icon" />
       <input value={value} onChange={onChange} {...otherProps}></input>
     </InputTextStyled>
