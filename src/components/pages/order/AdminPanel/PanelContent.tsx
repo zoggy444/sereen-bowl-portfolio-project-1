@@ -7,6 +7,7 @@ import { MdOutlineEuro } from "react-icons/md";
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { FaHamburger } from "react-icons/fa";
 import { BsFillCameraFill } from "react-icons/bs";
+import Image from "../../../reusable-ui/Image";
 
 const defaultFormInputs = {
   productName: "",
@@ -16,6 +17,12 @@ const defaultFormInputs = {
 
 export default function PanelContent({ isFolded, content }: PanelContentProps) {
   const [formInputs, setFormInputs] = useState(defaultFormInputs);
+
+  const imageProps = {
+    src: formInputs.imageUrl,
+    alt: "product-image",
+    className: "product-image",
+  };
 
   const onInputChange = (e: ChangeEvent) => {
     const inputName = (e.target as HTMLInputElement).name;
@@ -34,7 +41,12 @@ export default function PanelContent({ isFolded, content }: PanelContentProps) {
       return (
         <PanelContentStyled>
           <form className="form" onSubmit={onSubmit}>
-            <div className="image">No image</div>
+            {formInputs.imageUrl ? (
+              <Image {...imageProps} />
+            ) : (
+              <div className="product-image">No image</div>
+            )}
+
             <div className="fields">
               <InputTextReStyled
                 name="productName"
@@ -90,7 +102,7 @@ const PanelContentStyled = styled.div`
     column-gap: ${theme.spacing.md};
     row-gap: ${theme.spacing.xs};
 
-    .image {
+    .product-image {
       grid-area: 1 / 1 / 4 / 2;
 
       display: flex;

@@ -7,7 +7,7 @@ import type { MenuCardProps } from "../../../../types";
 export default function MenuCard({ src, title, price }: MenuCardProps) {
   return (
     <MenuCardStyled>
-      <Image src={src} alt="product-image" />
+      <Image src={src} alt="product-image" className="product-image" />
       <ProductDetail title={title} price={price} />
     </MenuCardStyled>
   );
@@ -25,11 +25,14 @@ const MenuCardStyled = styled.div`
   justify-content: space-between;
 
   box-sizing: border-box;
+  padding: ${theme.spacing.md};
   padding-top: ${theme.spacing.xl};
-  padding-left: ${theme.spacing.md};
-  padding-right: ${theme.spacing.md};
   padding-bottom: ${theme.spacing.sm};
   border-radius: ${theme.borderRadius.extraRound};
   background: ${theme.colors.white};
   box-shadow: ${theme.shadows.card};
+
+  .product-image {
+    height: 145px;
+  }
 `;
