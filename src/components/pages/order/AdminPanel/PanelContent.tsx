@@ -4,49 +4,75 @@ import type { PanelContentProps } from "../../../../types";
 import ButtonPrimary from "../../../reusable-ui/ButtonPrimary";
 import InputText from "../../../reusable-ui/InputText";
 import { MdOutlineEuro } from "react-icons/md";
-import type { ChangeEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import { FaHamburger } from "react-icons/fa";
 import { BsFillCameraFill } from "react-icons/bs";
 
-export default function PanelContent({ isFolded, content }: PanelContentProps) {
-  const onInputChange = (e: ChangeEvent) => {};
+const defaultFormInputs = {
+  productName: "",
+  imageUrl: "",
+  price: "",
+};
 
-  if (!isFolded)
-    return (
-      <PanelContentStyled>
-        <div className="form">
-          <div className="image">No image</div>
-          <div className="fields">
-            <InputTextReStyled
-              Icon={FaHamburger}
-              value=""
-              placeholder="Product name"
-              onChange={onInputChange}
+export default function PanelContent({ isFolded, content }: PanelContentProps) {
+  const [formInputs, setFormInputs] = useState(defaultFormInputs);
+
+  const onInputChange = (e: ChangeEvent) => {
+    const inputName = (e.target as HTMLInputElement).name;
+    const inputValue = (e.target as HTMLInputElement).value;
+    setFormInputs({ ...formInputs, [inputName]: inputValue });
+  };
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setFormInputs(defaultFormInputs);
+    console.log("Form submitted", formInputs);
+  };
+
+  if (!isFolded) {
+    if (content === "Add a product") {
+      return (
+        <PanelContentStyled>
+          <form className="form" onSubmit={onSubmit}>
+            <div className="image">No image</div>
+            <div className="fields">
+              <InputTextReStyled
+                name="productName"
+                Icon={FaHamburger}
+                value={formInputs.productName}
+                placeholder="Product name"
+                onChange={onInputChange}
+              />
+              <InputTextReStyled
+                name="imageUrl"
+                Icon={BsFillCameraFill}
+                value={formInputs.imageUrl}
+                placeholder="URL link of an image"
+                onChange={onInputChange}
+              />
+              <InputTextReStyled
+                name="price"
+                Icon={MdOutlineEuro}
+                value={formInputs.price}
+                placeholder="Price"
+                onChange={onInputChange}
+              />
+            </div>
+            <ButtonPrimary
+              label="Add new product to menu"
+              className="button-submit"
             />
-            <InputTextReStyled
-              Icon={BsFillCameraFill}
-              value=""
-              placeholder="URL link of an image"
-              onChange={onInputChange}
-            />
-            <InputTextReStyled
-              Icon={MdOutlineEuro}
-              value=""
-              placeholder="Price"
-              onChange={onInputChange}
-            />
-          </div>
-          <ButtonPrimary
-            label="Add new product to menu"
-            className="button-submit"
-          />
-        </div>
-      </PanelContentStyled>
-    );
+          </form>
+        </PanelContentStyled>
+      );
+    }
+    return <PanelContentStyled>{content}</PanelContentStyled>;
+  }
   return <PanelFoldedStyled />;
 }
 
 const PanelContentStyled = styled.div`
+  min-height: ${theme.gridUnit * 25}px;
   border-top: 1px solid ${theme.colors.greyLight};
   border-bottom-left-radius: ${theme.borderRadius.extraRound};
   border-bottom-right-radius: ${theme.borderRadius.extraRound};
