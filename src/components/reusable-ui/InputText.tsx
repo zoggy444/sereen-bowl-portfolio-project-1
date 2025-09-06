@@ -18,7 +18,7 @@ export default function InputText({
 
 const InputTextStyled = styled.div`
   padding: ${theme.spacing.md};
-  margin-bottom: ${theme.spacing.md};
+  /* margin-bottom: ${theme.spacing.md}; */
   border-radius: ${theme.borderRadius.round};
   background-color: ${theme.colors.white};
 
@@ -27,7 +27,7 @@ const InputTextStyled = styled.div`
 
   .input-icon {
     color: ${theme.colors.greyDark};
-    font-size: ${theme.fonts.size.P1};
+    /* font-size: ${theme.fonts.size.P1}; */
     margin-right: ${theme.spacing.sm};
   }
 
