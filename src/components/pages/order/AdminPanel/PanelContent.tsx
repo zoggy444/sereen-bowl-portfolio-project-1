@@ -4,10 +4,11 @@ import type { PanelContentProps } from "../../../../types";
 import Button from "../../../reusable-ui/Button";
 import InputText from "../../../reusable-ui/InputText";
 import { MdOutlineEuro } from "react-icons/md";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { FaHamburger } from "react-icons/fa";
 import { BsFillCameraFill } from "react-icons/bs";
 import Image from "../../../reusable-ui/Image";
+import { FiCheckCircle } from "react-icons/fi";
 
 const defaultFormInputs = {
   productName: "",
@@ -17,6 +18,14 @@ const defaultFormInputs = {
 
 export default function PanelContent({ isFolded, content }: PanelContentProps) {
   const [formInputs, setFormInputs] = useState(defaultFormInputs);
+  const [addedMsg, setaddedMsg] = useState(false);
+
+  useEffect(() => {
+    if (addedMsg)
+      setTimeout(() => {
+        setaddedMsg(false);
+      }, 2000);
+  }, [addedMsg]);
 
   const imageProps = {
     src: formInputs.imageUrl,
@@ -33,6 +42,7 @@ export default function PanelContent({ isFolded, content }: PanelContentProps) {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     setFormInputs(defaultFormInputs);
+    setaddedMsg(true);
     console.log("Form submitted", formInputs);
   };
 
@@ -75,6 +85,11 @@ export default function PanelContent({ isFolded, content }: PanelContentProps) {
               intent="success"
               className="button-submit"
             />
+            {addedMsg && (
+              <div className="added-msg">
+                <FiCheckCircle /> <span>Succesfuly added !</span>
+              </div>
+            )}
           </form>
         </PanelContentStyled>
       );
@@ -122,6 +137,15 @@ const PanelContentStyled = styled.div`
   }
   .button-submit {
     grid-area: 4 / 2 / 5 / 3;
+  }
+  .added-msg {
+    grid-area: 4 / 3 / 5 / 4;
+    color: ${theme.colors.success};
+    display: flex;
+    align-items: center;
+    span {
+      padding-left: ${theme.spacing.xs};
+    }
   }
 `;
 
