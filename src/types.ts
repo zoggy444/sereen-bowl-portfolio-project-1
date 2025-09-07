@@ -68,6 +68,10 @@ export type AdminPanelProps = {
   onAddProduct: (newProduct: PanelFormType) => void;
 };
 
+export type FormProductProps = {
+  onSubmit: (newProduct: PanelFormType) => void;
+};
+
 export type MenuProps = {
   products: ProductType[];
   onDeleteCard: (idToDelete: number) => void;
