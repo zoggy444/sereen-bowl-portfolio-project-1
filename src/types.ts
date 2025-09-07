@@ -81,6 +81,10 @@ export type MenuCardProps = {
   onDelete: (idToDelete: number) => void;
 } & ComponentPropsWithoutRef<"img">;
 
+export type MenuEmptyProps = {
+  onRegenMenuClick: () => void;
+};
+
 export type NavBarProps = {
   labelIfChecked: string;
   labelIfUnchecked: string;
