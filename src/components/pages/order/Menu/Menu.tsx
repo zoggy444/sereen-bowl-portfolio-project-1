@@ -2,11 +2,11 @@ import styled from "styled-components";
 import MenuCard from "./MenuCard";
 import type { MenuProps } from "../../../../types";
 
-export default function Menu({ products }: MenuProps) {
+export default function Menu({ products, onDeleteCard }: MenuProps) {
   return (
     <MenuStyled>
       {products.map(({ id, title, imageSource, price }) => (
-        <MenuCard key={id} title={title} src={`${imageSource}`} price={price} />
+        <MenuCard key={id} id={id} title={title} src={`${imageSource}`} price={price} onDelete={onDeleteCard}/>
       ))}
     </MenuStyled>
   );

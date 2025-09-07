@@ -12,7 +12,7 @@ export default function Main() {
 
   const nextId = products.length + 1;
 
-  const onAddProduct = (newVals: PanelFormType) => {
+  const handleAddProduct = (newVals: PanelFormType) => {
     if (!newVals.imageSource) newVals.imageSource = "/images/coming-soon.png";
     let priceNumber = parseFloat(newVals.price.replace(",", "."));
     if (isNaN(priceNumber)) priceNumber = 0;
@@ -29,11 +29,18 @@ export default function Main() {
     setProducts([newProduct, ...products]);
   };
 
+  const handleDeleteProduct = (idToDelete: number) => {
+    const updatedProducts = products.filter(
+      (product) => product.id !== idToDelete
+    );
+    setProducts(updatedProducts);
+  };
+
   return (
     <MainStyled>
       {/* <div className="basket"/> */}
-      <Menu products={products} />
-      <AdminPanel onAddProduct={onAddProduct} />
+      <Menu products={products} onDeleteCard={handleDeleteProduct} />
+      <AdminPanel onAddProduct={handleAddProduct} />
     </MainStyled>
   );
 }

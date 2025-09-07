@@ -5,18 +5,29 @@ import ProductDetail from "./ProductDetail";
 import type { MenuCardProps } from "../../../../types";
 import { TiDelete } from "react-icons/ti";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
-import { useContext } from "react";
+import { useContext, type MouseEvent } from "react";
 
-export default function MenuCard({ src, title, price }: MenuCardProps) {
+export default function MenuCard({
+  id,
+  src,
+  title,
+  price,
+  onDelete,
+}: MenuCardProps) {
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
+
+  const onDeleteClick = (e:MouseEvent<SVGElement>) => {
+    e.preventDefault();
+    onDelete(id);
+  };
 
   return (
     <MenuCardStyled>
       <div className="delete-container">
         {isAdminMode && (
-          <div className="product-delete">
-            <TiDelete />
-          </div>
+          <button className="product-delete">
+            <TiDelete className="button-icon" onClick={onDeleteClick} />
+          </button>
         )}
       </div>
       <Image src={src} alt="product-image" className="product-image" />
@@ -48,9 +59,17 @@ const MenuCardStyled = styled.div`
     height: ${theme.gridUnit * 4}px;
     align-self: flex-end;
     .product-delete {
-      cursor: pointer;
-      color: ${theme.colors.primary};
-      font-size: ${theme.fonts.size.P2};
+      background: none;
+      border: none;
+      cursor: default;
+      .button-icon {
+        cursor: pointer;
+        color: ${theme.colors.primary};
+        font-size: ${theme.fonts.size.P2};
+      }
+      .button-icon:hover {
+        color: ${theme.colors.red};
+      }
     }
   }
 

@@ -69,12 +69,15 @@ export type AdminPanelProps = {
 
 export type MenuProps = {
   products: ProductType[];
+  onDeleteCard: (idToDelete: number) => void;
 };
 
 export type MenuCardProps = {
+  id: number;
   src: string;
   title: string;
   price: number;
+  onDelete: (idToDelete: number) => void;
 } & ComponentPropsWithoutRef<"img">;
 
 export type NavBarProps = {
