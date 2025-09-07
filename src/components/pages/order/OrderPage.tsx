@@ -5,7 +5,6 @@ import Main from "./Main";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import ToastAdmin from "./ToastAdmin";
-import AdminPanel from "./AdminPanel/AdminPanel";
 import IsAdminModeContext from "../../../context/IsAdminModeContext";
 
 export default function OrderPage() {
@@ -37,7 +36,6 @@ export default function OrderPage() {
             labelIfUnchecked="Enter admin mode"
           />
           <Main />
-          <AdminPanel />
         </div>
         <ToastAdmin />
       </IsAdminModeContext.Provider>

@@ -3,21 +3,24 @@ import { theme } from "../../../theme/theme";
 import "../../../index.css";
 import { fakeMenu } from "../../../fakeData/fakeMenu";
 import Menu from "./Menu/Menu";
+import AdminPanel from "./AdminPanel/AdminPanel";
 
 export default function Main() {
-  const products = fakeMenu["SMALL"];
+  const products = fakeMenu["MEDIUM"];
 
   return (
     <MainStyled>
       {/* <div className="basket"/> */}
       <Menu products={products} />
+      <AdminPanel />
     </MainStyled>
   );
 }
 
 const MainStyled = styled.div`
-  padding: 50px;
-  height: calc(83vh - 100px);
+  /* height: calc(98vh - minmax(15vh, 100px)); */
+  min-height: 83vh;
+  max-height: calc(98vh - 100px);
   overflow-y: scroll;
   scrollbar-width: none;
 

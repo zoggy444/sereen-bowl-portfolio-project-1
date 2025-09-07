@@ -13,6 +13,7 @@ export default function Menu({ products }: MenuProps) {
 }
 
 const MenuStyled = styled.div`
+  padding: 50px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(330px, 1fr));

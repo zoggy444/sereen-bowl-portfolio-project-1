@@ -52,9 +52,10 @@ export default function AdminPanel() {
 }
 
 const AdminPanelStyled = styled.div`
-  position: relative;
-  top: -264px;
-  height: 264px;
+  position: absolute;
+  bottom: calc(1vh - 1px);
+
+  max-height: 264px;
   width: 95vw;
   max-width: 1400px;
 
