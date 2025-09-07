@@ -3,6 +3,7 @@ import PanelContent from "./PanelContent";
 import { useContext, useState } from "react";
 import TabContainer from "./TabContainer";
 import type {
+  AdminPanelProps,
   ContentTabIDType,
   PanelConfigType,
   TabIDType,
@@ -10,7 +11,7 @@ import type {
 import isAdminModeContext from "../../../../context/IsAdminModeContext";
 import getTabsConfig from "./getPanelConfig";
 
-export default function AdminPanel() {
+export default function AdminPanel({ onAddProduct }: AdminPanelProps) {
   const [isFolded, setIsFolded] = useState(false);
   const [selectedTab, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
@@ -44,7 +45,11 @@ export default function AdminPanel() {
     return (
       <AdminPanelStyled>
         <TabContainer foldTab={foldTab} contentTabs={contentTabs} />
-        <PanelContent isFolded={isFolded} content={panelContent} />
+        <PanelContent
+          isFolded={isFolded}
+          content={panelContent}
+          onAddProduct={onAddProduct}
+        />
       </AdminPanelStyled>
     );
   }

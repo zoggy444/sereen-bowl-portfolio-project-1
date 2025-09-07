@@ -63,6 +63,10 @@ export type TabProps<T> = {
 
 // unique comp types
 
+export type AdminPanelProps = {
+  onAddProduct: (newProduct: PanelFormType) => void;
+};
+
 export type MenuProps = {
   products: ProductType[];
 };
@@ -83,16 +87,6 @@ export type NavRightProps = {
   labelIfUnchecked: string;
 };
 
-export type PanelContentProps = {
-  isFolded: boolean;
-  content: string;
-};
-
-export type ProductDetailProps = {
-  title: string;
-  price: number;
-};
-
 export type PanelConfigParamType = {
   isFolded: boolean;
   selectedTab: ContentTabIDType;
@@ -103,6 +97,21 @@ export type PanelConfigType = {
   foldTab: TabProps<FoldTabIDType>;
   contentTabs: TabProps<ContentTabIDType>[];
   panelContent: string;
+};
+
+export type PanelContentProps = {
+  isFolded: boolean;
+  content: string;
+  onAddProduct: (newProduct: PanelFormType) => void;
+};
+
+export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {
+  price: string;
+};
+
+export type ProductDetailProps = {
+  title: string;
+  price: number;
 };
 
 export type TabContainerProps = {

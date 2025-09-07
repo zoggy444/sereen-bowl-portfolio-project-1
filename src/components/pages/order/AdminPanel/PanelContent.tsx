@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
-import type { PanelContentProps } from "../../../../types";
+import type { PanelContentProps, PanelFormType } from "../../../../types";
 import Button from "../../../reusable-ui/Button";
 import InputText from "../../../reusable-ui/InputText";
 import { MdOutlineEuro } from "react-icons/md";
@@ -10,14 +10,18 @@ import { BsFillCameraFill } from "react-icons/bs";
 import Image from "../../../reusable-ui/Image";
 import { FiCheckCircle } from "react-icons/fi";
 
-const defaultFormInputs = {
-  productName: "",
-  imageUrl: "",
+const defaultFormInputs: PanelFormType = {
+  title: "",
+  imageSource: "",
   price: "",
 };
 
-export default function PanelContent({ isFolded, content }: PanelContentProps) {
-  const [formInputs, setFormInputs] = useState(defaultFormInputs);
+export default function PanelContent({
+  isFolded,
+  content,
+  onAddProduct,
+}: PanelContentProps) {
+  const [formInputs, setFormInputs] = useState({ ...defaultFormInputs });
   const [addedMsg, setaddedMsg] = useState(false);
 
   useEffect(() => {
@@ -28,7 +32,7 @@ export default function PanelContent({ isFolded, content }: PanelContentProps) {
   }, [addedMsg]);
 
   const imageProps = {
-    src: formInputs.imageUrl,
+    src: formInputs.imageSource,
     alt: "product-image",
     className: "product-image",
   };
@@ -41,9 +45,10 @@ export default function PanelContent({ isFolded, content }: PanelContentProps) {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setFormInputs(defaultFormInputs);
+    setFormInputs({ ...defaultFormInputs });
     setaddedMsg(true);
     console.log("Form submitted", formInputs);
+    onAddProduct(formInputs);
   };
 
   if (!isFolded) {
@@ -51,7 +56,7 @@ export default function PanelContent({ isFolded, content }: PanelContentProps) {
       return (
         <PanelContentStyled>
           <form className="form" onSubmit={onSubmit}>
-            {formInputs.imageUrl ? (
+            {formInputs.imageSource ? (
               <Image {...imageProps} />
             ) : (
               <div className="product-image">No image</div>
@@ -59,16 +64,16 @@ export default function PanelContent({ isFolded, content }: PanelContentProps) {
 
             <div className="fields">
               <InputTextReStyled
-                name="productName"
+                name="title"
                 Icon={FaHamburger}
-                value={formInputs.productName}
+                value={formInputs.title}
                 placeholder="Product name"
                 onChange={onInputChange}
               />
               <InputTextReStyled
-                name="imageUrl"
+                name="imageSource"
                 Icon={BsFillCameraFill}
-                value={formInputs.imageUrl}
+                value={formInputs.imageSource}
                 placeholder="URL link of an image"
                 onChange={onInputChange}
               />

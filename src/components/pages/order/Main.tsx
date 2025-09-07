@@ -4,21 +4,41 @@ import "../../../index.css";
 import { fakeMenu } from "../../../fakeData/fakeMenu";
 import Menu from "./Menu/Menu";
 import AdminPanel from "./AdminPanel/AdminPanel";
+import { useState } from "react";
+import type { PanelFormType, ProductType } from "../../../types";
 
 export default function Main() {
-  const products = fakeMenu["MEDIUM"];
+  const [products, setProducts] = useState(fakeMenu["MEDIUM"]);
+
+  const nextId = products.length + 1;
+
+  const onAddProduct = (newVals: PanelFormType) => {
+    if (!newVals.imageSource) newVals.imageSource = "/images/coming-soon.png";
+    let priceNumber = parseFloat(newVals.price.replace(",", "."));
+    if (isNaN(priceNumber)) priceNumber = 0;
+
+    const newProduct: ProductType = {
+      id: nextId,
+      title: newVals.title,
+      imageSource: newVals.imageSource,
+      price: priceNumber,
+      quantity: 0,
+      isAvailable: true,
+      isAdvertised: false,
+    };
+    setProducts([newProduct, ...products]);
+  };
 
   return (
     <MainStyled>
       {/* <div className="basket"/> */}
       <Menu products={products} />
-      <AdminPanel />
+      <AdminPanel onAddProduct={onAddProduct} />
     </MainStyled>
   );
 }
 
 const MainStyled = styled.div`
-  /* height: calc(98vh - minmax(15vh, 100px)); */
   min-height: 83vh;
   max-height: calc(98vh - 100px);
   overflow-y: scroll;

@@ -13,7 +13,12 @@ export default function InputText({
   return (
     <InputTextStyled className={className}>
       <Icon className="input-icon" />
-      <input value={value} onChange={onChange} {...otherProps}></input>
+      <input
+        value={value}
+        onChange={onChange}
+        type="text"
+        {...otherProps}
+      ></input>
     </InputTextStyled>
   );
 }
