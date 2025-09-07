@@ -28,6 +28,7 @@ export type ButtonProps = {
   intent?: IntentType;
   className?: string;
   Icon?: IconType;
+  onClick?: () => void;
 };
 
 export type ButtonToggleProps = {

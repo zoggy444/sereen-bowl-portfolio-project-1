@@ -21,8 +21,7 @@ export default function NavBar({
 }
 
 const NavBarStyled = styled.div`
-  height: 15vh;
-  max-height: 100px;
+  height: 100px;
 
   display: flex;
   flex-direction: row;

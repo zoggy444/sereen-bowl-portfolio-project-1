@@ -7,17 +7,18 @@ export default function Button({
   className,
   Icon,
   intent = "primary",
+  onClick,
 }: ButtonProps) {
   if (intent === "primary")
     return (
-      <ButtonStyled className={className}>
+      <ButtonStyled className={className} onClick={onClick}>
         <span>{label}</span>
         {Icon && <Icon />}
       </ButtonStyled>
     );
   if (intent === "success")
     return (
-      <ButtonSuccessStyled className={className}>
+      <ButtonSuccessStyled className={className} onClick={onClick}>
         <span>{label}</span>
         {Icon && <Icon />}
       </ButtonSuccessStyled>
