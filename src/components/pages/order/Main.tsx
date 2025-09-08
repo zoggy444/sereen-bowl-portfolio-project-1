@@ -4,11 +4,16 @@ import "../../../index.css";
 import Menu from "./Menu/Menu";
 import Basket from "./Basket/Basket";
 import AdminPanel from "./AdminPanel/AdminPanel";
+import { useContext, useState } from "react";
+import { ProductsContext } from "../../../context/OrderMainContext";
 
 export default function Main() {
+  const [selectedIds, setSelectedIds] = useState([1, 2, 3, 4, 2, 1, 4]);
+  const {menuProds} = useContext(ProductsContext)
+
   return (
     <MainStyled>
-      <Basket />
+      <Basket products={menuProds} idsList={selectedIds} />
       <Menu />
       <AdminPanel />
     </MainStyled>

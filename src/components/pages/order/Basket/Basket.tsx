@@ -3,12 +3,13 @@ import { theme } from "../../../../theme/theme";
 import BasketHeader from "./BasketHeader";
 import BasketBody from "./BasketBody";
 import BasketFooter from "./BasketFooter";
+import type { BasketProps } from "../../../../types";
 
-export default function Basket() {
+export default function Basket({ products, idsList }: BasketProps) {
   return (
     <BasketStyled className="basket amatic-sc-regular">
       <BasketHeader />
-      <BasketBody />
+      <BasketBody products={products} idsList={idsList} />
       <BasketFooter />
     </BasketStyled>
   );

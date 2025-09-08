@@ -102,6 +102,16 @@ export type AdminPanelFormType = {
   editInputs: PanelFormType;
 };
 
+export type BasketBodyProps = {
+  products: ProductType[];
+  idsList: string[];
+};
+
+export type BasketProps = {
+  products: ProductType[];
+  idsList: string[];
+};
+
 export type FieldConfigParamType = {
   fieldValues: PanelFormType;
   onChange: ChangeEventHandler<HTMLInputElement>;
