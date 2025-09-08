@@ -4,11 +4,9 @@ import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import type { FormProductProps, PanelFormType } from "../../../../types";
 import InputText from "../../../reusable-ui/InputText";
 import { theme } from "../../../../theme/theme";
-import { FaHamburger } from "react-icons/fa";
-import { BsFillCameraFill } from "react-icons/bs";
-import { MdOutlineEuro } from "react-icons/md";
 import Button from "../../../reusable-ui/Button";
 import { FiCheckCircle } from "react-icons/fi";
+import getFieldConfig from "./getFieldConfig";
 
 const defaultFormInputs: PanelFormType = {
   title: "",
@@ -46,6 +44,11 @@ export default function FormProduct({ onSubmit }: FormProductProps) {
     onSubmit(formInputs);
   };
 
+  const fieldConfig = getFieldConfig({
+    fieldValues: formInputs,
+    onChange: onInputChange,
+  });
+
   return (
     <FormProductStyled onSubmit={onFormSubmit}>
       {formInputs.imageSource ? (
@@ -55,28 +58,11 @@ export default function FormProduct({ onSubmit }: FormProductProps) {
       )}
 
       <div className="fields">
-        <InputTextReStyled
-          name="title"
-          Icon={FaHamburger}
-          value={formInputs.title}
-          placeholder="Product name"
-          onChange={onInputChange}
-        />
-        <InputTextReStyled
-          name="imageSource"
-          Icon={BsFillCameraFill}
-          value={formInputs.imageSource}
-          placeholder="URL link of an image"
-          onChange={onInputChange}
-        />
-        <InputTextReStyled
-          name="price"
-          Icon={MdOutlineEuro}
-          value={formInputs.price}
-          placeholder="Price"
-          onChange={onInputChange}
-        />
+        {fieldConfig.map((field) => {
+          return <InputTextReStyled key={field.id} {...field} />;
+        })}
       </div>
+
       <Button
         label="Add new product to menu"
         intent="success"

@@ -68,6 +68,20 @@ export type AdminPanelProps = {
   onAddProduct: (newProduct: PanelFormType) => void;
 };
 
+export type FieldConfigParamType = {
+  fieldValues: PanelFormType;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+}
+
+export type FieldConfigType = {
+  id: string;
+  name: string;
+  value: string;
+  placeholder: string;
+  Icon: IconType;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+}
+
 export type FormProductProps = {
   onSubmit: (newProduct: PanelFormType) => void;
 };
