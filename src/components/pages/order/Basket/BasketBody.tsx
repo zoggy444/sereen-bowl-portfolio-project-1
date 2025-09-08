@@ -9,7 +9,12 @@ export default function BasketBody({ products, idsList }: BasketBodyProps) {
         idsList.map((id) => {
           return (
             <div key={id} className="basket-card">
-              {products.filter((p) => p.id === id)[0].title}
+              <div className="image"></div>
+              <div className="title">
+                {products.filter((p) => p.id === id)[0].title}
+              </div>
+              <div className="price">2</div>
+              <div className="number"></div>
             </div>
           );
         })
@@ -35,6 +40,29 @@ const BasketBodyStyled = styled.div`
 
   .basket-card {
     background-color: aqua;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      "image title number"
+      "image price number";
+    .image {
+      border: 1px solid red;
+      grid-area: image;
+    }
+    .title {
+      border: 1px solid red;
+      grid-area: title;
+      font-size: ${theme.fonts.size.P3};
+    }
+    .price {
+      border: 1px solid red;
+      grid-area: price;
+      font-size: ${theme.fonts.size.P0};
+    }
+    .number {
+      border: 1px solid red;
+      grid-area: number;
+    }
   }
 
   h2 {
