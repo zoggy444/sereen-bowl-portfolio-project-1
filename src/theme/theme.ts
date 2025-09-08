@@ -63,9 +63,9 @@ const borderRadius = {
 } as const;
 const shadows = {
   strong: "0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset",
-  medium: "0px -2px 8px -2px rgb(0 0 0 / 20%",
-  soft: "0 -2px 8px -2px rgb(0 0 0 / 10%",
-  card: "-8px 8px 20px 0px rgb(0 0 0 / 20%)",
+  medium: "0px -2px 8px -2px rgba(0, 0, 0, 0.2)",
+  soft: "0 -2px 8px -2px rgba(0, 0, 0, 0.2)",
+  card: "-8px 8px 20px 0px rgba(0, 0, 0, 0.2)",
 } as const;
 
 export const theme = {

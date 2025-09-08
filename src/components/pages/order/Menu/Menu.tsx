@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import MenuCard from "./MenuCard";
 import type { MenuProps } from "../../../../types";
+import { theme } from "../../../../theme/theme";
 
 export default function Menu({ products }: MenuProps) {
   return (
@@ -13,6 +14,7 @@ export default function Menu({ products }: MenuProps) {
 }
 
 const MenuStyled = styled.div`
+  box-shadow: ${theme.shadows.strong};
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(330px, 1fr));
