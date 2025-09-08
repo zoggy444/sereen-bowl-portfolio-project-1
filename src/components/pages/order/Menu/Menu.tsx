@@ -4,6 +4,7 @@ import MenuEmpty from "./MenuEmpty";
 import { useContext } from "react";
 import { ProductsContext } from "../../../../context/OrderMainContext";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
+import { theme } from "../../../../theme/theme";
 
 export default function Menu() {
   const { menuProds, handleProdSelect } = useContext(ProductsContext);
@@ -34,6 +35,7 @@ export default function Menu() {
 
 const MenuStyled = styled.div`
   padding: 50px;
+  box-shadow: ${theme.shadows.strong};
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(330px, 1fr));
