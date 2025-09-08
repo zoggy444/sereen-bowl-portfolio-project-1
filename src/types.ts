@@ -53,6 +53,16 @@ export type TabProps<T> = {
 
 // unique comp types
 
+export type BasketMainProps = {
+  products: ProductType[];
+  idsList: number[];
+};
+
+export type BasketProps = {
+  products: ProductType[];
+  idsList: number[];
+};
+
 export type MenuProps = {
   products: ProductType[];
 };

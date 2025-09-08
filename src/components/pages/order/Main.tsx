@@ -4,14 +4,17 @@ import "../../../index.css";
 import { fakeMenu2 } from "../../../fakeData/fakeMenu";
 import Menu from "./Menu/Menu";
 import Basket from "./Basket/Basket";
+import { useState } from "react";
+import type { ProductType } from "../../../types";
 
 export default function Main() {
-  const products = fakeMenu2;
+  const [menuProds, setMenuProds] = useState<ProductType[]>([...fakeMenu2]);
+  const [selectedIds, setSelectedIds] = useState([1, 2, 3, 4, 2, 1, 4]);
 
   return (
     <MainStyled>
-      <Basket />
-      <Menu products={products} />
+      <Basket products={menuProds} idsList={selectedIds} />
+      <Menu products={menuProds} />
     </MainStyled>
   );
 }
