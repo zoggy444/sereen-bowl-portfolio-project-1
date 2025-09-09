@@ -92,6 +92,16 @@ export type TabProps<T> = {
   onClick: (id: T) => void;
 };
 
+export type TitleAndPriceProps = {
+  id: string;
+  title: string;
+  price: number;
+  isSelected: boolean;
+  className?: string;
+  buttonLabel?: string;
+  onButtonClick?: (id: string) => void;
+};
+
 // unique comp types
 
 export type AdminPanelFormActionType = {
@@ -110,7 +120,17 @@ export type AdminPanelFormType = {
 export type BasketBodyProps = {
   products: ProductType[];
   basketProds: BasketProdType[];
-  onCardClick: (id: number) => void;
+  onCardClick: (id: string) => void;
+};
+
+export type BasketCardProps = {
+  product: ProductType;
+  qty: number;
+  onClick: (id: string) => void;
+};
+
+export type BasketCardRightProps = {
+  qty: number;
 };
 
 export type BasketProps = {

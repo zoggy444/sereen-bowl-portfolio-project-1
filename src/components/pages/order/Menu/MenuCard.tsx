@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import Image from "../../../reusable-ui/Image";
-import ProductDetail from "./ProductDetail";
-import type { MenuCardProps, MenuCardStyledProps } from "../../../../types";
+import TitleAndPrice from "../../../reusable-ui/TitleAndPrice";
+import type {
+  MenuCardProps,
+  MenuCardStyledProps,
+} from "../../../../types";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { useState, useContext, type FormEvent } from "react";
 import { ProductsContext } from "../../../../context/OrderMainContext";
@@ -42,7 +45,14 @@ export default function MenuCard({ prodID, src, title, price, onAdd }: MenuCardP
         alt="product-image"
         className="product-image"
       />
-      <ProductDetail id={prodID} title={title} price={price} isSelected={isSelected} onAdd={onAdd} />
+      <TitleAndPrice
+        id={prodID}
+        title={title}
+        price={price}
+        isSelected={isSelected}
+        buttonLabel="Add"
+        onButtonClick={onAdd}
+      />
     </MenuCardStyled>
   );
 }
