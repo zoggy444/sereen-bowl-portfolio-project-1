@@ -23,6 +23,7 @@ export type ButtonPrimaryProps = {
   label: string;
   className?: string;
   Icon?: IconType;
+  onClick?: () => void;
 };
 
 export type ButtonToggleProps = {
@@ -70,12 +71,15 @@ export type BasketProps = {
 
 export type MenuProps = {
   products: ProductType[];
+  onAdd: (id: number) => void;
 };
 
 export type MenuCardProps = {
+  id: number;
   src: string;
   title: string;
   price: number;
+  onAdd: (id: number) => void;
 } & ComponentPropsWithoutRef<"img">;
 
 export type NavBarProps = {
@@ -94,8 +98,10 @@ export type PanelContentProps = {
 };
 
 export type ProductDetailProps = {
+  id: number;
   title: string;
   price: number;
+  onAdd: (id: number) => void;
 };
 
 export type PanelConfigParamType = {

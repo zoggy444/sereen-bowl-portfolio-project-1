@@ -5,7 +5,7 @@ import { fakeMenu2 } from "../../../fakeData/fakeMenu";
 import Menu from "./Menu/Menu";
 import Basket from "./Basket/Basket";
 import { useState } from "react";
-import type { ProductType } from "../../../types";
+import type { BasketProdType, ProductType } from "../../../types";
 
 const deafaultBasketProds = [
   { id: 1, n: 3 },
@@ -16,10 +16,36 @@ export default function Main() {
   const [menuProds, setMenuProds] = useState<ProductType[]>([...fakeMenu2]);
   const [basketProds, setBasketProds] = useState(deafaultBasketProds);
 
+  const handleBasketAdd = (id: number) => {
+    const newBasket = [...basketProds];
+    const existingIndex = newBasket.findIndex((el) => el.id === id);
+    if (existingIndex !== -1) {
+      // Product already in basket
+      const updatedProd: BasketProdType = newBasket[existingIndex];
+      updatedProd.n++;
+      console.log(newBasket);
+      console.log(
+        newBasket.map((el, index) => {
+          if (index === existingIndex) return updatedProd;
+          return el;
+        })
+      );
+      setBasketProds(
+        newBasket.map((el, index) => {
+          if (index === existingIndex) return updatedProd;
+          return el;
+        })
+      );
+    } else {
+      const newProd = { id: id, n: 1 };
+      setBasketProds([newProd, ...newBasket]);
+    }
+  };
+
   return (
     <MainStyled>
       <Basket products={menuProds} basketProds={basketProds} />
-      <Menu products={menuProds} />
+      <Menu products={menuProds} onAdd={handleBasketAdd} />
     </MainStyled>
   );
 }

@@ -6,9 +6,10 @@ export default function ButtonPrimary({
   label,
   className,
   Icon,
+  onClick,
 }: ButtonPrimaryProps) {
   return (
-    <ButtonPrimaryStyled className={className}>
+    <ButtonPrimaryStyled className={className} onClick={onClick}>
       <span>{label}</span>
       {Icon && <Icon />}
     </ButtonPrimaryStyled>

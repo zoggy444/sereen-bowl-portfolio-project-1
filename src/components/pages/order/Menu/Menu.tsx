@@ -3,11 +3,18 @@ import MenuCard from "./MenuCard";
 import type { MenuProps } from "../../../../types";
 import { theme } from "../../../../theme/theme";
 
-export default function Menu({ products }: MenuProps) {
+export default function Menu({ products, onAdd }: MenuProps) {
   return (
     <MenuStyled>
       {products.map(({ id, title, imageSource, price }) => (
-        <MenuCard key={id} title={title} src={`${imageSource}`} price={price} />
+        <MenuCard
+          key={id}
+          id={id}
+          title={title}
+          src={`${imageSource}`}
+          price={price}
+          onAdd={onAdd}
+        />
       ))}
     </MenuStyled>
   );
