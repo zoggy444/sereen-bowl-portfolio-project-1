@@ -110,11 +110,13 @@ export type AdminPanelFormType = {
 export type BasketBodyProps = {
   products: ProductType[];
   basketProds: BasketProdType[];
+  onCardClick: (id: number) => void;
 };
 
 export type BasketProps = {
   products: ProductType[];
   basketProds: BasketProdType[];
+  onCardClick: (id: number) => void;
 };
 
 export type FieldConfigParamType = {

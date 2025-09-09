@@ -5,11 +5,11 @@ import BasketBody from "./BasketBody";
 import BasketFooter from "./BasketFooter";
 import type { BasketProps } from "../../../../types";
 
-export default function Basket({ products, basketProds }: BasketProps) {
+export default function Basket({ products, basketProds, onCardClick }: BasketProps) {
   return (
     <BasketStyled className="basket amatic-sc-regular">
       <BasketHeader />
-      <BasketBody products={products} basketProds={basketProds} />
+      <BasketBody products={products} basketProds={basketProds} onCardClick={onCardClick} />
       <BasketFooter />
     </BasketStyled>
   );

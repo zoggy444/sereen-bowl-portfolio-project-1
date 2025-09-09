@@ -44,9 +44,18 @@ export default function Main() {
     }
   };
 
+  const handleBasketDel = (id: number) => {
+    const newBasket = [...basketProds];
+    setBasketProds(newBasket.filter((el) => el.id !== id));
+  };
+
   return (
     <MainStyled>
-      <Basket products={menuProds} basketProds={basketProds} />
+      <Basket
+        products={menuProds}
+        basketProds={basketProds}
+        onCardClick={handleBasketDel}
+      />
       <Menu />
       <AdminPanel onAdd={handleBasketAdd} />
     </MainStyled>
