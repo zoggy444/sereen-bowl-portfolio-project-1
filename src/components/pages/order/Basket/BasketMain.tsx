@@ -4,14 +4,22 @@ import type { BasketMainProps } from "../../../../types";
 import Image from "../../../reusable-ui/Image";
 import { formatPrice } from "../../../../utils/maths";
 
-export default function BasketMain({ products, basketProds }: BasketMainProps) {
+export default function BasketMain({
+  products,
+  basketProds,
+  onCardClick,
+}: BasketMainProps) {
   return (
     <BasketMainStyled>
       {basketProds.length > 0 ? (
         basketProds.map((el) => {
           const p = products.filter((p) => p.id === el.id)[0];
           return (
-            <div key={el.id} className="basket-card">
+            <div
+              key={el.id}
+              className="basket-card"
+              onClick={() => onCardClick(el.id)}
+            >
               <ImageReStyled src={p.imageSource} alt="product-image" />
               <div className="detail open-sans-medium">
                 <div className="title-and-price">

@@ -62,11 +62,13 @@ export type TabProps<T> = {
 export type BasketMainProps = {
   products: ProductType[];
   basketProds: BasketProdType[];
+  onCardClick: (id: number) => void;
 };
 
 export type BasketProps = {
   products: ProductType[];
   basketProds: BasketProdType[];
+  onCardClick: (id: number) => void;
 };
 
 export type MenuProps = {
