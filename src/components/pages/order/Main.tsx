@@ -7,13 +7,18 @@ import AdminPanel from "./AdminPanel/AdminPanel";
 import { useContext, useState } from "react";
 import { ProductsContext } from "../../../context/OrderMainContext";
 
+const deafaultBasketProds = [
+  { id: 1, n: 3 },
+  { id: 4, n: 2 },
+];
+
 export default function Main() {
-  const [selectedIds, setSelectedIds] = useState([1, 2, 3, 4, 2, 1, 4]);
   const {menuProds} = useContext(ProductsContext)
+  const [basketProds, setBasketProds] = useState(deafaultBasketProds);
 
   return (
     <MainStyled>
-      <Basket products={menuProds} idsList={selectedIds} />
+      <Basket products={menuProds} basketProds={basketProds} />
       <Menu />
       <AdminPanel />
     </MainStyled>

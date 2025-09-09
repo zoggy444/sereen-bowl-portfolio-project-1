@@ -1,17 +1,17 @@
 import styled from "styled-components";
-import { theme } from "../../../../theme/theme";.tsx
+import { theme } from "../../../../theme/theme";
 import type { BasketBodyProps } from "../../../../types";
 import Image from "../../../reusable-ui/Image";
 import { formatPrice } from "../../../../utils/maths";
 
-export default function BasketBody({ products, idsList }: BasketBodyProps) {
+export default function BasketMain({ products, basketProds }: BasketBodyProps) {
   return (
     <BasketBodyStyled>
-      {idsList.length > 0 ? (
-        idsList.map((id) => {
-          const p = products.filter((p) => p.id === id)[0];
+      {basketProds.length > 0 ? (
+        basketProds.map((el) => {
+          const p = products.filter((p) => p.id === el.id)[0];
           return (
-            <div key={id} className="basket-card">
+            <div key={el.id} className="basket-card">
               <ImageReStyled src={p.imageSource} alt="product-image" />
               <div className="detail open-sans-medium">
                 <div className="title-and-price">
@@ -19,7 +19,7 @@ export default function BasketBody({ products, idsList }: BasketBodyProps) {
                   <div className="price">{formatPrice(p.price)}</div>
                 </div>
 
-                <div className="number">x1</div>
+                <div className="number">x {el.n}</div>
               </div>
             </div>
           );
@@ -53,7 +53,7 @@ const BasketBodyStyled = styled.div`
     padding: ${theme.spacing.xs};
     padding-right: ${theme.spacing.sm};
     padding-left: ${theme.spacing.sm};
-    
+
     display: flex;
     justify-content: space-between;
     align-items: center;

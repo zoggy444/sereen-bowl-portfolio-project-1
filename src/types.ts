@@ -8,6 +8,11 @@ import type { IconType } from "react-icons";
 
 // data types
 
+export type BasketProdType = {
+  id: string;
+  n: number;
+};
+
 export type ButtonVariantType = "primary" | "default";
 
 export type ContentTabIDType = "add-product" | "edit-product";
@@ -104,12 +109,12 @@ export type AdminPanelFormType = {
 
 export type BasketBodyProps = {
   products: ProductType[];
-  idsList: string[];
+  basketProds: BasketProdType[];
 };
 
 export type BasketProps = {
   products: ProductType[];
-  idsList: string[];
+  basketProds: BasketProdType[];
 };
 
 export type FieldConfigParamType = {
