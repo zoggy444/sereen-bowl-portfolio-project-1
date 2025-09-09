@@ -57,7 +57,26 @@ export type TabProps<T> = {
   onClick: (id: T) => void;
 };
 
+export type TitleAndPriceProps = {
+  id: number;
+  title: string;
+  price: number;
+  className?: string;
+  buttonLabel?: string;
+  onButtonClick?: (id: number) => void;
+};
+
 // unique comp types
+
+export type BasketCardProps = {
+  product: ProductType;
+  qty: number;
+  onClick: (id: number) => void;
+};
+
+export type BasketCardRightProps = {
+  qty: number;
+};
 
 export type BasketMainProps = {
   products: ProductType[];
@@ -97,13 +116,6 @@ export type NavRightProps = {
 export type PanelContentProps = {
   isFolded: boolean;
   content: string;
-};
-
-export type ProductDetailProps = {
-  id: number;
-  title: string;
-  price: number;
-  onAdd: (id: number) => void;
 };
 
 export type PanelConfigParamType = {

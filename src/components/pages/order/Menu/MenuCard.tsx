@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import Image from "../../../reusable-ui/Image";
-import ProductDetail from "./ProductDetail";
+import TitleAndPrice from "../../../reusable-ui/TitleAndPrice";
 import type { MenuCardProps } from "../../../../types";
 
 export default function MenuCard({
@@ -14,7 +14,13 @@ export default function MenuCard({
   return (
     <MenuCardStyled>
       <Image src={src} alt="product-image" />
-      <ProductDetail id={id} title={title} price={price} onAdd={onAdd} />
+      <TitleAndPrice
+        id={id}
+        title={title}
+        price={price}
+        buttonLabel="Add"
+        onButtonClick={onAdd}
+      />
     </MenuCardStyled>
   );
 }
