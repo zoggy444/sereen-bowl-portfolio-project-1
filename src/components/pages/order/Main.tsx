@@ -7,13 +7,18 @@ import Basket from "./Basket/Basket";
 import { useState } from "react";
 import type { ProductType } from "../../../types";
 
+const deafaultBasketProds = [
+  { id: 1, n: 3 },
+  { id: 4, n: 2 },
+];
+
 export default function Main() {
   const [menuProds, setMenuProds] = useState<ProductType[]>([...fakeMenu2]);
-  const [selectedIds, setSelectedIds] = useState([1, 2, 3, 4, 2, 1, 4]);
+  const [basketProds, setBasketProds] = useState(deafaultBasketProds);
 
   return (
     <MainStyled>
-      <Basket products={menuProds} idsList={selectedIds} />
+      <Basket products={menuProds} basketProds={basketProds} />
       <Menu products={menuProds} />
     </MainStyled>
   );

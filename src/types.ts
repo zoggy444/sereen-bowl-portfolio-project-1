@@ -4,6 +4,11 @@ import { fakeMenu1 } from "./fakeData/fakeMenu";
 
 // data types
 
+export type BasketProdType = {
+  id: number;
+  n: number;
+};
+
 export type ProductType = (typeof fakeMenu1)[0];
 
 export type FoldTabIDType = "fold";
@@ -55,12 +60,12 @@ export type TabProps<T> = {
 
 export type BasketMainProps = {
   products: ProductType[];
-  idsList: number[];
+  basketProds: BasketProdType[];
 };
 
 export type BasketProps = {
   products: ProductType[];
-  idsList: number[];
+  basketProds: BasketProdType[];
 };
 
 export type MenuProps = {
