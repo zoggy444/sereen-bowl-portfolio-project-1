@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import type { ImageType } from "../../types";
 
-export default function Image({ src, alt }: ImageType) {
+export default function Image({ src, alt, ...otherProps }: ImageType) {
   return (
-    <ImageStyled>
+    <ImageStyled className={otherProps.className}>
       <img src={src} alt={alt} />
     </ImageStyled>
   );
