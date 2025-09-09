@@ -6,7 +6,7 @@ import { ProductsContext } from "../../../../context/OrderMainContext";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { theme } from "../../../../theme/theme";
 
-export default function Menu() {
+export default function Menu({ onAdd }: MenuProps) {
   const { menuProds, handleProdSelect } = useContext(ProductsContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
 
@@ -24,6 +24,7 @@ export default function Menu() {
             title={title}
             src={`${imageSource}`}
             price={price}
+            onAdd={onAdd}
           />
         ))
       ) : (

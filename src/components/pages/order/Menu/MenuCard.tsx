@@ -8,7 +8,7 @@ import { useState, useContext, type FormEvent } from "react";
 import { ProductsContext } from "../../../../context/OrderMainContext";
 import MenuCardDelete from "./MenuCardDelete";
 
-export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
+export default function MenuCard({ prodID, src, title, price, onAdd }: MenuCardProps) {
   const { prodSelectedID, handleProdSelect } = useContext(ProductsContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
   const [isHovered, setIsHovered] = useState(false);
@@ -42,7 +42,7 @@ export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
         alt="product-image"
         className="product-image"
       />
-      <ProductDetail title={title} price={price} isSelected={isSelected} />
+      <ProductDetail id={prodID} title={title} price={price} isSelected={isSelected} onAdd={onAdd} />
     </MenuCardStyled>
   );
 }

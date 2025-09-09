@@ -10,14 +10,17 @@ import { formatPrice } from "../../../../utils/maths";
 import type { FormEvent } from "react";
 
 export default function ProductDetail({
+  id,
   title,
   price,
   isSelected,
+  onAdd,
 }: ProductDetailProps) {
   const buttonVariant: ButtonVariantType = isSelected ? "default" : "primary";
 
-  const handleClick = (e?: FormEvent) => {
+  const onAddClick = (e?: FormEvent) => {
     e?.stopPropagation();
+    onAdd(id);
   };
 
   return (
@@ -29,7 +32,7 @@ export default function ProductDetail({
           label="Ajouter"
           className="button-buy"
           variant={buttonVariant}
-          onClick={handleClick}
+          onClick={onAddClick}
         />
       </div>
     </ProductDetailStyled>

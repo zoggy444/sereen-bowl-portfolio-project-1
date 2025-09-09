@@ -148,6 +148,7 @@ export type MenuCardProps = {
   src: string;
   title: string;
   price: number;
+  onAdd: (id: string) => void;
 } & ComponentPropsWithoutRef<"img">;
 
 export type MenuCardDeleteProps = {
@@ -174,6 +175,11 @@ export type NavRightProps = {
   labelIfUnchecked: string;
 };
 
+export type PanelContentProps = {
+  isFolded: boolean;
+  content: string;
+};
+
 export type PanelConfigParamType = {
   selectedTabID: ContentTabIDType;
   addInputs: PanelFormType;
@@ -191,9 +197,11 @@ export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {
 };
 
 export type ProductDetailProps = {
+  id: number;
   title: string;
   price: number;
   isSelected: boolean;
+  onAdd: (id: number) => void;
 };
 
 export type ProductDetailStyledProps = {
