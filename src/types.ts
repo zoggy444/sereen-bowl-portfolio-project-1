@@ -1,4 +1,8 @@
-import type { ChangeEventHandler, ComponentPropsWithoutRef } from "react";
+import type {
+  ChangeEventHandler,
+  ComponentPropsWithoutRef,
+  MouseEventHandler,
+} from "react";
 import type { IconType } from "react-icons";
 import { fakeMenu1 } from "./fakeData/fakeMenu";
 
@@ -76,6 +80,8 @@ export type BasketCardProps = {
 
 export type BasketCardRightProps = {
   qty: number;
+  isHovered: boolean;
+  onDelClick: MouseEventHandler<HTMLButtonElement>;
 };
 
 export type BasketMainProps = {
