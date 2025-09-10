@@ -10,9 +10,18 @@ export default function Basket({
   basketProds,
   onCardClick,
 }: BasketProps) {
+  let amountTotal = 0.0;
+  for (let i = 0; i < basketProds.length; i++) {
+    const prod = products.find((p) => p.id === basketProds[i].id);
+    // Mak sure prod price is already rounded to 2 decimal before adding to amount
+    if (prod !== undefined)
+      amountTotal +=
+        (Math.round((prod.price + Number.EPSILON) * 100) / 100) *
+        basketProds[i].n;
+  }
   return (
-    <BasketStyled className="basket">
-      <BasketHeader />
+    <BasketStyled>
+      <BasketHeader amount={amountTotal} />
       <BasketBody
         products={products}
         basketProds={basketProds}

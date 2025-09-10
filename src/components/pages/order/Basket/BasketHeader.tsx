@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
+import { formatPrice } from "../../../../utils/maths";
+import type { BasketHeaderProps } from "../../../../types";
 
-export default function BasketHeader() {
+export default function BasketHeader({ amount }: BasketHeaderProps) {
   return (
     <BasketHeaderStyled className="amatic-sc-regular">
       <div className="label">Total</div>
-      <div className="amount">0.00 €</div>
+      <div className="amount">{formatPrice(amount)}</div>
     </BasketHeaderStyled>
   );
 }
