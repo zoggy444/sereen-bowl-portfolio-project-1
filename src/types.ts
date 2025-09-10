@@ -3,6 +3,7 @@ import type {
   ComponentPropsWithoutRef,
   FC,
   FormEvent,
+  MouseEventHandler,
 } from "react";
 import type { IconType } from "react-icons";
 
@@ -131,6 +132,8 @@ export type BasketCardProps = {
 
 export type BasketCardRightProps = {
   qty: number;
+  isHovered: boolean;
+  onDelClick: MouseEventHandler<HTMLButtonElement>;
 };
 
 export type BasketProps = {
