@@ -84,6 +84,10 @@ export type BasketCardRightProps = {
   onDelClick: MouseEventHandler<HTMLButtonElement>;
 };
 
+export type BasketHeaderProps = {
+  amount: number;
+};
+
 export type BasketMainProps = {
   products: ProductType[];
   basketProds: BasketProdType[];
