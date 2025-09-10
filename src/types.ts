@@ -136,7 +136,7 @@ export type BasketCardRightProps = {
 export type BasketProps = {
   products: ProductType[];
   basketProds: BasketProdType[];
-  onCardClick: (id: number) => void;
+  onCardClick: (id: string) => void;
 };
 
 export type FieldConfigParamType = {

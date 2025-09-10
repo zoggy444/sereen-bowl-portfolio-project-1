@@ -3,7 +3,7 @@ import { theme } from "../../../../theme/theme";
 
 export default function BasketHeader() {
   return (
-    <BasketHeaderStyled>
+    <BasketHeaderStyled className="amatic-sc-regular">
       <div className="label">Total</div>
       <div className="amount">0.00 €</div>
     </BasketHeaderStyled>

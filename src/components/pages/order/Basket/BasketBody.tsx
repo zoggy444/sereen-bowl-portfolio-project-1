@@ -23,7 +23,9 @@ export default function BasketBody({
           );
         })
       ) : (
-        <div className="basket-empty">Your basket is empty</div>
+        <div className="basket-empty amatic-sc-regular">
+          Your basket is empty
+        </div>
       )}
     </BasketBodyStyled>
   );
