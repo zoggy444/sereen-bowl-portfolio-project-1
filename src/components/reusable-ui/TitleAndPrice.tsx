@@ -34,6 +34,8 @@ export default function TitleAndPrice({
 }
 
 const TitleAndPriceStyled = styled.div`
+  overflow: hidden;
+
   .product-title {
     color: ${theme.colors.dark};
     font-size: ${theme.fonts.size.P4};

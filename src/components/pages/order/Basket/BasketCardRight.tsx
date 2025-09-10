@@ -9,4 +9,8 @@ export default function BasketCardRight({ qty }: BasketCardRightProps) {
 const BasketCardRightStyled = styled.div`
   color: ${theme.colors.primary};
   font-size: ${theme.fonts.size.P0};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

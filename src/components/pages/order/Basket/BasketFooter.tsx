@@ -4,7 +4,7 @@ import { BsFillSuitHeartFill } from "react-icons/bs";
 
 export default function BasketFooter() {
   return (
-    <BasketFooterStyled>
+    <BasketFooterStyled className="amatic-sc-regular">
       Coded with &nbsp;
       <BsFillSuitHeartFill />
       &nbsp; and React.js
