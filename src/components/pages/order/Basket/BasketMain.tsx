@@ -2,25 +2,17 @@ import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import type { BasketMainProps } from "../../../../types";
 import BasketCard from "./BasketCard";
+import { useContext } from "react";
+import { BasketProdsContext } from "../../../../context/BasketContext";
 
-export default function BasketMain({
-  products,
-  basketProds,
-  onCardClick,
-}: BasketMainProps) {
+export default function BasketMain({ products }: BasketMainProps) {
+  const basketProds = useContext(BasketProdsContext);
   return (
     <BasketMainStyled>
       {basketProds.length > 0 ? (
         basketProds.map((el) => {
           const p = products.filter((p) => p.id === el.id)[0];
-          return (
-            <BasketCard
-              key={el.id}
-              product={p}
-              qty={el.n}
-              onClick={() => onCardClick(el.id)}
-            />
-          );
+          return <BasketCard key={el.id} product={p} qty={el.qty} />;
         })
       ) : (
         <div className="basket-empty amatic-sc-regular">

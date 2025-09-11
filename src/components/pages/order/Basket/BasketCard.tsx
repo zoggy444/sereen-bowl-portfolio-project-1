@@ -4,13 +4,15 @@ import Image from "../../../reusable-ui/Image";
 import BasketCardRight from "./BasketCardRight";
 import TitleAndPrice from "../../../reusable-ui/TitleAndPrice";
 import type { BasketCardProps } from "../../../../types";
-import { useState, type MouseEventHandler } from "react";
+import { useContext, useState, type MouseEventHandler } from "react";
+import { BasketDispatchContext } from "../../../../context/BasketContext";
 
-export default function BasketCard({ product, qty, onClick }: BasketCardProps) {
+export default function BasketCard({ product, qty }: BasketCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const basketDispatch = useContext(BasketDispatchContext);
 
   const onDelClick: MouseEventHandler<HTMLButtonElement> = () => {
-    return onClick(product.id);
+    basketDispatch({ type: "delete-product", id: product.id });
   };
 
   const onMouseOver: MouseEventHandler<HTMLDivElement> = () => {

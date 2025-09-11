@@ -10,7 +10,12 @@ import { fakeMenu1 } from "./fakeData/fakeMenu";
 
 export type BasketProdType = {
   id: number;
-  n: number;
+  qty: number;
+};
+
+export type BasketActionType = {
+  type: "add-product" | "delete-product" | "";
+  id: number;
 };
 
 export type ProductType = (typeof fakeMenu1)[0];
@@ -75,7 +80,6 @@ export type TitleAndPriceProps = {
 export type BasketCardProps = {
   product: ProductType;
   qty: number;
-  onClick: (id: number) => void;
 };
 
 export type BasketCardRightProps = {
@@ -90,19 +94,14 @@ export type BasketHeaderProps = {
 
 export type BasketMainProps = {
   products: ProductType[];
-  basketProds: BasketProdType[];
-  onCardClick: (id: number) => void;
 };
 
 export type BasketProps = {
   products: ProductType[];
-  basketProds: BasketProdType[];
-  onCardClick: (id: number) => void;
 };
 
 export type MenuProps = {
   products: ProductType[];
-  onAdd: (id: number) => void;
 };
 
 export type MenuCardProps = {
@@ -110,7 +109,6 @@ export type MenuCardProps = {
   src: string;
   title: string;
   price: number;
-  onAdd: (id: number) => void;
 } & ComponentPropsWithoutRef<"img">;
 
 export type NavBarProps = {

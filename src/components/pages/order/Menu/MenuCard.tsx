@@ -3,14 +3,16 @@ import { theme } from "../../../../theme/theme";
 import Image from "../../../reusable-ui/Image";
 import TitleAndPrice from "../../../reusable-ui/TitleAndPrice";
 import type { MenuCardProps } from "../../../../types";
+import { useContext } from "react";
+import { BasketDispatchContext } from "../../../../context/BasketContext";
 
-export default function MenuCard({
-  id,
-  src,
-  title,
-  price,
-  onAdd,
-}: MenuCardProps) {
+export default function MenuCard({ id, src, title, price }: MenuCardProps) {
+  const basketDispatch = useContext(BasketDispatchContext);
+
+  const basketAdd = () => {
+    basketDispatch({ type: "add-product", id: id });
+  };
+
   return (
     <MenuCardStyled>
       <Image src={src} alt="product-image" />
@@ -19,7 +21,7 @@ export default function MenuCard({
         title={title}
         price={price}
         buttonLabel="Add"
-        onButtonClick={onAdd}
+        onButtonClick={basketAdd}
       />
     </MenuCardStyled>
   );

@@ -4,12 +4,11 @@ import BasketHeader from "./BasketHeader";
 import BasketMain from "./BasketMain";
 import BasketFooter from "./BasketFooter";
 import type { BasketProps } from "../../../../types";
+import { BasketProdsContext } from "../../../../context/BasketContext";
+import { useContext } from "react";
 
-export default function Basket({
-  products,
-  basketProds,
-  onCardClick,
-}: BasketProps) {
+export default function Basket({ products }: BasketProps) {
+  const basketProds = useContext(BasketProdsContext);
   let amountTotal = 0.0;
   for (let i = 0; i < basketProds.length; i++) {
     const prod = products.find((p) => p.id === basketProds[i].id);
@@ -17,16 +16,12 @@ export default function Basket({
     if (prod !== undefined)
       amountTotal +=
         (Math.round((prod.price + Number.EPSILON) * 100) / 100) *
-        basketProds[i].n;
+        basketProds[i].qty;
   }
   return (
     <BasketStyled>
       <BasketHeader amount={amountTotal} />
-      <BasketMain
-        products={products}
-        basketProds={basketProds}
-        onCardClick={onCardClick}
-      />
+      <BasketMain products={products} />
       <BasketFooter />
     </BasketStyled>
   );
