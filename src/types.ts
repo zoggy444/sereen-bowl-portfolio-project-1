@@ -11,7 +11,12 @@ import type { IconType } from "react-icons";
 
 export type BasketProdType = {
   id: string;
-  n: number;
+  qty: number;
+};
+
+export type BasketActionType = {
+  type: "add-product" | "delete-product" | "";
+  id: string;
 };
 
 export type ButtonVariantType = "primary" | "default";
@@ -120,14 +125,11 @@ export type AdminPanelFormType = {
 
 export type BasketBodyProps = {
   products: ProductType[];
-  basketProds: BasketProdType[];
-  onCardClick: (id: string) => void;
 };
 
 export type BasketCardProps = {
   product: ProductType;
   qty: number;
-  onClick: (id: string) => void;
 };
 
 export type BasketCardRightProps = {
@@ -142,8 +144,6 @@ export type BasketHeaderProps = {
 
 export type BasketProps = {
   products: ProductType[];
-  basketProds: BasketProdType[];
-  onCardClick: (id: string) => void;
 };
 
 export type FieldConfigParamType = {
@@ -177,7 +177,6 @@ export type MenuCardProps = {
   src: string;
   title: string;
   price: number;
-  onAdd: (id: string) => void;
 } & ComponentPropsWithoutRef<"img">;
 
 export type MenuCardDeleteProps = {

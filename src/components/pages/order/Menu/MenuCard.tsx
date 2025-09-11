@@ -2,19 +2,18 @@ import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import Image from "../../../reusable-ui/Image";
 import TitleAndPrice from "../../../reusable-ui/TitleAndPrice";
-import type {
-  MenuCardProps,
-  MenuCardStyledProps,
-} from "../../../../types";
+import type { MenuCardProps, MenuCardStyledProps } from "../../../../types";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { useState, useContext, type FormEvent } from "react";
-import { ProductsContext } from "../../../../context/OrderMainContext";
 import MenuCardDelete from "./MenuCardDelete";
+import { ProductsContext } from "../../../../context/OrderMainContext";
+import { BasketDispatchContext } from "../../../../context/BasketContext";
 
-export default function MenuCard({ prodID, src, title, price, onAdd }: MenuCardProps) {
+export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
   const { prodSelectedID, handleProdSelect } = useContext(ProductsContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
   const [isHovered, setIsHovered] = useState(false);
+  const basketDispatch = useContext(BasketDispatchContext);
 
   const isSelected = prodSelectedID === prodID && isAdminMode;
 
@@ -29,6 +28,10 @@ export default function MenuCard({ prodID, src, title, price, onAdd }: MenuCardP
   const handleClick = (e: FormEvent) => {
     e.stopPropagation();
     return isAdminMode && handleProdSelect(prodID);
+  };
+
+  const basketAdd = () => {
+    basketDispatch({ type: "add-product", id: prodID });
   };
 
   return (
@@ -51,7 +54,7 @@ export default function MenuCard({ prodID, src, title, price, onAdd }: MenuCardP
         price={price}
         isSelected={isSelected}
         buttonLabel="Add"
-        onButtonClick={onAdd}
+        onButtonClick={basketAdd}
       />
     </MenuCardStyled>
   );
