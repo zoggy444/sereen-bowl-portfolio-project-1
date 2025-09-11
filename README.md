@@ -1,1 +1,0 @@
-# Sereen Bowl restaurant front-end
