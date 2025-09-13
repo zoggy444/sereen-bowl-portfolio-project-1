@@ -1,13 +1,28 @@
 import styled from "styled-components";
 import MenuCard from "./MenuCard";
-import type { MenuProps } from "../../../../types";
+import { useContext } from "react";
+import { MenuProdsContext } from "../../../../context/MenuContext";
+import MenuEmpty from "./MenuEmpty";
+import type { ProductType } from "../../../../types";
 
-export default function Menu({ products, onDeleteCard }: MenuProps) {
+export default function Menu() {
+  const products: ProductType[] = useContext(MenuProdsContext);
+
   return (
     <MenuStyled>
-      {products.map(({ id, title, imageSource, price }) => (
-        <MenuCard key={id} id={id} title={title} src={`${imageSource}`} price={price} onDelete={onDeleteCard}/>
-      ))}
+      {products.length > 0 ? (
+        products.map(({ id, title, imageSource, price }) => (
+          <MenuCard
+            key={id}
+            prodID={id}
+            title={title}
+            src={`${imageSource}`}
+            price={price}
+          />
+        ))
+      ) : (
+        <MenuEmpty />
+      )}
     </MenuStyled>
   );
 }

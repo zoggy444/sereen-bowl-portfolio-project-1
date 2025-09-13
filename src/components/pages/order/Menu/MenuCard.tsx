@@ -2,23 +2,20 @@ import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import Image from "../../../reusable-ui/Image";
 import ProductDetail from "./ProductDetail";
-import type { MenuCardProps } from "../../../../types";
+import type { MenuActionType, MenuCardProps } from "../../../../types";
 import { TiDelete } from "react-icons/ti";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { useContext, type MouseEvent } from "react";
+import { MenuDispatchContext } from "../../../../context/MenuContext";
 
-export default function MenuCard({
-  id,
-  src,
-  title,
-  price,
-  onDelete,
-}: MenuCardProps) {
+export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
+  const menuDispatch = useContext(MenuDispatchContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
 
-  const onDeleteClick = (e:MouseEvent<SVGElement>) => {
+  const onDeleteClick = (e: MouseEvent<SVGElement>) => {
     e.preventDefault();
-    onDelete(id);
+    const action: MenuActionType = { type: "delete-product", deleteID: prodID };
+    menuDispatch(action);
   };
 
   return (
