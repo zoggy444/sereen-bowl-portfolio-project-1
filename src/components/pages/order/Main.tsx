@@ -1,55 +1,18 @@
 import styled from "styled-components";
 import { theme } from "../../../theme/theme";
 import "../../../index.css";
-import { fakeMenu } from "../../../fakeData/fakeMenu";
 import Menu from "./Menu/Menu";
 import AdminPanel from "./AdminPanel/AdminPanel";
-import { useState } from "react";
-import type { PanelFormType, ProductType } from "../../../types";
-import MenuEmpty from "./Menu/MenuEmpty";
+import { MenuProvider } from "./MenuProvider";
 
 export default function Main() {
-  const [products, setProducts] = useState(fakeMenu["SMALL"]);
-
-  const nextId = products.length + 1;
-
-  const handleAddProduct = (newVals: PanelFormType) => {
-    if (!newVals.imageSource) newVals.imageSource = "/images/coming-soon.png";
-    let priceNumber = parseFloat(newVals.price.replace(",", "."));
-    if (isNaN(priceNumber)) priceNumber = 0;
-
-    const newProduct: ProductType = {
-      id: nextId,
-      title: newVals.title,
-      imageSource: newVals.imageSource,
-      price: priceNumber,
-      quantity: 0,
-      isAvailable: true,
-      isAdvertised: false,
-    };
-    setProducts([newProduct, ...products]);
-  };
-
-  const handleDeleteProduct = (idToDelete: number) => {
-    const updatedProducts = products.filter(
-      (product) => product.id !== idToDelete
-    );
-    setProducts(updatedProducts);
-  };
-
-  const handleRegenMenu = () => {
-    setProducts(fakeMenu["SMALL"]);
-  };
-
   return (
     <MainStyled>
-      {/* <div className="basket"/> */}
-      {products.length > 0 ? (
-        <Menu products={products} onDeleteCard={handleDeleteProduct} />
-      ) : (
-        <MenuEmpty onRegenMenuClick={handleRegenMenu} />
-      )}
-      <AdminPanel onAddProduct={handleAddProduct} />
+      <MenuProvider>
+        {/* <div className="basket"/> */}
+        <Menu />
+        <AdminPanel />
+      </MenuProvider>
     </MainStyled>
   );
 }

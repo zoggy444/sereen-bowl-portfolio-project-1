@@ -64,14 +64,10 @@ export type TabProps<T> = {
 
 // unique comp types
 
-export type AdminPanelProps = {
-  onAddProduct: (newProduct: PanelFormType) => void;
-};
-
 export type FieldConfigParamType = {
   fieldValues: PanelFormType;
   onChange: ChangeEventHandler<HTMLInputElement>;
-}
+};
 
 export type FieldConfigType = {
   id: string;
@@ -80,28 +76,21 @@ export type FieldConfigType = {
   placeholder: string;
   Icon: IconType;
   onChange: ChangeEventHandler<HTMLInputElement>;
-}
-
-export type FormProductProps = {
-  onSubmit: (newProduct: PanelFormType) => void;
 };
 
-export type MenuProps = {
-  products: ProductType[];
-  onDeleteCard: (idToDelete: number) => void;
+export type MenuActionType = {
+  type: "add-product" | "delete-product" | "regen-menu" | "";
+  prodAdd?: PanelFormType;
+  deleteID?: number;
 };
 
 export type MenuCardProps = {
-  id: number;
+  // "id" would conflict with img id prop
+  prodID: number;
   src: string;
   title: string;
   price: number;
-  onDelete: (idToDelete: number) => void;
 } & ComponentPropsWithoutRef<"img">;
-
-export type MenuEmptyProps = {
-  onRegenMenuClick: () => void;
-};
 
 export type NavBarProps = {
   labelIfChecked: string;
@@ -128,7 +117,6 @@ export type PanelConfigType = {
 export type PanelContentProps = {
   isFolded: boolean;
   content: string;
-  onAddProduct: (newProduct: PanelFormType) => void;
 };
 
 export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {

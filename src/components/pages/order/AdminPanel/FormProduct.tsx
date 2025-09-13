@@ -1,12 +1,22 @@
 import styled from "styled-components";
 import Image from "../../../reusable-ui/Image";
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
-import type { FormProductProps, PanelFormType } from "../../../../types";
+import {
+  useContext,
+  useEffect,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
+import type {
+  MenuActionType,
+  PanelFormType,
+} from "../../../../types";
 import InputText from "../../../reusable-ui/InputText";
 import { theme } from "../../../../theme/theme";
 import Button from "../../../reusable-ui/Button";
 import { FiCheckCircle } from "react-icons/fi";
 import getFieldConfig from "./getFieldConfig";
+import { MenuDispatchContext } from "../../../../context/MenuContext";
 
 const defaultFormInputs: PanelFormType = {
   title: "",
@@ -14,7 +24,8 @@ const defaultFormInputs: PanelFormType = {
   price: "",
 };
 
-export default function FormProduct({ onSubmit }: FormProductProps) {
+export default function FormProduct() {
+  const menuDispatch = useContext(MenuDispatchContext);
   const [formInputs, setFormInputs] = useState({ ...defaultFormInputs });
   const [addedMsg, setaddedMsg] = useState(false);
 
@@ -41,7 +52,8 @@ export default function FormProduct({ onSubmit }: FormProductProps) {
     e.preventDefault();
     setFormInputs({ ...defaultFormInputs });
     setaddedMsg(true);
-    onSubmit(formInputs);
+    const action: MenuActionType = { type: "add-product", prodAdd: formInputs };
+    menuDispatch(action);
   };
 
   const fieldConfig = getFieldConfig({
