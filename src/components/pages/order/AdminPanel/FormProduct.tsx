@@ -7,10 +7,7 @@ import {
   type ChangeEvent,
   type FormEvent,
 } from "react";
-import type {
-  MenuActionType,
-  PanelFormType,
-} from "../../../../types";
+import type { MenuActionType, PanelFormType } from "../../../../types";
 import InputText from "../../../reusable-ui/InputText";
 import { theme } from "../../../../theme/theme";
 import Button from "../../../reusable-ui/Button";
@@ -29,13 +26,6 @@ export default function FormProduct() {
   const [formInputs, setFormInputs] = useState({ ...defaultFormInputs });
   const [addedMsg, setaddedMsg] = useState(false);
 
-  useEffect(() => {
-    if (addedMsg)
-      setTimeout(() => {
-        setaddedMsg(false);
-      }, 2000);
-  }, [addedMsg]);
-
   const imageProps = {
     src: formInputs.imageSource,
     alt: "product-image",
@@ -52,6 +42,9 @@ export default function FormProduct() {
     e.preventDefault();
     setFormInputs({ ...defaultFormInputs });
     setaddedMsg(true);
+    setTimeout(() => {
+      setaddedMsg(false);
+    }, 2000);
     const action: MenuActionType = { type: "add-product", prodAdd: formInputs };
     menuDispatch(action);
   };
