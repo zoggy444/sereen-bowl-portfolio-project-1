@@ -71,7 +71,7 @@ export default function FormProduct() {
 
       <div className="fields">
         {fieldConfig.map((field) => {
-          return <InputTextReStyled key={field.id} {...field} />;
+          return <InputText key={field.id} {...field} />;
         })}
       </div>
 
@@ -126,17 +126,4 @@ const FormProductStyled = styled.form`
       padding-left: ${theme.spacing.xs};
     }
   }
-`;
-
-const InputTextReStyled = styled(InputText)`
-  &&& {
-    padding: 0px;
-    padding-left: ${theme.spacing.lg};
-    margin-bottom: 0px;
-    background-color: ${theme.colors.background_white};
-    input {
-      background-color: ${theme.colors.greyExtraLight};
-    }
-  }
-  background-color: brown;
 `;

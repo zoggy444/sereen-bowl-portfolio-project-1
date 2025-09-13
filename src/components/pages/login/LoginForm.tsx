@@ -37,6 +37,7 @@ export default function LoginForm() {
         placeholder="Enter your name"
         onChange={handleChange}
       />
+      <span></span>
       <Button label="Get to my space" Icon={MdKeyboardArrowRight} />
     </LoginFormStyled>
   );
@@ -68,5 +69,9 @@ const LoginFormStyled = styled.form`
     border-right: none;
     border-left: none;
     width: 100%;
+  }
+
+  span {
+    margin-bottom: ${theme.spacing.md};
   }
 `;

@@ -6,6 +6,7 @@ import type { FieldConfigParamType, FieldConfigType } from "../../../../types";
 export default ({ fieldValues, onChange }: FieldConfigParamType) =>
   [
     {
+      variant: "minimalist",
       id: "title",
       name: "title",
       value: fieldValues.title,
@@ -14,6 +15,7 @@ export default ({ fieldValues, onChange }: FieldConfigParamType) =>
       onChange: onChange,
     },
     {
+      variant: "minimalist",
       id: "imageSource",
       name: "imageSource",
       value: fieldValues.imageSource,
@@ -22,6 +24,7 @@ export default ({ fieldValues, onChange }: FieldConfigParamType) =>
       onChange: onChange,
     },
     {
+      variant: "minimalist",
       id: "price",
       name: "price",
       value: fieldValues.price,

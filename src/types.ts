@@ -41,11 +41,16 @@ export type ButtonToggleProps = {
 export type ImageType = ComponentPropsWithoutRef<"img">;
 
 export type InputTextProps = {
+  variant?: "normal" | "minimalist";
   Icon: IconType;
   value: string;
   placeholder: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 } & ComponentPropsWithoutRef<"input">;
+
+export type InputTextStyledProps = {
+  variant: "normal" | "minimalist";
+};
 
 export type LogoTitleProps = {
   size: "lg" | "md";
@@ -70,6 +75,7 @@ export type FieldConfigParamType = {
 };
 
 export type FieldConfigType = {
+  variant?: "normal" | "minimalist";
   id: string;
   name: string;
   value: string;

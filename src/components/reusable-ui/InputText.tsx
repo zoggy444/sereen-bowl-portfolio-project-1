@@ -1,17 +1,18 @@
-import type { InputTextProps } from "../../types";
-import styled from "styled-components";
+import type { InputTextProps, InputTextStyledProps } from "../../types";
+import styled, { css } from "styled-components";
 import { theme } from "../../theme/theme";
 
 export default function InputText({
   Icon,
   value,
+  variant = "normal",
   onChange,
   ...otherProps
 }: InputTextProps) {
   const className = otherProps.className ?? "";
   otherProps = { ...otherProps, className: "" };
   return (
-    <InputTextStyled className={className}>
+    <InputTextStyled variant={variant} className={className}>
       <Icon className="input-icon" />
       <input
         value={value}
@@ -23,11 +24,9 @@ export default function InputText({
   );
 }
 
-const InputTextStyled = styled.div`
-  padding: ${theme.spacing.md};
-  margin-bottom: ${theme.spacing.md};
+const InputTextStyled = styled.div<InputTextStyledProps>`
+  ${({ variant }) => extraStyle[variant].base}
   border-radius: ${theme.borderRadius.round};
-  background-color: ${theme.colors.white};
 
   display: flex;
   align-items: center;
@@ -39,6 +38,7 @@ const InputTextStyled = styled.div`
   }
 
   input {
+    ${({ variant }) => extraStyle[variant].input}
     border: none;
     font-size: ${theme.fonts.size.P0};
     width: 100%;
@@ -48,3 +48,27 @@ const InputTextStyled = styled.div`
     }
   }
 `;
+
+const minimalist = {
+  base: css`
+    padding: 0px;
+    padding-left: ${theme.spacing.lg};
+    background-color: ${theme.colors.greyExtraLight};
+  `,
+  input: css`
+    background-color: ${theme.colors.greyExtraLight};
+  `,
+};
+
+const normal = {
+  base: css`
+    padding: ${theme.spacing.md};
+    background-color: ${theme.colors.white};
+  `,
+  input: css``,
+};
+
+const extraStyle = {
+  normal,
+  minimalist,
+};
