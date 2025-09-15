@@ -84,6 +84,12 @@ export type FieldConfigType = {
   onChange: ChangeEventHandler<HTMLInputElement>;
 };
 
+export type FormProductProps = {
+  formInputs: PanelFormType;
+  handleInputChange: (name: string, value: string) => void;
+  handleInputReset: () => void;
+};
+
 export type MenuActionType = {
   type: "add-product" | "delete-product" | "regen-menu" | "";
   prodAdd?: PanelFormType;
@@ -123,6 +129,9 @@ export type PanelConfigType = {
 export type PanelContentProps = {
   isFolded: boolean;
   content: string;
+  formInputs: PanelFormType;
+  handleInputChange: (name: string, value: string) => void;
+  handleInputReset: () => void;
 };
 
 export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {

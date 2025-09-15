@@ -1,13 +1,7 @@
 import styled from "styled-components";
 import Image from "../../../reusable-ui/Image";
-import {
-  useContext,
-  useEffect,
-  useState,
-  type ChangeEvent,
-  type FormEvent,
-} from "react";
-import type { MenuActionType, PanelFormType } from "../../../../types";
+import { useContext, useState, type ChangeEvent, type FormEvent } from "react";
+import type { FormProductProps, MenuActionType } from "../../../../types";
 import InputText from "../../../reusable-ui/InputText";
 import { theme } from "../../../../theme/theme";
 import Button from "../../../reusable-ui/Button";
@@ -15,15 +9,12 @@ import { FiCheckCircle } from "react-icons/fi";
 import getFieldConfig from "./getFieldConfig";
 import { MenuDispatchContext } from "../../../../context/MenuContext";
 
-const defaultFormInputs: PanelFormType = {
-  title: "",
-  imageSource: "",
-  price: "",
-};
-
-export default function FormProduct() {
+export default function FormProduct({
+  formInputs,
+  handleInputChange,
+  handleInputReset,
+}: FormProductProps) {
   const menuDispatch = useContext(MenuDispatchContext);
-  const [formInputs, setFormInputs] = useState({ ...defaultFormInputs });
   const [addedMsg, setaddedMsg] = useState(false);
 
   const imageProps = {
@@ -33,14 +24,13 @@ export default function FormProduct() {
   };
 
   const onInputChange = (e: ChangeEvent) => {
-    const inputName = (e.target as HTMLInputElement).name;
-    const inputValue = (e.target as HTMLInputElement).value;
-    setFormInputs({ ...formInputs, [inputName]: inputValue });
+    const { name, value } = e.target as HTMLInputElement;
+    handleInputChange(name, value);
   };
 
   const onFormSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setFormInputs({ ...defaultFormInputs });
+    handleInputReset();
     setaddedMsg(true);
     setTimeout(() => {
       setaddedMsg(false);

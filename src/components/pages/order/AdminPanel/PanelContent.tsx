@@ -3,12 +3,22 @@ import { theme } from "../../../../theme/theme";
 import type { PanelContentProps } from "../../../../types";
 import FormProduct from "./FormProduct";
 
-export default function PanelContent({ isFolded, content }: PanelContentProps) {
+export default function PanelContent({
+  isFolded,
+  content,
+  formInputs,
+  handleInputChange,
+  handleInputReset,
+}: PanelContentProps) {
   if (!isFolded) {
     if (content === "Add a product") {
       return (
         <PanelContentStyled>
-          <FormProduct />
+          <FormProduct
+            formInputs={formInputs}
+            handleInputChange={handleInputChange}
+            handleInputReset={handleInputReset}
+          />
         </PanelContentStyled>
       );
     }

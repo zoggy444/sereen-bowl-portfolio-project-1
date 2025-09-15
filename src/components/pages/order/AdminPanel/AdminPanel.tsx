@@ -5,13 +5,21 @@ import TabContainer from "./TabContainer";
 import type {
   ContentTabIDType,
   PanelConfigType,
+  PanelFormType,
   TabIDType,
 } from "../../../../types";
 import isAdminModeContext from "../../../../context/IsAdminModeContext";
 import getTabsConfig from "./getPanelConfig";
 
+const defaultFormInputs: PanelFormType = {
+  title: "",
+  imageSource: "",
+  price: "",
+};
+
 export default function AdminPanel() {
   const [isFolded, setIsFolded] = useState(false);
+  const [formInputs, setFormInputs] = useState({ ...defaultFormInputs });
   const [selectedTab, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
   const { isAdminMode } = useContext(isAdminModeContext);
@@ -19,6 +27,14 @@ export default function AdminPanel() {
   const toggleFolded = (force?: boolean) => {
     const newIsChecked = force !== undefined ? force : !isFolded;
     setIsFolded(newIsChecked);
+  };
+
+  const handleInputChange = (name: string, value: string) => {
+    setFormInputs({ ...formInputs, [name]: value });
+  };
+
+  const handleInputReset = () => {
+    setFormInputs({ ...defaultFormInputs });
   };
 
   const handleTabClick = (id: TabIDType) => {
@@ -44,7 +60,13 @@ export default function AdminPanel() {
     return (
       <AdminPanelStyled>
         <TabContainer foldTab={foldTab} contentTabs={contentTabs} />
-        <PanelContent isFolded={isFolded} content={panelContent} />
+        <PanelContent
+          isFolded={isFolded}
+          content={panelContent}
+          formInputs={formInputs}
+          handleInputChange={handleInputChange}
+          handleInputReset={handleInputReset}
+        />
       </AdminPanelStyled>
     );
   }
