@@ -31,6 +31,10 @@ export type ButtonProps = {
   onClick?: () => void;
 };
 
+export type ButtonStyledProps = {
+  intent: IntentType;
+};
+
 export type ButtonToggleProps = {
   isChecked: boolean;
   onToggle: () => void;

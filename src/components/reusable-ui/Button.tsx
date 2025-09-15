@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../theme/theme";
-import type { ButtonProps } from "../../types";
+import type { ButtonStyledProps, ButtonProps } from "../../types";
 
 export default function Button({
   label,
@@ -9,23 +9,15 @@ export default function Button({
   intent = "primary",
   onClick,
 }: ButtonProps) {
-  if (intent === "primary")
-    return (
-      <ButtonStyled className={className} onClick={onClick}>
-        <span>{label}</span>
-        {Icon && <Icon />}
-      </ButtonStyled>
-    );
-  if (intent === "success")
-    return (
-      <ButtonSuccessStyled className={className} onClick={onClick}>
-        <span>{label}</span>
-        {Icon && <Icon />}
-      </ButtonSuccessStyled>
-    );
+  return (
+    <ButtonStyled intent={intent} className={className} onClick={onClick}>
+      <span>{label}</span>
+      {Icon && <Icon />}
+    </ButtonStyled>
+  );
 }
 
-const ButtonStyled = styled.button`
+const ButtonStyled = styled.button<ButtonStyledProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,8 +25,8 @@ const ButtonStyled = styled.button`
   border-radius: ${theme.borderRadius.round};
 
   color: ${theme.colors.white};
-  background-color: ${theme.colors.primary};
-  border: 1px solid ${theme.colors.primary};
+  background-color: ${({ intent }) => theme.colors[intent]};
+  border: 1px solid ${({ intent }) => theme.colors[intent]};
 
   svg {
     font-size: ${theme.fonts.size.P2};
@@ -42,27 +34,13 @@ const ButtonStyled = styled.button`
   }
 
   &:hover {
-    color: ${theme.colors.primary};
+    color: ${({ intent }) => theme.colors[intent]};
     background-color: ${theme.colors.white};
     cursor: pointer;
   }
+
   &:active {
     color: ${theme.colors.white};
-    background-color: ${theme.colors.primary};
-  }
-`;
-
-const ButtonSuccessStyled = styled(ButtonStyled)`
-  color: ${theme.colors.white};
-  background-color: ${theme.colors.success};
-  border: 1px solid ${theme.colors.success};
-
-  &:hover {
-    color: ${theme.colors.success};
-    background-color: ${theme.colors.white};
-  }
-  &:active {
-    color: ${theme.colors.white};
-    background-color: ${theme.colors.success};
+    background-color: ${({ intent }) => theme.colors[intent]};
   }
 `;
