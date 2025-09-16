@@ -1,21 +1,23 @@
 import styled from "styled-components";
 import { theme } from "../../theme/theme";
-import type { ButtonPrimaryProps } from "../../types";
+import type { ButtonStyledProps, ButtonProps } from "../../types";
 
-export default function ButtonPrimary({
+export default function Button({
   label,
   className,
   Icon,
-}: ButtonPrimaryProps) {
+  intent = "primary",
+  onClick,
+}: ButtonProps) {
   return (
-    <ButtonPrimaryStyled className={className}>
+    <ButtonStyled $intent={intent} className={className} onClick={onClick}>
       <span>{label}</span>
       {Icon && <Icon />}
-    </ButtonPrimaryStyled>
+    </ButtonStyled>
   );
 }
 
-const ButtonPrimaryStyled = styled.button`
+const ButtonStyled = styled.button<ButtonStyledProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,8 +25,8 @@ const ButtonPrimaryStyled = styled.button`
   border-radius: ${theme.borderRadius.round};
 
   color: ${theme.colors.white};
-  background-color: ${theme.colors.primary};
-  border: 1px solid ${theme.colors.primary};
+  background-color: ${({ $intent }) => theme.colors[$intent]};
+  border: 1px solid ${({ $intent }) => theme.colors[$intent]};
 
   svg {
     font-size: ${theme.fonts.size.P2};
@@ -32,12 +34,13 @@ const ButtonPrimaryStyled = styled.button`
   }
 
   &:hover {
-    color: ${theme.colors.primary};
+    color: ${({ $intent }) => theme.colors[$intent]};
     background-color: ${theme.colors.white};
     cursor: pointer;
   }
+
   &:active {
     color: ${theme.colors.white};
-    background-color: ${theme.colors.primary};
+    background-color: ${({ $intent }) => theme.colors[$intent]};
   }
 `;

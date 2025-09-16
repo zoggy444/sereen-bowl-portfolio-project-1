@@ -1,23 +1,24 @@
 import styled from "styled-components";
 import { theme } from "../../../theme/theme";
 import "../../../index.css";
-import { fakeMenu2 } from "../../../fakeData/fakeMenu";
 import Menu from "./Menu/Menu";
+import AdminPanel from "./AdminPanel/AdminPanel";
+import { MenuProvider } from "./MenuProvider";
 
 export default function Main() {
-  const products = fakeMenu2;
-
   return (
     <MainStyled>
-      {/* <div className="basket"/> */}
-      <Menu products={products} />
+      <MenuProvider>
+        {/* <div className="basket"/> */}
+        <Menu />
+        <AdminPanel />
+      </MenuProvider>
     </MainStyled>
   );
 }
 
 const MainStyled = styled.div`
-  padding: 50px;
-  height: calc(83vh - 100px);
+  height: calc(98vh - 100px);
   overflow-y: scroll;
   scrollbar-width: none;
 

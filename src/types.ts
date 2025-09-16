@@ -1,23 +1,38 @@
 import type { ChangeEventHandler, ComponentPropsWithoutRef } from "react";
 import type { IconType } from "react-icons";
-import { fakeMenu1 } from "./fakeData/fakeMenu";
 
 // data types
 
-export type ProductType = (typeof fakeMenu1)[0];
+export type ContentTabIDType = "add-product" | "edit-product";
 
 export type FoldTabIDType = "fold";
 
-export type ContentTabIDType = "add-product" | "edit-product";
+export type IntentType = "primary" | "success";
+
+export type ProductType = {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  imageSource: string;
+  isAvailable: boolean;
+  isAdvertised: boolean;
+};
 
 export type TabIDType = FoldTabIDType | ContentTabIDType;
 
 // reusable comp types
 
-export type ButtonPrimaryProps = {
+export type ButtonProps = {
   label: string;
+  intent?: IntentType;
   className?: string;
   Icon?: IconType;
+  onClick?: () => void;
+};
+
+export type ButtonStyledProps = {
+  $intent: IntentType;
 };
 
 export type ButtonToggleProps = {
@@ -30,11 +45,16 @@ export type ButtonToggleProps = {
 export type ImageType = ComponentPropsWithoutRef<"img">;
 
 export type InputTextProps = {
+  variant?: "normal" | "minimalist";
   Icon: IconType;
   value: string;
   placeholder: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 } & ComponentPropsWithoutRef<"input">;
+
+export type InputTextStyledProps = {
+  $variant: "normal" | "minimalist";
+};
 
 export type LogoTitleProps = {
   size: "lg" | "md";
@@ -53,11 +73,36 @@ export type TabProps<T> = {
 
 // unique comp types
 
-export type MenuProps = {
-  products: ProductType[];
+export type FieldConfigParamType = {
+  fieldValues: PanelFormType;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+};
+
+export type FieldConfigType = {
+  variant?: "normal" | "minimalist";
+  id: string;
+  name: string;
+  value: string;
+  placeholder: string;
+  Icon: IconType;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+};
+
+export type FormProductProps = {
+  formInputs: PanelFormType;
+  handleInputChange: (name: string, value: string) => void;
+  handleInputReset: () => void;
+};
+
+export type MenuActionType = {
+  type: "add-product" | "delete-product" | "regen-menu" | "";
+  prodAdd?: PanelFormType;
+  deleteID?: number;
 };
 
 export type MenuCardProps = {
+  // "id" would conflict with img id prop
+  prodID: number;
   src: string;
   title: string;
   price: number;
@@ -73,16 +118,6 @@ export type NavRightProps = {
   labelIfUnchecked: string;
 };
 
-export type PanelContentProps = {
-  isFolded: boolean;
-  content: string;
-};
-
-export type ProductDetailProps = {
-  title: string;
-  price: number;
-};
-
 export type PanelConfigParamType = {
   isFolded: boolean;
   selectedTab: ContentTabIDType;
@@ -93,6 +128,23 @@ export type PanelConfigType = {
   foldTab: TabProps<FoldTabIDType>;
   contentTabs: TabProps<ContentTabIDType>[];
   panelContent: string;
+};
+
+export type PanelContentProps = {
+  isFolded: boolean;
+  content: string;
+  formInputs: PanelFormType;
+  handleInputChange: (name: string, value: string) => void;
+  handleInputReset: () => void;
+};
+
+export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {
+  price: string;
+};
+
+export type ProductDetailProps = {
+  title: string;
+  price: number;
 };
 
 export type TabContainerProps = {

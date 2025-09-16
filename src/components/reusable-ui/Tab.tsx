@@ -32,8 +32,6 @@ const TabStyled = styled.button`
   padding-left: ${theme.gridUnit * 3}px;
   padding-right: ${theme.gridUnit * 3}px;
 
-  border: 1px solid ${theme.colors.greyLight};
-  border-bottom: 2px solid ${theme.colors.greyLight};
   border-top-right-radius: ${theme.borderRadius.round};
   border-top-left-radius: ${theme.borderRadius.round};
 
@@ -47,6 +45,8 @@ const TabStyled = styled.button`
   }
 
   &.tab-inactive {
+    border: 1px solid ${theme.colors.greyLight};
+    border-bottom: 2px solid ${theme.colors.greyLight};
     background-color: ${theme.colors.white};
     color: ${theme.colors.greySemiDark};
     &:hover {
