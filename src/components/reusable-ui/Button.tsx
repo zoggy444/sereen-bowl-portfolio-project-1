@@ -10,7 +10,7 @@ export default function Button({
   onClick,
 }: ButtonProps) {
   return (
-    <ButtonStyled intent={intent} className={className} onClick={onClick}>
+    <ButtonStyled $intent={intent} className={className} onClick={onClick}>
       <span>{label}</span>
       {Icon && <Icon />}
     </ButtonStyled>
@@ -25,8 +25,8 @@ const ButtonStyled = styled.button<ButtonStyledProps>`
   border-radius: ${theme.borderRadius.round};
 
   color: ${theme.colors.white};
-  background-color: ${({ intent }) => theme.colors[intent]};
-  border: 1px solid ${({ intent }) => theme.colors[intent]};
+  background-color: ${({ $intent }) => theme.colors[$intent]};
+  border: 1px solid ${({ $intent }) => theme.colors[$intent]};
 
   svg {
     font-size: ${theme.fonts.size.P2};
@@ -34,13 +34,13 @@ const ButtonStyled = styled.button<ButtonStyledProps>`
   }
 
   &:hover {
-    color: ${({ intent }) => theme.colors[intent]};
+    color: ${({ $intent }) => theme.colors[$intent]};
     background-color: ${theme.colors.white};
     cursor: pointer;
   }
 
   &:active {
     color: ${theme.colors.white};
-    background-color: ${({ intent }) => theme.colors[intent]};
+    background-color: ${({ $intent }) => theme.colors[$intent]};
   }
 `;

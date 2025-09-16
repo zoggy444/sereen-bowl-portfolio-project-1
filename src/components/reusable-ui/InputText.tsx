@@ -12,7 +12,7 @@ export default function InputText({
   const className = otherProps.className ?? "";
   otherProps = { ...otherProps, className: "" };
   return (
-    <InputTextStyled variant={variant} className={className}>
+    <InputTextStyled $variant={variant} className={className}>
       <Icon className="input-icon" />
       <input
         value={value}
@@ -25,7 +25,7 @@ export default function InputText({
 }
 
 const InputTextStyled = styled.div<InputTextStyledProps>`
-  ${({ variant }) => extraStyle[variant].base}
+  ${({ $variant }) => extraStyle[$variant].base}
   border-radius: ${theme.borderRadius.round};
 
   display: flex;
@@ -38,7 +38,7 @@ const InputTextStyled = styled.div<InputTextStyledProps>`
   }
 
   input {
-    ${({ variant }) => extraStyle[variant].input}
+    ${({ $variant }) => extraStyle[$variant].input}
     border: none;
     font-size: ${theme.fonts.size.P0};
     width: 100%;

@@ -32,7 +32,7 @@ export type ButtonProps = {
 };
 
 export type ButtonStyledProps = {
-  intent: IntentType;
+  $intent: IntentType;
 };
 
 export type ButtonToggleProps = {
@@ -53,7 +53,7 @@ export type InputTextProps = {
 } & ComponentPropsWithoutRef<"input">;
 
 export type InputTextStyledProps = {
-  variant: "normal" | "minimalist";
+  $variant: "normal" | "minimalist";
 };
 
 export type LogoTitleProps = {
