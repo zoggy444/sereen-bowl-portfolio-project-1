@@ -78,8 +78,11 @@ export type TabProps<T> = {
 // unique comp types
 
 export type AdminPanelProps = {
+  isFolded: boolean;
+  selectedTab: ContentTabIDType;
   editInputs: PanelFormType;
   onEditChange: (name: string, value: string) => void;
+  onTabClick: (id: TabIDType) => void;
 };
 
 export type FieldConfigParamType = {
@@ -154,7 +157,7 @@ export type NavRightProps = {
 export type PanelConfigParamType = {
   isFolded: boolean;
   selectedTab: ContentTabIDType;
-  handleTabClick: (id: TabIDType) => void;
+  onTabClick: (id: TabIDType) => void;
 };
 
 export type PanelConfigType = {

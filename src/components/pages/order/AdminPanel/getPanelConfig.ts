@@ -3,18 +3,14 @@ import type { PanelConfigParamType, PanelConfigType } from "../../../../types";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 
-export default ({
-  isFolded,
-  selectedTab,
-  handleTabClick,
-}: PanelConfigParamType) =>
+export default ({ isFolded, selectedTab, onTabClick }: PanelConfigParamType) =>
   ({
     foldTab: {
       id: "fold",
       isActive: isFolded,
       IconIfChecked: FaChevronUp,
       IconIfUnchecked: FaChevronDown,
-      onClick: handleTabClick,
+      onClick: onTabClick,
     },
     contentTabs: [
       {
@@ -23,7 +19,7 @@ export default ({
         isActive: selectedTab === "add-product",
         IconIfChecked: AiOutlinePlus,
         IconIfUnchecked: AiOutlinePlus,
-        onClick: handleTabClick,
+        onClick: onTabClick,
       },
       {
         id: "edit-product",
@@ -31,7 +27,7 @@ export default ({
         isActive: selectedTab === "edit-product",
         IconIfChecked: MdModeEditOutline,
         IconIfUnchecked: MdModeEditOutline,
-        onClick: handleTabClick,
+        onClick: onTabClick,
       },
     ],
     panelContent:

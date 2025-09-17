@@ -2,30 +2,20 @@ import styled from "styled-components";
 import PanelContent from "./PanelContent";
 import { useContext, useState } from "react";
 import TabContainer from "./TabContainer";
-import type {
-  AdminPanelProps,
-  ContentTabIDType,
-  PanelConfigType,
-  TabIDType,
-} from "../../../../types";
+import type { AdminPanelProps, PanelConfigType } from "../../../../types";
 import isAdminModeContext from "../../../../context/IsAdminModeContext";
 import getTabsConfig from "./getPanelConfig";
 import { defaultFormInputs } from "./getFieldConfig";
 
 export default function AdminPanel({
+  isFolded,
+  selectedTab,
   editInputs,
   onEditChange,
+  onTabClick,
 }: AdminPanelProps) {
-  const [isFolded, setIsFolded] = useState(false);
   const [formInputs, setFormInputs] = useState({ ...defaultFormInputs });
-  const [selectedTab, setSelectedTab] =
-    useState<ContentTabIDType>("add-product");
   const { isAdminMode } = useContext(isAdminModeContext);
-
-  const toggleFolded = (force?: boolean) => {
-    const newIsChecked = force !== undefined ? force : !isFolded;
-    setIsFolded(newIsChecked);
-  };
 
   const handleInputChange = (name: string, value: string) => {
     setFormInputs({ ...formInputs, [name]: value });
@@ -35,22 +25,11 @@ export default function AdminPanel({
     setFormInputs({ ...defaultFormInputs });
   };
 
-  const handleTabClick = (id: TabIDType) => {
-    if (id) {
-      if (id === "fold") {
-        toggleFolded();
-      } else {
-        setSelectedTab(id);
-        if (isFolded) toggleFolded(false);
-      }
-    }
-  };
-
   const { foldTab, contentTabs, panelContent }: PanelConfigType = getTabsConfig(
     {
       isFolded,
       selectedTab,
-      handleTabClick,
+      onTabClick,
     }
   );
 

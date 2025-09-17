@@ -74,6 +74,7 @@ const MenuCardStyled = styled.div<MenuCardStyledProps>`
   flex-direction: column;
   justify-content: space-between;
 
+  cursor: pointer;
   box-sizing: border-box;
   padding: ${theme.spacing.md};
   padding-top: ${theme.spacing.sm};
@@ -90,7 +91,6 @@ const MenuCardStyled = styled.div<MenuCardStyledProps>`
     .product-delete {
       background: none;
       border: none;
-      cursor: default;
       .button-icon {
         cursor: pointer;
         color: ${({ $isSelected }) =>
