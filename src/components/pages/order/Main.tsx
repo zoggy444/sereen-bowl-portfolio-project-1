@@ -3,14 +3,16 @@ import { theme } from "../../../theme/theme";
 import "../../../index.css";
 import Menu from "./Menu/Menu";
 import AdminPanel from "./AdminPanel/AdminPanel";
-import type { ProductType } from "../../../types";
+import type { PanelFormType, ProductType } from "../../../types";
 import { useContext, useState } from "react";
 import { MenuProdsContext } from "../../../context/MenuContext";
+import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 
 export default function Main() {
   const products: ProductType[] = useContext(MenuProdsContext);
   const [prodHoveredID, setProdHoveredID] = useState(-1);
   const [prodSelectedID, setProdSelectedID] = useState(-1);
+  const [editInputs, setEditInputs] = useState({ ...defaultFormInputs });
 
   const handleCardMouseEnter = (id: number) => {
     setProdHoveredID(id);
@@ -21,7 +23,18 @@ export default function Main() {
   };
 
   const handleCardSelect = (id: number) => {
+    const selectedProd = products.find((p) => p.id === id);
+    const newEditInputs: PanelFormType = {
+      title: selectedProd?.title || "",
+      imageSource: selectedProd?.imageSource || "",
+      price: selectedProd?.price.toString() || "",
+    };
     setProdSelectedID(id);
+    setEditInputs(newEditInputs);
+  };
+
+  const handleEditChange = (name: string, value: string) => {
+    setEditInputs({ ...editInputs, [name]: value });
   };
 
   return (
@@ -35,7 +48,10 @@ export default function Main() {
         onCardMouseLeave={handleCardMouseLeave}
         onCardSelect={handleCardSelect}
       />
-      <AdminPanel />
+      <AdminPanel
+        editInputs={editInputs}
+        onEditChange={handleEditChange}
+      />
     </MainStyled>
   );
 }

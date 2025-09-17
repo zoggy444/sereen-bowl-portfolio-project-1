@@ -3,21 +3,19 @@ import PanelContent from "./PanelContent";
 import { useContext, useState } from "react";
 import TabContainer from "./TabContainer";
 import type {
+  AdminPanelProps,
   ContentTabIDType,
   PanelConfigType,
-  PanelFormType,
   TabIDType,
 } from "../../../../types";
 import isAdminModeContext from "../../../../context/IsAdminModeContext";
 import getTabsConfig from "./getPanelConfig";
+import { defaultFormInputs } from "./getFieldConfig";
 
-const defaultFormInputs: PanelFormType = {
-  title: "",
-  imageSource: "",
-  price: "",
-};
-
-export default function AdminPanel() {
+export default function AdminPanel({
+  editInputs,
+  onEditChange,
+}: AdminPanelProps) {
   const [isFolded, setIsFolded] = useState(false);
   const [formInputs, setFormInputs] = useState({ ...defaultFormInputs });
   const [selectedTab, setSelectedTab] =
@@ -66,6 +64,8 @@ export default function AdminPanel() {
           formInputs={formInputs}
           handleInputChange={handleInputChange}
           handleInputReset={handleInputReset}
+          editInputs={editInputs}
+          onEditChange={onEditChange}
         />
       </AdminPanelStyled>
     );

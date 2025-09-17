@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import type { PanelContentProps } from "../../../../types";
 import FormProduct from "./FormProduct";
+import FormProdEdit from "./FormProdEdit";
 
 export default function PanelContent({
   isFolded,
@@ -9,6 +10,8 @@ export default function PanelContent({
   formInputs,
   handleInputChange,
   handleInputReset,
+  editInputs,
+  onEditChange,
 }: PanelContentProps) {
   if (!isFolded) {
     if (content === "Add a product") {
@@ -22,7 +25,14 @@ export default function PanelContent({
         </PanelContentStyled>
       );
     }
-    return <PanelContentStyled>{content}</PanelContentStyled>;
+    return (
+      <PanelContentStyled>
+        <FormProdEdit
+          formInputs={editInputs}
+          onInputChange={onEditChange}
+        />
+      </PanelContentStyled>
+    );
   }
   return <PanelFoldedStyled />;
 }

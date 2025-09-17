@@ -77,6 +77,11 @@ export type TabProps<T> = {
 
 // unique comp types
 
+export type AdminPanelProps = {
+  editInputs: PanelFormType;
+  onEditChange: (name: string, value: string) => void;
+};
+
 export type FieldConfigParamType = {
   fieldValues: PanelFormType;
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -96,6 +101,11 @@ export type FormProductProps = {
   formInputs: PanelFormType;
   handleInputChange: (name: string, value: string) => void;
   handleInputReset: () => void;
+};
+
+export type FormProdEditProps = {
+  formInputs: PanelFormType;
+  onInputChange: (name: string, value: string) => void;
 };
 
 export type MenuActionType = {
@@ -159,6 +169,8 @@ export type PanelContentProps = {
   formInputs: PanelFormType;
   handleInputChange: (name: string, value: string) => void;
   handleInputReset: () => void;
+  editInputs: PanelFormType;
+  onEditChange: (name: string, value: string) => void;
 };
 
 export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {
