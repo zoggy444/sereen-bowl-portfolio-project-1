@@ -18,14 +18,20 @@ export default function MenuCard({
   title,
   price,
   isHovered,
+  isSelected,
   onMouseEnter,
   onMouseLeave,
+  onSelect,
 }: MenuCardProps) {
   const menuDispatch = useContext(MenuDispatchContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
 
   const handleMouseEnter = () => {
     return onMouseEnter(prodID);
+  };
+
+  const handleSelect = () => {
+    return isAdminMode && onSelect(prodID);
   };
 
   const onDeleteClick = (e: MouseEvent<SVGElement>) => {
@@ -37,8 +43,10 @@ export default function MenuCard({
   return (
     <MenuCardStyled
       $isHovered={isHovered && isAdminMode}
+      $isSelected={isSelected && isAdminMode}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={onMouseLeave}
+      onClick={handleSelect}
     >
       <div className="delete-container">
         {isAdminMode && (
@@ -48,7 +56,7 @@ export default function MenuCard({
         )}
       </div>
       <Image src={src} alt="product-image" className="product-image" />
-      <ProductDetail title={title} price={price} />
+      <ProductDetail title={title} price={price} isSelected={isSelected} />
     </MenuCardStyled>
   );
 }
@@ -71,7 +79,8 @@ const MenuCardStyled = styled.div<MenuCardStyledProps>`
   padding-top: ${theme.spacing.sm};
   padding-bottom: ${theme.spacing.sm};
   border-radius: ${theme.borderRadius.extraRound};
-  background: ${theme.colors.white};
+  background: ${({ $isSelected }) =>
+    $isSelected ? `${theme.colors.primary}` : `${theme.colors.white}`};
   box-shadow: ${({ $isHovered }) =>
     $isHovered ? `${theme.shadows.hoveredCard}` : `${theme.shadows.card}`};
 
@@ -84,7 +93,8 @@ const MenuCardStyled = styled.div<MenuCardStyledProps>`
       cursor: default;
       .button-icon {
         cursor: pointer;
-        color: ${theme.colors.primary};
+        color: ${({ $isSelected }) =>
+          $isSelected ? `${theme.colors.white}` : `${theme.colors.primary}`};
         font-size: ${theme.fonts.size.P2};
       }
       .button-icon:hover {

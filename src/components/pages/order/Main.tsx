@@ -10,6 +10,7 @@ import { MenuProdsContext } from "../../../context/MenuContext";
 export default function Main() {
   const products: ProductType[] = useContext(MenuProdsContext);
   const [prodHoveredID, setProdHoveredID] = useState(-1);
+  const [prodSelectedID, setProdSelectedID] = useState(-1);
 
   const handleCardMouseEnter = (id: number) => {
     setProdHoveredID(id);
@@ -19,14 +20,20 @@ export default function Main() {
     setProdHoveredID(-1);
   };
 
+  const handleCardSelect = (id: number) => {
+    setProdSelectedID(id);
+  };
+
   return (
     <MainStyled>
       {/* <div className="basket"/> */}
       <Menu
         products={products}
         prodHoveredID={prodHoveredID}
+        prodSelectedID={prodSelectedID}
         onCardMouseEnter={handleCardMouseEnter}
         onCardMouseLeave={handleCardMouseLeave}
+        onCardSelect={handleCardSelect}
       />
       <AdminPanel />
     </MainStyled>

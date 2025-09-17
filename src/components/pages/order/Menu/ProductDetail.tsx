@@ -1,22 +1,35 @@
 import styled from "styled-components";
 import Button from "../../../reusable-ui/Button";
 import { theme } from "../../../../theme/theme";
-import type { ProductDetailProps } from "../../../../types";
+import type {
+  ButtonVariantType,
+  ProductDetailProps,
+  ProductDetailStyledProps,
+} from "../../../../types";
 import { formatPrice } from "../../../../utils/maths";
 
-export default function ProductDetail({ title, price }: ProductDetailProps) {
+export default function ProductDetail({
+  title,
+  price,
+  isSelected,
+}: ProductDetailProps) {
+  const buttonVariant: ButtonVariantType = isSelected ? "default" : "primary";
   return (
-    <ProductDetailStyled>
+    <ProductDetailStyled $isSelected={isSelected}>
       <div className="product-name amatic-sc-bold">{title}</div>
       <div className="product-buy">
         <div className="product-price">{formatPrice(price)}</div>
-        <Button label="Ajouter" className="button-buy" />
+        <Button
+          label="Ajouter"
+          className="button-buy"
+          variant={buttonVariant}
+        />
       </div>
     </ProductDetailStyled>
   );
 }
 
-const ProductDetailStyled = styled.div`
+const ProductDetailStyled = styled.div<ProductDetailStyledProps>`
   .product-name {
     font-size: ${theme.fonts.size.P4};
     max-height: 46px;
@@ -33,7 +46,8 @@ const ProductDetailStyled = styled.div`
     padding: ${theme.spacing.xxs};
 
     .product-price {
-      color: ${theme.colors.primary};
+      color: ${({ $isSelected }) =>
+        $isSelected ? `${theme.colors.white}` : `${theme.colors.primary}`};
     }
 
     .button-buy {

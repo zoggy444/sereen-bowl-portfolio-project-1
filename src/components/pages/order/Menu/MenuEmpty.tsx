@@ -19,9 +19,10 @@ export default function MenuEmpty() {
         <>
           <h1 className="amatic-sc-bold">Empty menu ?</h1>
           <h2 className="amatic-sc-regular">Click below to reinitialize it</h2>
-          <ButtonReStyled
+          <Button
             label="Generate new products"
             intent="primary"
+            className="button-regen"
             onClick={onRegenMenuClick}
           />
         </>
@@ -56,10 +57,9 @@ const MenuEmptyStyled = styled.div`
     margin-block-start: 0px;
     margin-block-end: ${theme.spacing.md};
   }
-`;
-
-const ButtonReStyled = styled(Button)`
-  font-size: ${theme.fonts.size.XS};
-  padding: ${theme.spacing.md};
-  margin-top: ${theme.spacing.sm};
+  .button-regen {
+    font-size: ${theme.fonts.size.XS};
+    padding: ${theme.spacing.md};
+    margin-top: ${theme.spacing.sm};
+  }
 `;

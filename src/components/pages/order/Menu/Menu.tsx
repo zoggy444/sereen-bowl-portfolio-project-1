@@ -6,8 +6,10 @@ import type { MenuProps } from "../../../../types";
 export default function Menu({
   products,
   prodHoveredID,
+  prodSelectedID,
   onCardMouseEnter,
   onCardMouseLeave,
+  onCardSelect,
 }: MenuProps) {
   return (
     <MenuStyled>
@@ -20,8 +22,10 @@ export default function Menu({
             src={`${imageSource}`}
             price={price}
             isHovered={id === prodHoveredID}
+            isSelected={id === prodSelectedID}
             onMouseEnter={onCardMouseEnter}
             onMouseLeave={onCardMouseLeave}
+            onSelect={onCardSelect}
           />
         ))
       ) : (

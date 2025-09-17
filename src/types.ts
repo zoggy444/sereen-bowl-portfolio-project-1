@@ -3,6 +3,8 @@ import type { IconType } from "react-icons";
 
 // data types
 
+export type ButtonVariantType = "primary" | "default";
+
 export type ContentTabIDType = "add-product" | "edit-product";
 
 export type FoldTabIDType = "fold";
@@ -25,6 +27,7 @@ export type TabIDType = FoldTabIDType | ContentTabIDType;
 
 export type ButtonProps = {
   label: string;
+  variant?: ButtonVariantType;
   intent?: IntentType;
   className?: string;
   Icon?: IconType;
@@ -33,6 +36,7 @@ export type ButtonProps = {
 
 export type ButtonStyledProps = {
   $intent: IntentType;
+  $variant: ButtonVariantType;
 };
 
 export type ButtonToggleProps = {
@@ -107,19 +111,24 @@ export type MenuCardProps = {
   title: string;
   price: number;
   isHovered: boolean;
+  isSelected: boolean;
   onMouseEnter: (prodID: number) => void;
   onMouseLeave: () => void;
+  onSelect: (prodID: number) => void;
 } & ComponentPropsWithoutRef<"img">;
 
 export type MenuCardStyledProps = {
   $isHovered: boolean;
+  $isSelected: boolean;
 };
 
 export type MenuProps = {
   products: ProductType[];
   prodHoveredID: number;
+  prodSelectedID: number;
   onCardMouseEnter: (prodID: number) => void;
   onCardMouseLeave: () => void;
+  onCardSelect: (prodID: number) => void;
 };
 
 export type NavBarProps = {
@@ -159,6 +168,11 @@ export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {
 export type ProductDetailProps = {
   title: string;
   price: number;
+  isSelected: boolean;
+};
+
+export type ProductDetailStyledProps = {
+  $isSelected: boolean;
 };
 
 export type TabContainerProps = {
