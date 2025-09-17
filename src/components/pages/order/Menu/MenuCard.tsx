@@ -2,15 +2,31 @@ import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import Image from "../../../reusable-ui/Image";
 import ProductDetail from "./ProductDetail";
-import type { MenuActionType, MenuCardProps } from "../../../../types";
+import type {
+  MenuActionType,
+  MenuCardProps,
+  MenuCardStyledProps,
+} from "../../../../types";
 import { TiDelete } from "react-icons/ti";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { useContext, type MouseEvent } from "react";
 import { MenuDispatchContext } from "../../../../context/MenuContext";
 
-export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
+export default function MenuCard({
+  prodID,
+  src,
+  title,
+  price,
+  isHovered,
+  onMouseEnter,
+  onMouseLeave,
+}: MenuCardProps) {
   const menuDispatch = useContext(MenuDispatchContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
+
+  const handleMouseEnter = () => {
+    return onMouseEnter(prodID);
+  };
 
   const onDeleteClick = (e: MouseEvent<SVGElement>) => {
     e.preventDefault();
@@ -19,7 +35,11 @@ export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
   };
 
   return (
-    <MenuCardStyled>
+    <MenuCardStyled
+      $isHovered={isHovered && isAdminMode}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <div className="delete-container">
         {isAdminMode && (
           <button className="product-delete">
@@ -33,12 +53,14 @@ export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
   );
 }
 
-const MenuCardStyled = styled.div`
+const MenuCardStyled = styled.div<MenuCardStyledProps>`
   grid-area: span 1 / span 1;
   justify-self: center;
   width: 240px;
   height: 330px;
   max-height: 330px;
+
+  transition: all 0.2s ease-in-out;
 
   display: flex;
   flex-direction: column;
@@ -50,7 +72,8 @@ const MenuCardStyled = styled.div`
   padding-bottom: ${theme.spacing.sm};
   border-radius: ${theme.borderRadius.extraRound};
   background: ${theme.colors.white};
-  box-shadow: ${theme.shadows.card};
+  box-shadow: ${({ $isHovered }) =>
+    $isHovered ? `${theme.shadows.hoveredCard}` : `${theme.shadows.card}`};
 
   .delete-container {
     height: ${theme.gridUnit * 4}px;
@@ -73,4 +96,10 @@ const MenuCardStyled = styled.div`
   .product-image {
     height: 145px;
   }
+
+  ${({ $isHovered }) =>
+    $isHovered &&
+    `&:hover {
+    transform: scale(1.05);
+  }`}
 `;

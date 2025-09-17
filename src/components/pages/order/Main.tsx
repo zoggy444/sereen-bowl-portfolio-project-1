@@ -3,16 +3,32 @@ import { theme } from "../../../theme/theme";
 import "../../../index.css";
 import Menu from "./Menu/Menu";
 import AdminPanel from "./AdminPanel/AdminPanel";
-import { MenuProvider } from "./MenuProvider";
+import type { ProductType } from "../../../types";
+import { useContext, useState } from "react";
+import { MenuProdsContext } from "../../../context/MenuContext";
 
 export default function Main() {
+  const products: ProductType[] = useContext(MenuProdsContext);
+  const [prodHoveredID, setProdHoveredID] = useState(-1);
+
+  const handleCardMouseEnter = (id: number) => {
+    setProdHoveredID(id);
+  };
+
+  const handleCardMouseLeave = () => {
+    setProdHoveredID(-1);
+  };
+
   return (
     <MainStyled>
-      <MenuProvider>
-        {/* <div className="basket"/> */}
-        <Menu />
-        <AdminPanel />
-      </MenuProvider>
+      {/* <div className="basket"/> */}
+      <Menu
+        products={products}
+        prodHoveredID={prodHoveredID}
+        onCardMouseEnter={handleCardMouseEnter}
+        onCardMouseLeave={handleCardMouseLeave}
+      />
+      <AdminPanel />
     </MainStyled>
   );
 }

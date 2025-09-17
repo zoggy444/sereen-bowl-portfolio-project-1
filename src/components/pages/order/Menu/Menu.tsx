@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import MenuCard from "./MenuCard";
-import { useContext } from "react";
-import { MenuProdsContext } from "../../../../context/MenuContext";
 import MenuEmpty from "./MenuEmpty";
-import type { ProductType } from "../../../../types";
+import type { MenuProps } from "../../../../types";
 
-export default function Menu() {
-  const products: ProductType[] = useContext(MenuProdsContext);
-
+export default function Menu({
+  products,
+  prodHoveredID,
+  onCardMouseEnter,
+  onCardMouseLeave,
+}: MenuProps) {
   return (
     <MenuStyled>
       {products.length > 0 ? (
@@ -18,6 +19,9 @@ export default function Menu() {
             title={title}
             src={`${imageSource}`}
             price={price}
+            isHovered={id === prodHoveredID}
+            onMouseEnter={onCardMouseEnter}
+            onMouseLeave={onCardMouseLeave}
           />
         ))
       ) : (

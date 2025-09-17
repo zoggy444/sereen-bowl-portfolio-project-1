@@ -6,6 +6,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import ToastAdmin from "./ToastAdmin";
 import IsAdminModeContext from "../../../context/IsAdminModeContext";
+import { MenuProvider } from "./MenuProvider";
 
 export default function OrderPage() {
   const [isAdminMode, setIsAdminMode] = useState(false);
@@ -35,7 +36,9 @@ export default function OrderPage() {
             labelIfChecked="Quit admin mode"
             labelIfUnchecked="Enter admin mode"
           />
-          <Main />
+          <MenuProvider>
+            <Main />
+          </MenuProvider>
         </div>
         <ToastAdmin />
       </IsAdminModeContext.Provider>

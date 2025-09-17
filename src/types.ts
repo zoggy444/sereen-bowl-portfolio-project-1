@@ -106,7 +106,21 @@ export type MenuCardProps = {
   src: string;
   title: string;
   price: number;
+  isHovered: boolean;
+  onMouseEnter: (prodID: number) => void;
+  onMouseLeave: () => void;
 } & ComponentPropsWithoutRef<"img">;
+
+export type MenuCardStyledProps = {
+  $isHovered: boolean;
+};
+
+export type MenuProps = {
+  products: ProductType[];
+  prodHoveredID: number;
+  onCardMouseEnter: (prodID: number) => void;
+  onCardMouseLeave: () => void;
+};
 
 export type NavBarProps = {
   labelIfChecked: string;

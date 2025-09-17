@@ -65,7 +65,8 @@ const shadows = {
   strong: "0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset",
   medium: "0px -2px 8px -2px rgb(0 0 0 / 20%",
   soft: "0 -2px 8px -2px rgb(0 0 0 / 10%",
-  card: "-8px 8px 20px 0px rgb(0 0 0 / 20%)",
+  card: "0px 0px 20px 0px rgb(0 0 0 / 20%)",
+  hoveredCard: `4px 4px 20px 2px ${colors.primary}`,
 } as const;
 
 export const theme = {
