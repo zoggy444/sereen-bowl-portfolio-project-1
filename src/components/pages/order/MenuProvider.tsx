@@ -23,7 +23,7 @@ export function MenuProvider({ children }: { children: ReactNode }) {
 const menuReducer = (menuProds: ProductType[], action: MenuActionType) => {
   switch (action.type) {
     case "add-product": {
-      const newVals = action.prodAdd;
+      const newVals = action.prodVals;
       if (!newVals) return [...menuProds];
       const nextId = menuProds.length + 1;
 
@@ -42,8 +42,26 @@ const menuReducer = (menuProds: ProductType[], action: MenuActionType) => {
       };
       return [newProduct, ...menuProds];
     }
+    case "edit-product": {
+      const newVals = action.prodVals;
+      const prodID = action.prodID;
+      if (!newVals || !prodID) return [...menuProds];
+      const toUpdProd = menuProds.find((p) => p.id === prodID);
+      if (!toUpdProd) return [...menuProds];
+
+      let priceNumber = parseFloat(newVals.price.replace(",", "."));
+      if (isNaN(priceNumber)) priceNumber = 0;
+
+      const updedProd = {
+        ...toUpdProd,
+        title: newVals.title,
+        imageSource: newVals.imageSource,
+        price: priceNumber,
+      };
+      return menuProds.map((p) => (p.id === prodID ? updedProd : p));
+    }
     case "delete-product": {
-      return [...menuProds].filter((el) => el.id !== action.deleteID);
+      return [...menuProds].filter((el) => el.id !== action.prodID);
     }
     case "regen-menu": {
       const newMenu = fakeMenu.MEDIUM;

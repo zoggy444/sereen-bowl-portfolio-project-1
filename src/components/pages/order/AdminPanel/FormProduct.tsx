@@ -35,7 +35,10 @@ export default function FormProduct({
     setTimeout(() => {
       setaddedMsg(false);
     }, 2000);
-    const action: MenuActionType = { type: "add-product", prodAdd: formInputs };
+    const action: MenuActionType = {
+      type: "add-product",
+      prodVals: formInputs,
+    };
     menuDispatch(action);
   };
 

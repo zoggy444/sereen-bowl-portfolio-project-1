@@ -10,11 +10,15 @@ import type {
   TabIDType,
 } from "../../../types";
 import { useContext, useState } from "react";
-import { MenuProdsContext } from "../../../context/MenuContext";
+import {
+  MenuDispatchContext,
+  MenuProdsContext,
+} from "../../../context/MenuContext";
 import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 
 export default function Main() {
   const products: ProductType[] = useContext(MenuProdsContext);
+  const menuDispatch = useContext(MenuDispatchContext);
   const [prodHoveredID, setProdHoveredID] = useState(-1);
   const [prodSelectedID, setProdSelectedID] = useState(-1);
   const [editInputs, setEditInputs] = useState({ ...defaultFormInputs });
@@ -61,6 +65,11 @@ export default function Main() {
 
   const handleEditChange = (name: string, value: string) => {
     setEditInputs({ ...editInputs, [name]: value });
+    menuDispatch({
+      type: "edit-product",
+      prodID: prodSelectedID,
+      prodVals: { ...editInputs, [name]: value },
+    });
   };
 
   return (

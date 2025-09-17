@@ -112,9 +112,9 @@ export type FormProdEditProps = {
 };
 
 export type MenuActionType = {
-  type: "add-product" | "delete-product" | "regen-menu" | "";
-  prodAdd?: PanelFormType;
-  deleteID?: number;
+  type: "add-product" | "edit-product" | "delete-product" | "regen-menu" | "";
+  prodVals?: PanelFormType;
+  prodID?: number;
 };
 
 export type MenuCardProps = {
