@@ -4,7 +4,7 @@ import { forwardRef, useContext, type Ref } from "react";
 import TabContainer from "./TabContainer";
 import type { AdminPanelProps, PanelConfigType } from "../../../../types";
 import isAdminModeContext from "../../../../context/IsAdminModeContext";
-import getTabsConfig from "./getPanelConfig";
+import { getTabsConfig } from "./getPanelConfig";
 import getPanelConfig from "./getPanelConfig";
 
 const AdminPanel = forwardRef(
@@ -14,10 +14,10 @@ const AdminPanel = forwardRef(
       selectedTabID,
       addInputs,
       editInputs,
+      onTabClick,
       onAddChange,
       onAddReset,
       onEditChange,
-      onTabClick,
     }: AdminPanelProps,
     ref: Ref<HTMLInputElement | null>
   ) => {
@@ -42,7 +42,12 @@ const AdminPanel = forwardRef(
       return (
         <AdminPanelStyled>
           <TabContainer foldTab={foldTab} contentTabs={contentTabs} />
-          <PanelContent isFolded={isFolded} {...contentProps} ref={ref} />
+          <PanelContent
+            isFolded={isFolded}
+            selectedTabID={selectedTabID}
+            {...contentProps}
+            ref={ref}
+          />
         </AdminPanelStyled>
       );
     }

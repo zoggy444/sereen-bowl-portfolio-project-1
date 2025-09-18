@@ -84,9 +84,12 @@ export type TabProps<T> = {
 export type AdminPanelProps = {
   isFolded: boolean;
   selectedTabID: ContentTabIDType;
+  addInputs: PanelFormType;
   editInputs: PanelFormType;
-  onEditChange: (name: string, value: string) => void;
   onTabClick: (id: TabIDType) => void;
+  onAddChange: (name: string, value: string) => void;
+  onEditChange: (name: string, value: string) => void;
+  onAddReset: () => void;
 };
 
 export type FieldConfigParamType = {
@@ -104,15 +107,17 @@ export type FieldConfigType = {
   onChange: ChangeEventHandler<HTMLInputElement>;
 };
 
-export type FormProductProps = {
+export type FormFooterAddProps = {
+  className: string;
   formInputs: PanelFormType;
-  handleInputChange: (name: string, value: string) => void;
-  handleInputReset: () => void;
+  onInputReset: () => void;
 };
 
-export type FormProdEditProps = {
+export type FormProductProps = {
+  selectedTabID: ContentTabIDType;
   formInputs: PanelFormType;
   onInputChange: (name: string, value: string) => void;
+  onInputReset: () => void;
 };
 
 export type MenuActionType = {
@@ -159,9 +164,12 @@ export type NavRightProps = {
 };
 
 export type PanelConfigParamType = {
-  isFolded: boolean;
   selectedTabID: ContentTabIDType;
-  onTabClick: (id: TabIDType) => void;
+  addInputs: PanelFormType;
+  editInputs: PanelFormType;
+  onAddChange: (name: string, value: string) => void;
+  onEditChange: (name: string, value: string) => void;
+  onAddReset: () => void;
 };
 
 export type PanelConfigType = {
@@ -172,12 +180,10 @@ export type PanelConfigType = {
 
 export type PanelContentProps = {
   isFolded: boolean;
-  content: string;
+  selectedTabID: ContentTabIDType;
   formInputs: PanelFormType;
-  handleInputChange: (name: string, value: string) => void;
-  handleInputReset: () => void;
-  editInputs: PanelFormType;
-  onEditChange: (name: string, value: string) => void;
+  onInputChange: (name: string, value: string) => void;
+  onInputReset: () => void;
 };
 
 export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {
@@ -192,6 +198,12 @@ export type ProductDetailProps = {
 
 export type ProductDetailStyledProps = {
   $isSelected: boolean;
+};
+
+export type TabConfigParamType = {
+  isFolded: boolean;
+  selectedTabID: ContentTabIDType;
+  onTabClick: (id: TabIDType) => void;
 };
 
 export type TabContainerProps = {

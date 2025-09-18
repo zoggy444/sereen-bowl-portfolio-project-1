@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import Image from "../../../reusable-ui/Image";
+import Image from "./Image";
 import { forwardRef, type ChangeEvent, type Ref } from "react";
-import type { FormProductProps, MenuActionType } from "../../../../types";
-import InputText from "../../../reusable-ui/InputText";
-import { theme } from "../../../../theme/theme";
-import getFieldConfig from "./getFieldConfig";
-import FormFooterAdd from "./FormFooterAdd";
-import FormFooterEdit from "./FormFooterEdit";
+import type { FormProductProps } from "../../types";
+import InputText from "./InputText";
+import { theme } from "../../theme/theme";
+import getFieldConfig from "../pages/order/AdminPanel/getFieldConfig";
+import FormFooterAdd from "../pages/order/AdminPanel/FormFooterAdd";
+import FormFooterEdit from "../pages/order/AdminPanel/FormFooterEdit";
 
 const FormProduct = forwardRef(
   (
@@ -57,7 +57,7 @@ const FormProduct = forwardRef(
             onInputReset={onInputReset}
           />
         ) : (
-          <FormFooterEdit className="info-msg" />
+          <FormFooterEdit />
         )}
       </FormProductStyled>
     );

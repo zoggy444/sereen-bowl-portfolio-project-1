@@ -2,11 +2,15 @@ import styled from "styled-components";
 import Button from "../../../reusable-ui/Button";
 import { useContext, useState, type FormEvent } from "react";
 import { MenuDispatchContext } from "../../../../context/MenuContext";
-import type { MenuActionType } from "../../../../types";
+import type { FormFooterAddProps, MenuActionType } from "../../../../types";
 import { FiCheckCircle } from "react-icons/fi";
 import { theme } from "../../../../theme/theme";
 
-export default function FormFooterAdd({ className, formInputs, onInputReset }) {
+export default function FormFooterAdd({
+  className,
+  formInputs,
+  onInputReset,
+}: FormFooterAddProps) {
   const menuDispatch = useContext(MenuDispatchContext);
   const [addedMsg, setaddedMsg] = useState(false);
 

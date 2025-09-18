@@ -36,6 +36,7 @@ export default function MenuCard({
 
   const onDeleteClick = (e: MouseEvent<SVGElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     const action: MenuActionType = { type: "delete-product", prodID: prodID };
     menuDispatch(action);
   };

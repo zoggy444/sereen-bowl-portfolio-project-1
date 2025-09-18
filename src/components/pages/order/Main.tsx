@@ -24,7 +24,7 @@ export default function Main() {
   const [isPanelFolded, setIsPanelFolded] = useState(false);
   const [selectedTabID, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
-  const [addInputs, setFormInputs] = useState({ ...defaultFormInputs });
+  const [addInputs, setAddInputs] = useState({ ...defaultFormInputs });
   const [editInputs, setEditInputs] = useState({ ...defaultFormInputs });
   const inputRef = useRef<Ref<HTMLInputElement | null>>(null);
 
@@ -67,11 +67,11 @@ export default function Main() {
   };
 
   const handleAddChange = (name: string, value: string) => {
-    setFormInputs({ ...addInputs, [name]: value });
+    setAddInputs({ ...addInputs, [name]: value });
   };
 
   const handleAddReset = () => {
-    setFormInputs({ ...defaultFormInputs });
+    setAddInputs({ ...defaultFormInputs });
   };
 
   const handleEditChange = (name: string, value: string) => {
@@ -82,6 +82,18 @@ export default function Main() {
       prodVals: { ...editInputs, [name]: value },
     });
   };
+
+  const handleEditReset = () => {
+    setEditInputs({ ...defaultFormInputs });
+  };
+
+  if (
+    products.find((p) => p.id === prodSelectedID) === undefined &&
+    prodSelectedID != -1
+  ) {
+    setProdSelectedID(-1);
+    handleEditReset();
+  }
 
   return (
     <MainStyled>

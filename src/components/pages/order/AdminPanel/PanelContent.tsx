@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import type { PanelContentProps } from "../../../../types";
-import FormProduct from "./FormProduct";
+import FormProduct from "../../../reusable-ui/FormProduct";
 import { forwardRef, type Ref } from "react";
 
 const PanelContent = forwardRef(

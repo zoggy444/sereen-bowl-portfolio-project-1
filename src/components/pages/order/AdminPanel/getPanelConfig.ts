@@ -1,13 +1,13 @@
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import type { PanelConfigParamType, PanelConfigType } from "../../../../types";
+import type { PanelConfigParamType, PanelConfigType, TabConfigParamType } from "../../../../types";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 
-export default ({
+export const getTabsConfig = ({
   isFolded,
   selectedTabID,
   onTabClick,
-}: PanelConfigParamType) =>
+}: TabConfigParamType) =>
   ({
     foldTab: {
       id: "fold",
@@ -36,14 +36,14 @@ export default ({
     ],
   } as PanelConfigType);
 
-export const getPanelConfig = (
+export default ({
   selectedTabID,
   addInputs,
   editInputs,
   onAddChange,
   onEditChange,
-  onAddReset
-) => {
+  onAddReset,
+}: PanelConfigParamType) => {
   if (selectedTabID === "add-product") {
     return {
       formInputs: addInputs,
@@ -54,6 +54,6 @@ export const getPanelConfig = (
   return {
     formInputs: editInputs,
     onInputChange: onEditChange,
-    onInputReset: undefined,
+    onInputReset: () => {},
   };
 };
