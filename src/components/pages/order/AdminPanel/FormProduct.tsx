@@ -1,79 +1,60 @@
 import styled from "styled-components";
 import Image from "../../../reusable-ui/Image";
-import { useContext, useState, type ChangeEvent, type FormEvent } from "react";
+import { forwardRef, type ChangeEvent, type Ref } from "react";
 import type { FormProductProps, MenuActionType } from "../../../../types";
 import InputText from "../../../reusable-ui/InputText";
 import { theme } from "../../../../theme/theme";
-import Button from "../../../reusable-ui/Button";
-import { FiCheckCircle } from "react-icons/fi";
 import getFieldConfig from "./getFieldConfig";
-import { MenuDispatchContext } from "../../../../context/MenuContext";
+import FormFooterAdd from "./FormFooterAdd";
 
-export default function FormProduct({
-  formInputs,
-  handleInputChange,
-  handleInputReset,
-}: FormProductProps) {
-  const menuDispatch = useContext(MenuDispatchContext);
-  const [addedMsg, setaddedMsg] = useState(false);
-
-  const imageProps = {
-    src: formInputs.imageSource,
-    alt: "product-image",
-    className: "product-image",
-  };
-
-  const onInputChange = (e: ChangeEvent) => {
-    const { name, value } = e.target as HTMLInputElement;
-    handleInputChange(name, value);
-  };
-
-  const onFormSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    handleInputReset();
-    setaddedMsg(true);
-    setTimeout(() => {
-      setaddedMsg(false);
-    }, 2000);
-    const action: MenuActionType = {
-      type: "add-product",
-      prodVals: formInputs,
+const FormProduct = forwardRef(
+  (
+    { formInputs, onInputChange, onInputReset }: FormProductProps,
+    ref: Ref<HTMLInputElement | null>
+  ) => {
+    const imageProps = {
+      src: formInputs.imageSource,
+      alt: "product-image",
+      className: "product-image",
     };
-    menuDispatch(action);
-  };
 
-  const fieldConfig = getFieldConfig({
-    fieldValues: formInputs,
-    onChange: onInputChange,
-  });
+    const handleInputChange = (e: ChangeEvent) => {
+      const { name, value } = e.target as HTMLInputElement;
+      onInputChange(name, value);
+    };
 
-  return (
-    <FormProductStyled onSubmit={onFormSubmit}>
-      {formInputs.imageSource ? (
-        <Image {...imageProps} />
-      ) : (
-        <div className="product-image">No image</div>
-      )}
+    const fieldConfig = getFieldConfig({
+      fieldValues: formInputs,
+      onChange: handleInputChange,
+    });
 
-      <div className="fields">
-        {fieldConfig.map((field) => {
-          return <InputText key={field.id} {...field} />;
-        })}
-      </div>
+    return (
+      <FormProductStyled>
+        {formInputs.imageSource ? (
+          <Image {...imageProps} />
+        ) : (
+          <div className="product-image">No image</div>
+        )}
 
-      <Button
-        label="Add new product to menu"
-        intent="success"
-        className="button-submit"
-      />
-      {addedMsg && (
-        <div className="added-msg">
-          <FiCheckCircle /> <span>Succesfuly added !</span>
+        <div className="fields">
+          {fieldConfig.map((field) => {
+            if (field.id === "title")
+              return <InputText key={field.id} {...field} ref={ref} />;
+            return <InputText key={field.id} {...field} />;
+          })}
         </div>
-      )}
-    </FormProductStyled>
-  );
-}
+
+        <FormFooterAdd
+          className="form-footer"
+          formInputs={formInputs}
+          onInputReset={onInputReset}
+        />
+      </FormProductStyled>
+    );
+  }
+);
+
+export default FormProduct;
 
 const FormProductStyled = styled.form`
   max-width: 880px;
@@ -100,16 +81,7 @@ const FormProductStyled = styled.form`
     display: grid;
     gap: ${theme.spacing.xs};
   }
-  .button-submit {
-    grid-area: 4 / 2 / 5 / 3;
-  }
-  .added-msg {
-    grid-area: 4 / 3 / 5 / 4;
-    color: ${theme.colors.success};
-    display: flex;
-    align-items: center;
-    span {
-      padding-left: ${theme.spacing.xs};
-    }
+  .form-footer {
+    grid-area: 4 / 1 / 5 / 4;
   }
 `;

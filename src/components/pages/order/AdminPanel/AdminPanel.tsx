@@ -1,33 +1,26 @@
 import styled from "styled-components";
 import PanelContent from "./PanelContent";
-import { forwardRef, useContext, useState, type Ref } from "react";
+import { forwardRef, useContext, type Ref } from "react";
 import TabContainer from "./TabContainer";
 import type { AdminPanelProps, PanelConfigType } from "../../../../types";
 import isAdminModeContext from "../../../../context/IsAdminModeContext";
 import getTabsConfig from "./getPanelConfig";
-import { defaultFormInputs } from "./getFieldConfig";
 
 const AdminPanel = forwardRef(
   (
     {
       isFolded,
       selectedTab,
+      addInputs,
       editInputs,
+      onAddChange,
+      onAddReset,
       onEditChange,
       onTabClick,
     }: AdminPanelProps,
     ref: Ref<HTMLInputElement | null>
   ) => {
-    const [formInputs, setFormInputs] = useState({ ...defaultFormInputs });
     const { isAdminMode } = useContext(isAdminModeContext);
-
-    const handleInputChange = (name: string, value: string) => {
-      setFormInputs({ ...formInputs, [name]: value });
-    };
-
-    const handleInputReset = () => {
-      setFormInputs({ ...defaultFormInputs });
-    };
 
     const { foldTab, contentTabs, panelContent }: PanelConfigType =
       getTabsConfig({
@@ -43,9 +36,9 @@ const AdminPanel = forwardRef(
           <PanelContent
             isFolded={isFolded}
             content={panelContent}
-            formInputs={formInputs}
-            handleInputChange={handleInputChange}
-            handleInputReset={handleInputReset}
+            formInputs={addInputs}
+            onAddChange={onAddChange}
+            onAddReset={onAddReset}
             editInputs={editInputs}
             onEditChange={onEditChange}
             ref={ref}

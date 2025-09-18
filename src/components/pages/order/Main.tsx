@@ -24,6 +24,7 @@ export default function Main() {
   const [isPanelFolded, setIsPanelFolded] = useState(false);
   const [selectedTab, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
+  const [addInputs, setFormInputs] = useState({ ...defaultFormInputs });
   const [editInputs, setEditInputs] = useState({ ...defaultFormInputs });
   const inputRef = useRef<Ref<HTMLInputElement | null>>(null);
 
@@ -65,6 +66,14 @@ export default function Main() {
     }
   };
 
+  const handleAddChange = (name: string, value: string) => {
+    setFormInputs({ ...addInputs, [name]: value });
+  };
+
+  const handleAddReset = () => {
+    setFormInputs({ ...defaultFormInputs });
+  };
+
   const handleEditChange = (name: string, value: string) => {
     setEditInputs({ ...editInputs, [name]: value });
     menuDispatch({
@@ -88,7 +97,10 @@ export default function Main() {
       <AdminPanel
         isFolded={isPanelFolded}
         selectedTab={selectedTab}
+        addInputs={addInputs}
         editInputs={editInputs}
+        onAddChange={handleAddChange}
+        onAddReset={handleAddReset}
         onEditChange={handleEditChange}
         onTabClick={handleTabClick}
         ref={inputRef}

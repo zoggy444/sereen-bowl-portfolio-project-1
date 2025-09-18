@@ -11,8 +11,8 @@ const PanelContent = forwardRef(
       isFolded,
       content,
       formInputs,
-      handleInputChange,
-      handleInputReset,
+      onAddChange,
+      onAddReset,
       editInputs,
       onEditChange,
     }: PanelContentProps,
@@ -24,8 +24,8 @@ const PanelContent = forwardRef(
           <PanelContentStyled>
             <FormProduct
               formInputs={formInputs}
-              handleInputChange={handleInputChange}
-              handleInputReset={handleInputReset}
+              onInputChange={onAddChange}
+              onInputReset={onAddReset}
             />
           </PanelContentStyled>
         );

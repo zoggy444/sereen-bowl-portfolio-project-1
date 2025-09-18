@@ -14,6 +14,7 @@ export default function Button({
   intent = "primary",
   variant = "primary",
   onClick,
+  ...buttonProps
 }: ButtonProps) {
   return (
     <ButtonStyled
@@ -21,6 +22,7 @@ export default function Button({
       $variant={variant}
       className={className}
       onClick={onClick}
+      {...buttonProps}
     >
       <span>{label}</span>
       {Icon && <Icon />}

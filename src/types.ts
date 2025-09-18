@@ -1,4 +1,8 @@
-import type { ChangeEventHandler, ComponentPropsWithoutRef } from "react";
+import type {
+  ChangeEventHandler,
+  ComponentPropsWithoutRef,
+  FormEvent,
+} from "react";
 import type { IconType } from "react-icons";
 
 // data types
@@ -31,8 +35,8 @@ export type ButtonProps = {
   intent?: IntentType;
   className?: string;
   Icon?: IconType;
-  onClick?: () => void;
-};
+  onClick?: (e?: FormEvent) => void;
+} & ComponentPropsWithoutRef<"button">;
 
 export type ButtonStyledProps = {
   $intent: IntentType;
