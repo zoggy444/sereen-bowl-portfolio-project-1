@@ -5,6 +5,7 @@ import type { FormProdEditProps } from "../../../../types";
 import InputText from "../../../reusable-ui/InputText";
 import { theme } from "../../../../theme/theme";
 import getFieldConfig from "./getFieldConfig";
+import FormFooterEdit from "./FormFooterEdit";
 
 const FormProdEdit = forwardRef(
   (
@@ -41,9 +42,6 @@ const FormProdEdit = forwardRef(
               return <InputText key={field.id} {...field} ref={ref} />;
             return <InputText key={field.id} {...field} />;
           })}
-        </div>
-        <div className="info-msg">
-          Click on a product in the menu to edit it&nbsp;<u>on the fly</u>
         </div>
       </FormProductStyled>
     );

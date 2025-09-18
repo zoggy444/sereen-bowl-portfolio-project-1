@@ -83,7 +83,7 @@ export type TabProps<T> = {
 
 export type AdminPanelProps = {
   isFolded: boolean;
-  selectedTab: ContentTabIDType;
+  selectedTabID: ContentTabIDType;
   editInputs: PanelFormType;
   onEditChange: (name: string, value: string) => void;
   onTabClick: (id: TabIDType) => void;
@@ -160,7 +160,7 @@ export type NavRightProps = {
 
 export type PanelConfigParamType = {
   isFolded: boolean;
-  selectedTab: ContentTabIDType;
+  selectedTabID: ContentTabIDType;
   onTabClick: (id: TabIDType) => void;
 };
 

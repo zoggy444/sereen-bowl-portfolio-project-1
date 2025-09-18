@@ -22,7 +22,7 @@ export default function Main() {
   const [prodHoveredID, setProdHoveredID] = useState(-1);
   const [prodSelectedID, setProdSelectedID] = useState(-1);
   const [isPanelFolded, setIsPanelFolded] = useState(false);
-  const [selectedTab, setSelectedTab] =
+  const [selectedTabID, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
   const [addInputs, setFormInputs] = useState({ ...defaultFormInputs });
   const [editInputs, setEditInputs] = useState({ ...defaultFormInputs });
@@ -96,7 +96,7 @@ export default function Main() {
       />
       <AdminPanel
         isFolded={isPanelFolded}
-        selectedTab={selectedTab}
+        selectedTabID={selectedTabID}
         addInputs={addInputs}
         editInputs={editInputs}
         onAddChange={handleAddChange}

@@ -5,12 +5,13 @@ import TabContainer from "./TabContainer";
 import type { AdminPanelProps, PanelConfigType } from "../../../../types";
 import isAdminModeContext from "../../../../context/IsAdminModeContext";
 import getTabsConfig from "./getPanelConfig";
+import getPanelConfig from "./getPanelConfig";
 
 const AdminPanel = forwardRef(
   (
     {
       isFolded,
-      selectedTab,
+      selectedTabID,
       addInputs,
       editInputs,
       onAddChange,
@@ -22,27 +23,26 @@ const AdminPanel = forwardRef(
   ) => {
     const { isAdminMode } = useContext(isAdminModeContext);
 
-    const { foldTab, contentTabs, panelContent }: PanelConfigType =
-      getTabsConfig({
-        isFolded,
-        selectedTab,
-        onTabClick,
-      });
+    const { foldTab, contentTabs }: PanelConfigType = getTabsConfig({
+      isFolded,
+      selectedTabID,
+      onTabClick,
+    });
+
+    const contentProps = getPanelConfig({
+      selectedTabID,
+      addInputs,
+      editInputs,
+      onAddChange,
+      onEditChange,
+      onAddReset,
+    });
 
     if (isAdminMode) {
       return (
         <AdminPanelStyled>
           <TabContainer foldTab={foldTab} contentTabs={contentTabs} />
-          <PanelContent
-            isFolded={isFolded}
-            content={panelContent}
-            formInputs={addInputs}
-            onAddChange={onAddChange}
-            onAddReset={onAddReset}
-            editInputs={editInputs}
-            onEditChange={onEditChange}
-            ref={ref}
-          />
+          <PanelContent isFolded={isFolded} {...contentProps} ref={ref} />
         </AdminPanelStyled>
       );
     }

@@ -6,10 +6,16 @@ import InputText from "../../../reusable-ui/InputText";
 import { theme } from "../../../../theme/theme";
 import getFieldConfig from "./getFieldConfig";
 import FormFooterAdd from "./FormFooterAdd";
+import FormFooterEdit from "./FormFooterEdit";
 
 const FormProduct = forwardRef(
   (
-    { formInputs, onInputChange, onInputReset }: FormProductProps,
+    {
+      selectedTabID,
+      formInputs,
+      onInputChange,
+      onInputReset,
+    }: FormProductProps,
     ref: Ref<HTMLInputElement | null>
   ) => {
     const imageProps = {
@@ -44,11 +50,15 @@ const FormProduct = forwardRef(
           })}
         </div>
 
-        <FormFooterAdd
-          className="form-footer"
-          formInputs={formInputs}
-          onInputReset={onInputReset}
-        />
+        {selectedTabID === "add-product" ? (
+          <FormFooterAdd
+            className="form-footer"
+            formInputs={formInputs}
+            onInputReset={onInputReset}
+          />
+        ) : (
+          <FormFooterEdit className="info-msg" />
+        )}
       </FormProductStyled>
     );
   }

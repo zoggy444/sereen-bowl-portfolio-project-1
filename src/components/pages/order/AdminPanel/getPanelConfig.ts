@@ -3,7 +3,11 @@ import type { PanelConfigParamType, PanelConfigType } from "../../../../types";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 
-export default ({ isFolded, selectedTab, onTabClick }: PanelConfigParamType) =>
+export default ({
+  isFolded,
+  selectedTabID,
+  onTabClick,
+}: PanelConfigParamType) =>
   ({
     foldTab: {
       id: "fold",
@@ -16,7 +20,7 @@ export default ({ isFolded, selectedTab, onTabClick }: PanelConfigParamType) =>
       {
         id: "add-product",
         label: "Add a product",
-        isActive: selectedTab === "add-product",
+        isActive: selectedTabID === "add-product",
         IconIfChecked: AiOutlinePlus,
         IconIfUnchecked: AiOutlinePlus,
         onClick: onTabClick,
@@ -24,12 +28,32 @@ export default ({ isFolded, selectedTab, onTabClick }: PanelConfigParamType) =>
       {
         id: "edit-product",
         label: "Edit a product",
-        isActive: selectedTab === "edit-product",
+        isActive: selectedTabID === "edit-product",
         IconIfChecked: MdModeEditOutline,
         IconIfUnchecked: MdModeEditOutline,
         onClick: onTabClick,
       },
     ],
-    panelContent:
-      selectedTab === "add-product" ? "Add a product" : "Edit a product",
   } as PanelConfigType);
+
+export const getPanelConfig = (
+  selectedTabID,
+  addInputs,
+  editInputs,
+  onAddChange,
+  onEditChange,
+  onAddReset
+) => {
+  if (selectedTabID === "add-product") {
+    return {
+      formInputs: addInputs,
+      onInputChange: onAddChange,
+      onInputReset: onAddReset,
+    };
+  }
+  return {
+    formInputs: editInputs,
+    onInputChange: onEditChange,
+    onInputReset: undefined,
+  };
+};

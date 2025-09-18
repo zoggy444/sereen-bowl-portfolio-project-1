@@ -2,39 +2,27 @@ import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import type { PanelContentProps } from "../../../../types";
 import FormProduct from "./FormProduct";
-import FormProdEdit from "./FormProdEdit";
 import { forwardRef, type Ref } from "react";
 
 const PanelContent = forwardRef(
   (
     {
       isFolded,
-      content,
+      selectedTabID,
       formInputs,
-      onAddChange,
-      onAddReset,
-      editInputs,
-      onEditChange,
+      onInputChange,
+      onInputReset,
     }: PanelContentProps,
     ref: Ref<HTMLInputElement | null>
   ) => {
     if (!isFolded) {
-      if (content === "Add a product") {
-        return (
-          <PanelContentStyled>
-            <FormProduct
-              formInputs={formInputs}
-              onInputChange={onAddChange}
-              onInputReset={onAddReset}
-            />
-          </PanelContentStyled>
-        );
-      }
       return (
         <PanelContentStyled>
-          <FormProdEdit
-            formInputs={editInputs}
-            onInputChange={onEditChange}
+          <FormProduct
+            selectedTabID={selectedTabID}
+            formInputs={formInputs}
+            onInputChange={onInputChange}
+            onInputReset={onInputReset}
             ref={ref}
           />
         </PanelContentStyled>
