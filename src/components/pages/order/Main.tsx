@@ -46,7 +46,7 @@ export default function Main() {
     setEditInputs(newEditInputs);
     setSelectedTab("edit-product");
     toggleFolded(false);
-    inputRef?.current?.focus();
+    setTimeout(() => inputRef?.current?.focus(), 0);
   };
 
   const toggleFolded = (force?: boolean) => {
