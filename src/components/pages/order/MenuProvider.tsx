@@ -27,7 +27,6 @@ const menuReducer = (menuProds: ProductType[], action: MenuActionType) => {
       if (!newVals) return [...menuProds];
       const nextId = menuProds.length + 1;
 
-      if (!newVals.imageSource) newVals.imageSource = "/images/coming-soon.png";
       let priceNumber = parseFloat(newVals.price.replace(",", "."));
       if (isNaN(priceNumber)) priceNumber = 0;
 

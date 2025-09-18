@@ -42,6 +42,9 @@ const FormProdEdit = forwardRef(
             return <InputText key={field.id} {...field} />;
           })}
         </div>
+        <div className="info-msg">
+          Click on a product in the menu to edit it&nbsp;<u>on the fly</u>
+        </div>
       </FormProductStyled>
     );
   }
@@ -74,16 +77,12 @@ const FormProductStyled = styled.form`
     display: grid;
     gap: ${theme.spacing.xs};
   }
-  .button-submit {
-    grid-area: 4 / 2 / 5 / 3;
-  }
-  .added-msg {
-    grid-area: 4 / 3 / 5 / 4;
-    color: ${theme.colors.success};
+  .info-msg {
+    grid-area: 4 / 2 / 5 / 4;
+
+    color: ${theme.colors.primary};
+
     display: flex;
     align-items: center;
-    span {
-      padding-left: ${theme.spacing.xs};
-    }
   }
 `;

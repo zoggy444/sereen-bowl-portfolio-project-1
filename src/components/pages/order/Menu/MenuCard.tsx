@@ -55,7 +55,11 @@ export default function MenuCard({
           </button>
         )}
       </div>
-      <Image src={src} alt="product-image" className="product-image" />
+      <Image
+        src={src || "/images/coming-soon.png"}
+        alt="product-image"
+        className="product-image"
+      />
       <ProductDetail title={title} price={price} isSelected={isSelected} />
     </MenuCardStyled>
   );
