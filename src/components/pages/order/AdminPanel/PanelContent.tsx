@@ -3,39 +3,48 @@ import { theme } from "../../../../theme/theme";
 import type { PanelContentProps } from "../../../../types";
 import FormProduct from "./FormProduct";
 import FormProdEdit from "./FormProdEdit";
+import { forwardRef, type Ref } from "react";
 
-export default function PanelContent({
-  isFolded,
-  content,
-  formInputs,
-  handleInputChange,
-  handleInputReset,
-  editInputs,
-  onEditChange,
-}: PanelContentProps) {
-  if (!isFolded) {
-    if (content === "Add a product") {
+const PanelContent = forwardRef(
+  (
+    {
+      isFolded,
+      content,
+      formInputs,
+      handleInputChange,
+      handleInputReset,
+      editInputs,
+      onEditChange,
+    }: PanelContentProps,
+    ref: Ref<HTMLInputElement | null>
+  ) => {
+    if (!isFolded) {
+      if (content === "Add a product") {
+        return (
+          <PanelContentStyled>
+            <FormProduct
+              formInputs={formInputs}
+              handleInputChange={handleInputChange}
+              handleInputReset={handleInputReset}
+            />
+          </PanelContentStyled>
+        );
+      }
       return (
         <PanelContentStyled>
-          <FormProduct
-            formInputs={formInputs}
-            handleInputChange={handleInputChange}
-            handleInputReset={handleInputReset}
+          <FormProdEdit
+            formInputs={editInputs}
+            onInputChange={onEditChange}
+            ref={ref}
           />
         </PanelContentStyled>
       );
     }
-    return (
-      <PanelContentStyled>
-        <FormProdEdit
-          formInputs={editInputs}
-          onInputChange={onEditChange}
-        />
-      </PanelContentStyled>
-    );
+    return <PanelFoldedStyled />;
   }
-  return <PanelFoldedStyled />;
-}
+);
+
+export default PanelContent;
 
 const PanelContentStyled = styled.div`
   min-height: ${theme.gridUnit * 25}px;

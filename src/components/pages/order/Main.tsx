@@ -9,7 +9,7 @@ import type {
   ProductType,
   TabIDType,
 } from "../../../types";
-import { useContext, useState } from "react";
+import { type Ref, useContext, useRef, useState } from "react";
 import {
   MenuDispatchContext,
   MenuProdsContext,
@@ -21,10 +21,11 @@ export default function Main() {
   const menuDispatch = useContext(MenuDispatchContext);
   const [prodHoveredID, setProdHoveredID] = useState(-1);
   const [prodSelectedID, setProdSelectedID] = useState(-1);
-  const [editInputs, setEditInputs] = useState({ ...defaultFormInputs });
   const [isPanelFolded, setIsPanelFolded] = useState(false);
   const [selectedTab, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
+  const [editInputs, setEditInputs] = useState({ ...defaultFormInputs });
+  const inputRef = useRef<Ref<HTMLInputElement | null>>(null);
 
   const handleCardMouseEnter = (id: number) => {
     setProdHoveredID(id);
@@ -45,6 +46,7 @@ export default function Main() {
     setEditInputs(newEditInputs);
     setSelectedTab("edit-product");
     toggleFolded(false);
+    inputRef?.current?.focus();
   };
 
   const toggleFolded = (force?: boolean) => {
@@ -89,6 +91,7 @@ export default function Main() {
         editInputs={editInputs}
         onEditChange={handleEditChange}
         onTabClick={handleTabClick}
+        ref={inputRef}
       />
     </MainStyled>
   );

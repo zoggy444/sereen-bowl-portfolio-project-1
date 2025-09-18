@@ -1,56 +1,63 @@
 import styled from "styled-components";
 import PanelContent from "./PanelContent";
-import { useContext, useState } from "react";
+import { forwardRef, useContext, useState, type Ref } from "react";
 import TabContainer from "./TabContainer";
 import type { AdminPanelProps, PanelConfigType } from "../../../../types";
 import isAdminModeContext from "../../../../context/IsAdminModeContext";
 import getTabsConfig from "./getPanelConfig";
 import { defaultFormInputs } from "./getFieldConfig";
 
-export default function AdminPanel({
-  isFolded,
-  selectedTab,
-  editInputs,
-  onEditChange,
-  onTabClick,
-}: AdminPanelProps) {
-  const [formInputs, setFormInputs] = useState({ ...defaultFormInputs });
-  const { isAdminMode } = useContext(isAdminModeContext);
-
-  const handleInputChange = (name: string, value: string) => {
-    setFormInputs({ ...formInputs, [name]: value });
-  };
-
-  const handleInputReset = () => {
-    setFormInputs({ ...defaultFormInputs });
-  };
-
-  const { foldTab, contentTabs, panelContent }: PanelConfigType = getTabsConfig(
+const AdminPanel = forwardRef(
+  (
     {
       isFolded,
       selectedTab,
+      editInputs,
+      onEditChange,
       onTabClick,
-    }
-  );
+    }: AdminPanelProps,
+    ref: Ref<HTMLInputElement | null>
+  ) => {
+    const [formInputs, setFormInputs] = useState({ ...defaultFormInputs });
+    const { isAdminMode } = useContext(isAdminModeContext);
 
-  if (isAdminMode) {
-    return (
-      <AdminPanelStyled>
-        <TabContainer foldTab={foldTab} contentTabs={contentTabs} />
-        <PanelContent
-          isFolded={isFolded}
-          content={panelContent}
-          formInputs={formInputs}
-          handleInputChange={handleInputChange}
-          handleInputReset={handleInputReset}
-          editInputs={editInputs}
-          onEditChange={onEditChange}
-        />
-      </AdminPanelStyled>
-    );
+    const handleInputChange = (name: string, value: string) => {
+      setFormInputs({ ...formInputs, [name]: value });
+    };
+
+    const handleInputReset = () => {
+      setFormInputs({ ...defaultFormInputs });
+    };
+
+    const { foldTab, contentTabs, panelContent }: PanelConfigType =
+      getTabsConfig({
+        isFolded,
+        selectedTab,
+        onTabClick,
+      });
+
+    if (isAdminMode) {
+      return (
+        <AdminPanelStyled>
+          <TabContainer foldTab={foldTab} contentTabs={contentTabs} />
+          <PanelContent
+            isFolded={isFolded}
+            content={panelContent}
+            formInputs={formInputs}
+            handleInputChange={handleInputChange}
+            handleInputReset={handleInputReset}
+            editInputs={editInputs}
+            onEditChange={onEditChange}
+            ref={ref}
+          />
+        </AdminPanelStyled>
+      );
+    }
+    return;
   }
-  return;
-}
+);
+
+export default AdminPanel;
 
 const AdminPanelStyled = styled.div`
   position: absolute;

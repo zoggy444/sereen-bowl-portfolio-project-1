@@ -1,47 +1,53 @@
 import styled from "styled-components";
 import Image from "../../../reusable-ui/Image";
-import { type ChangeEvent } from "react";
+import { forwardRef, type ChangeEvent, type Ref } from "react";
 import type { FormProdEditProps } from "../../../../types";
 import InputText from "../../../reusable-ui/InputText";
 import { theme } from "../../../../theme/theme";
 import getFieldConfig from "./getFieldConfig";
 
-export default function FormProdEdit({
-  formInputs,
-  onInputChange,
-}: FormProdEditProps) {
-  const imageProps = {
-    src: formInputs.imageSource,
-    alt: "product-image",
-    className: "product-image",
-  };
+const FormProdEdit = forwardRef(
+  (
+    { formInputs, onInputChange }: FormProdEditProps,
+    ref: Ref<HTMLInputElement | null>
+  ) => {
+    const imageProps = {
+      src: formInputs.imageSource,
+      alt: "product-image",
+      className: "product-image",
+    };
 
-  const handleInputChange = (e: ChangeEvent) => {
-    const { name, value } = e.target as HTMLInputElement;
-    onInputChange(name, value);
-  };
+    const handleInputChange = (e: ChangeEvent) => {
+      const { name, value } = e.target as HTMLInputElement;
+      onInputChange(name, value);
+    };
 
-  const fieldConfig = getFieldConfig({
-    fieldValues: formInputs,
-    onChange: handleInputChange,
-  });
+    const fieldConfig = getFieldConfig({
+      fieldValues: formInputs,
+      onChange: handleInputChange,
+    });
 
-  return (
-    <FormProductStyled>
-      {formInputs.imageSource ? (
-        <Image {...imageProps} />
-      ) : (
-        <div className="product-image">No image</div>
-      )}
+    return (
+      <FormProductStyled>
+        {formInputs.imageSource ? (
+          <Image {...imageProps} />
+        ) : (
+          <div className="product-image">No image</div>
+        )}
 
-      <div className="fields">
-        {fieldConfig.map((field) => {
-          return <InputText key={field.id} {...field} />;
-        })}
-      </div>
-    </FormProductStyled>
-  );
-}
+        <div className="fields">
+          {fieldConfig.map((field) => {
+            if (field.id === "title")
+              return <InputText key={field.id} {...field} ref={ref} />;
+            return <InputText key={field.id} {...field} />;
+          })}
+        </div>
+      </FormProductStyled>
+    );
+  }
+);
+
+export default FormProdEdit;
 
 const FormProductStyled = styled.form`
   max-width: 880px;
