@@ -4,17 +4,13 @@ import { forwardRef, type ChangeEvent, type Ref } from "react";
 import InputText from "./InputText";
 import { theme } from "../../theme/theme";
 import getFieldConfig from "../pages/order/AdminPanel/getFieldConfig";
-import FormFooterAdd from "../pages/order/AdminPanel/FormFooterAdd";
-import FormFooterEdit from "../pages/order/AdminPanel/FormFooterEdit";
 import type { FormProductProps } from "../../types";
 
 const FormProduct = forwardRef(
   (
-    { selectedTabID, formInputs, handleInputChange }: FormProductProps,
+    { formInputs, Footer, handleInputChange }: FormProductProps,
     ref: Ref<HTMLInputElement | null>
   ) => {
-    // todo : have a Footer in props instead of selectedTabID
-
     const imageProps = {
       src: formInputs.imageSource,
       alt: "product-image",
@@ -47,11 +43,7 @@ const FormProduct = forwardRef(
           })}
         </div>
 
-        {selectedTabID === "add-product" ? (
-          <FormFooterAdd className="form-footer" />
-        ) : (
-          <FormFooterEdit />
-        )}
+        <Footer className="form-footer" />
       </FormProductStyled>
     );
   }

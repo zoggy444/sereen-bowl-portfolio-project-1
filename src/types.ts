@@ -1,6 +1,7 @@
 import type {
   ChangeEventHandler,
   ComponentPropsWithoutRef,
+  FC,
   FormEvent,
 } from "react";
 import type { IconType } from "react-icons";
@@ -96,13 +97,14 @@ export type FieldConfigType = {
   onChange: ChangeEventHandler<HTMLInputElement>;
 };
 
-export type FormFooterAddProps = {
+export type FormFooterProps = {
   className: string;
 };
 
 export type FormProductProps = {
   selectedTabID: ContentTabIDType;
   formInputs: PanelFormType;
+  Footer: FC<FormFooterProps>;
   handleInputChange: (name: string, value: string) => void;
   handleInputReset: () => void;
 };

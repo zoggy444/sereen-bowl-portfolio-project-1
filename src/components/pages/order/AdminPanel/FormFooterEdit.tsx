@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
+import type { FormFooterProps } from "../../../../types";
 
-export default function FormFooterEdit() {
+export default function FormFooterEdit({ className }: FormFooterProps) {
   return (
-    <FormFooterEditStyled>
+    <FormFooterEditStyled className={className}>
       <span className="info-msg">
         Click on a product in the menu to edit it&nbsp;<u>on the fly</u>
       </span>
@@ -12,10 +13,16 @@ export default function FormFooterEdit() {
 }
 
 const FormFooterEditStyled = styled.div`
-  grid-column: 2/4;
+  display: grid;
+  grid-template-columns: 25% 1fr 1fr;
+  column-gap: ${theme.spacing.md};
 
-  color: ${theme.colors.primary};
+  span {
+    grid-column: 2 / 4;
 
-  display: flex;
-  align-items: center;
+    color: ${theme.colors.primary};
+
+    display: flex;
+    align-items: center;
+  }
 `;

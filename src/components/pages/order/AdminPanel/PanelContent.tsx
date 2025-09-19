@@ -6,6 +6,8 @@ import {
   FormProdContext,
   FormProdHandlersContext,
 } from "../../../../context/AdminPanelContext";
+import FormFooterAdd from "./FormFooterAdd";
+import FormFooterEdit from "./FormFooterEdit";
 
 const PanelContent = () => {
   const { isFolded, selectedTabID, formInputs, inputRef } =
@@ -14,12 +16,16 @@ const PanelContent = () => {
     FormProdHandlersContext
   );
 
+  const FormFooter =
+    selectedTabID === "add-product" ? FormFooterAdd : FormFooterEdit;
+
   if (!isFolded) {
     return (
       <PanelContentStyled>
         <FormProduct
           selectedTabID={selectedTabID}
           formInputs={formInputs}
+          Footer={FormFooter}
           handleInputChange={handleInputChange}
           handleInputReset={handleInputReset}
           ref={inputRef}

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Button from "../../../reusable-ui/Button";
 import { useContext, useState, type FormEvent } from "react";
 import { MenuDispatchContext } from "../../../../context/MenuContext";
-import type { FormFooterAddProps, MenuActionType } from "../../../../types";
+import type { FormFooterProps, MenuActionType } from "../../../../types";
 import { FiCheckCircle } from "react-icons/fi";
 import { theme } from "../../../../theme/theme";
 import {
@@ -10,7 +10,7 @@ import {
   FormProdHandlersContext,
 } from "../../../../context/AdminPanelContext";
 
-export default function FormFooterAdd({ className }: FormFooterAddProps) {
+export default function FormFooterAdd({ className }: FormFooterProps) {
   const menuDispatch = useContext(MenuDispatchContext);
   const { formInputs } = useContext(FormProdContext);
   const { handleInputReset } = useContext(FormProdHandlersContext);
