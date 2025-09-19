@@ -6,25 +6,13 @@ import { forwardRef, type Ref } from "react";
 
 const PanelContent = forwardRef(
   (
-    {
-      isFolded,
-      selectedTabID,
-      formInputs,
-      onInputChange,
-      onInputReset,
-    }: PanelContentProps,
+    { isFolded, selectedTabID }: PanelContentProps,
     ref: Ref<HTMLInputElement | null>
   ) => {
     if (!isFolded) {
       return (
         <PanelContentStyled>
-          <FormProduct
-            selectedTabID={selectedTabID}
-            formInputs={formInputs}
-            onInputChange={onInputChange}
-            onInputReset={onInputReset}
-            ref={ref}
-          />
+          <FormProduct selectedTabID={selectedTabID} ref={ref} />
         </PanelContentStyled>
       );
     }

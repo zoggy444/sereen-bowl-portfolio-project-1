@@ -12,6 +12,7 @@ import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { useContext, type MouseEvent } from "react";
 import { MenuDispatchContext } from "../../../../context/MenuContext";
 
+//todo : see if possible getting state down from parent : hover and select
 export default function MenuCard({
   prodID,
   src,

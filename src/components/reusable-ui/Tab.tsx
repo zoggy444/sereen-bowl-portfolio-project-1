@@ -11,6 +11,7 @@ export default function Tab<T>({
   onClick,
 }: TabProps<T>) {
   const onTabClick = () => {
+    console.log(onClick)
     return onClick(id);
   };
 

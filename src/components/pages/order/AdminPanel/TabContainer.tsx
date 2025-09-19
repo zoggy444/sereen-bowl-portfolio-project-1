@@ -6,17 +6,20 @@ import type {
   ContentTabIDType,
 } from "../../../../types";
 import Tab from "../../../reusable-ui/Tab";
+import { FormProdHandlersContext } from "../../../../context/AdminPanelContext";
+import { useContext } from "react";
 
 export default function TabContainer({
   foldTab,
   contentTabs,
 }: TabContainerProps) {
+  const { handleTabClick } = useContext(FormProdHandlersContext);
   return (
     <TabContainerStyled>
       <>
         <Tab {...foldTab} />
         {contentTabs.map(({ ...props }: TabProps<ContentTabIDType>) => (
-          <Tab key={props.id} {...props} />
+          <Tab key={props.id} {...props} onClick={handleTabClick} />
         ))}
       </>
     </TabContainerStyled>

@@ -5,18 +5,20 @@ import { MenuDispatchContext } from "../../../../context/MenuContext";
 import type { FormFooterAddProps, MenuActionType } from "../../../../types";
 import { FiCheckCircle } from "react-icons/fi";
 import { theme } from "../../../../theme/theme";
+import {
+  FormProdContext,
+  FormProdHandlersContext,
+} from "../../../../context/AdminPanelContext";
 
-export default function FormFooterAdd({
-  className,
-  formInputs,
-  onInputReset,
-}: FormFooterAddProps) {
+export default function FormFooterAdd({ className }: FormFooterAddProps) {
   const menuDispatch = useContext(MenuDispatchContext);
+  const { formInputs } = useContext(FormProdContext);
+  const { handleInputReset } = useContext(FormProdHandlersContext);
   const [addedMsg, setaddedMsg] = useState(false);
 
   const onFormSubmit = (e?: FormEvent) => {
     e?.preventDefault();
-    onInputReset();
+    handleInputReset();
     setaddedMsg(true);
     setTimeout(() => {
       setaddedMsg(false);

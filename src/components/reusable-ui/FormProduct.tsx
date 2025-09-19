@@ -1,68 +1,66 @@
 import styled from "styled-components";
 import Image from "./Image";
-import { forwardRef, type ChangeEvent, type Ref } from "react";
-import type { FormProductProps } from "../../types";
+import { forwardRef, useContext, type ChangeEvent, type Ref } from "react";
 import InputText from "./InputText";
 import { theme } from "../../theme/theme";
 import getFieldConfig from "../pages/order/AdminPanel/getFieldConfig";
 import FormFooterAdd from "../pages/order/AdminPanel/FormFooterAdd";
 import FormFooterEdit from "../pages/order/AdminPanel/FormFooterEdit";
+import {
+  FormProdContext,
+  FormProdHandlersContext,
+} from "../../context/AdminPanelContext";
 
-const FormProduct = forwardRef(
-  (
-    {
-      selectedTabID,
-      formInputs,
-      onInputChange,
-      onInputReset,
-    }: FormProductProps,
-    ref: Ref<HTMLInputElement | null>
-  ) => {
-    const imageProps = {
-      src: formInputs.imageSource,
-      alt: "product-image",
-      className: "product-image",
-    };
+const FormProduct = forwardRef((props, ref: Ref<HTMLInputElement | null>) => {
+  const { selectedTabID, formInputs } = useContext(FormProdContext);
+  const { handleInputChange, handleInputReset } = useContext(
+    FormProdHandlersContext
+  );
 
-    const handleInputChange = (e: ChangeEvent) => {
-      const { name, value } = e.target as HTMLInputElement;
-      onInputChange(name, value);
-    };
+  const imageProps = {
+    src: formInputs.imageSource,
+    alt: "product-image",
+    className: "product-image",
+  };
 
-    const fieldConfig = getFieldConfig({
-      fieldValues: formInputs,
-      onChange: handleInputChange,
-    });
+  const onInputChange = (e: ChangeEvent) => {
+    const { name, value } = e.target as HTMLInputElement;
+    handleInputChange(name, value);
+  };
 
-    return (
-      <FormProductStyled>
-        {formInputs.imageSource ? (
-          <Image {...imageProps} />
-        ) : (
-          <div className="product-image">No image</div>
-        )}
+  const fieldConfig = getFieldConfig({
+    fieldValues: formInputs,
+    onChange: onInputChange,
+  });
 
-        <div className="fields">
-          {fieldConfig.map((field) => {
-            if (field.id === "title")
-              return <InputText key={field.id} {...field} ref={ref} />;
-            return <InputText key={field.id} {...field} />;
-          })}
-        </div>
+  return (
+    <FormProductStyled>
+      {formInputs.imageSource ? (
+        <Image {...imageProps} />
+      ) : (
+        <div className="product-image">No image</div>
+      )}
 
-        {selectedTabID === "add-product" ? (
-          <FormFooterAdd
-            className="form-footer"
-            formInputs={formInputs}
-            onInputReset={onInputReset}
-          />
-        ) : (
-          <FormFooterEdit />
-        )}
-      </FormProductStyled>
-    );
-  }
-);
+      <div className="fields">
+        {fieldConfig.map((field) => {
+          if (field.id === "title")
+            return <InputText key={field.id} {...field} ref={ref} />;
+          return <InputText key={field.id} {...field} />;
+        })}
+      </div>
+
+      {selectedTabID === "add-product" ? (
+        <FormFooterAdd
+          className="form-footer"
+          formInputs={formInputs}
+          onInputReset={handleInputReset}
+        />
+      ) : (
+        <FormFooterEdit />
+      )}
+    </FormProductStyled>
+  );
+});
 
 export default FormProduct;
 

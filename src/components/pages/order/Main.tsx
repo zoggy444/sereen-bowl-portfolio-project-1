@@ -3,120 +3,13 @@ import { theme } from "../../../theme/theme";
 import "../../../index.css";
 import Menu from "./Menu/Menu";
 import AdminPanel from "./AdminPanel/AdminPanel";
-import type {
-  ContentTabIDType,
-  PanelFormType,
-  ProductType,
-  TabIDType,
-} from "../../../types";
-import { type Ref, useContext, useRef, useState } from "react";
-import {
-  MenuDispatchContext,
-  MenuProdsContext,
-} from "../../../context/MenuContext";
-import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 
 export default function Main() {
-  const products: ProductType[] = useContext(MenuProdsContext);
-  const menuDispatch = useContext(MenuDispatchContext);
-  const [prodHoveredID, setProdHoveredID] = useState(-1);
-  const [prodSelectedID, setProdSelectedID] = useState(-1);
-  const [isPanelFolded, setIsPanelFolded] = useState(false);
-  const [selectedTabID, setSelectedTab] =
-    useState<ContentTabIDType>("add-product");
-  const [addInputs, setAddInputs] = useState({ ...defaultFormInputs });
-  const [editInputs, setEditInputs] = useState({ ...defaultFormInputs });
-  const inputRef = useRef<Ref<HTMLInputElement | null>>(null);
-
-  const handleCardMouseEnter = (id: number) => {
-    setProdHoveredID(id);
-  };
-
-  const handleCardMouseLeave = () => {
-    setProdHoveredID(-1);
-  };
-
-  const handleCardSelect = (id: number) => {
-    const selectedProd = products.find((p) => p.id === id);
-    const newEditInputs: PanelFormType = {
-      title: selectedProd?.title || "",
-      imageSource: selectedProd?.imageSource || "",
-      price: selectedProd?.price.toString() || "",
-    };
-    setProdSelectedID(id);
-    setEditInputs(newEditInputs);
-    setSelectedTab("edit-product");
-    toggleFolded(false);
-    setTimeout(() => inputRef?.current?.focus(), 0);
-  };
-
-  const toggleFolded = (force?: boolean) => {
-    const newIsChecked = force !== undefined ? force : !isPanelFolded;
-    setIsPanelFolded(newIsChecked);
-  };
-
-  const handleTabClick = (id: TabIDType) => {
-    if (id) {
-      if (id === "fold") {
-        toggleFolded();
-      } else {
-        setSelectedTab(id);
-        if (isPanelFolded) toggleFolded(false);
-      }
-    }
-  };
-
-  const handleAddChange = (name: string, value: string) => {
-    setAddInputs({ ...addInputs, [name]: value });
-  };
-
-  const handleAddReset = () => {
-    setAddInputs({ ...defaultFormInputs });
-  };
-
-  const handleEditChange = (name: string, value: string) => {
-    setEditInputs({ ...editInputs, [name]: value });
-    menuDispatch({
-      type: "edit-product",
-      prodID: prodSelectedID,
-      prodVals: { ...editInputs, [name]: value },
-    });
-  };
-
-  const handleEditReset = () => {
-    setEditInputs({ ...defaultFormInputs });
-  };
-
-  if (
-    products.find((p) => p.id === prodSelectedID) === undefined &&
-    prodSelectedID != -1
-  ) {
-    setProdSelectedID(-1);
-    handleEditReset();
-  }
-
   return (
     <MainStyled>
       {/* <div className="basket"/> */}
-      <Menu
-        products={products}
-        prodHoveredID={prodHoveredID}
-        prodSelectedID={prodSelectedID}
-        onCardMouseEnter={handleCardMouseEnter}
-        onCardMouseLeave={handleCardMouseLeave}
-        onCardSelect={handleCardSelect}
-      />
-      <AdminPanel
-        isFolded={isPanelFolded}
-        selectedTabID={selectedTabID}
-        addInputs={addInputs}
-        editInputs={editInputs}
-        onAddChange={handleAddChange}
-        onAddReset={handleAddReset}
-        onEditChange={handleEditChange}
-        onTabClick={handleTabClick}
-        ref={inputRef}
-      />
+      <Menu />
+      <AdminPanel />
     </MainStyled>
   );
 }

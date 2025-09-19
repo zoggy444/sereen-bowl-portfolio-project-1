@@ -1,16 +1,25 @@
 import styled from "styled-components";
 import MenuCard from "./MenuCard";
 import MenuEmpty from "./MenuEmpty";
-import type { MenuProps } from "../../../../types";
+import { useContext, useState } from "react";
+import {
+  MenuProdsContext,
+  ProdSelectedContext,
+} from "../../../../context/MenuContext";
 
-export default function Menu({
-  products,
-  prodHoveredID,
-  prodSelectedID,
-  onCardMouseEnter,
-  onCardMouseLeave,
-  onCardSelect,
-}: MenuProps) {
+export default function Menu() {
+  const products = useContext(MenuProdsContext);
+  const { selectedID, handleSelect } = useContext(ProdSelectedContext);
+  const [prodHoveredID, setProdHoveredID] = useState(-1);
+
+  const handleCardMouseEnter = (id: number) => {
+    setProdHoveredID(id);
+  };
+
+  const handleCardMouseLeave = () => {
+    setProdHoveredID(-1);
+  };
+
   return (
     <MenuStyled>
       {products.length > 0 ? (
@@ -22,10 +31,10 @@ export default function Menu({
             src={`${imageSource}`}
             price={price}
             isHovered={id === prodHoveredID}
-            isSelected={id === prodSelectedID}
-            onMouseEnter={onCardMouseEnter}
-            onMouseLeave={onCardMouseLeave}
-            onSelect={onCardSelect}
+            isSelected={id === selectedID}
+            onMouseEnter={handleCardMouseEnter}
+            onMouseLeave={handleCardMouseLeave}
+            onSelect={handleSelect}
           />
         ))
       ) : (
