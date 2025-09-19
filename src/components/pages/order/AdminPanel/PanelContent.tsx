@@ -1,24 +1,34 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
-import type { PanelContentProps } from "../../../../types";
 import FormProduct from "../../../reusable-ui/FormProduct";
-import { forwardRef, type Ref } from "react";
+import { useContext } from "react";
+import {
+  FormProdContext,
+  FormProdHandlersContext,
+} from "../../../../context/AdminPanelContext";
 
-const PanelContent = forwardRef(
-  (
-    { isFolded, selectedTabID }: PanelContentProps,
-    ref: Ref<HTMLInputElement | null>
-  ) => {
-    if (!isFolded) {
-      return (
-        <PanelContentStyled>
-          <FormProduct selectedTabID={selectedTabID} ref={ref} />
-        </PanelContentStyled>
-      );
-    }
-    return <PanelFoldedStyled />;
+const PanelContent = () => {
+  const { isFolded, selectedTabID, formInputs, inputRef } =
+    useContext(FormProdContext);
+  const { handleInputChange, handleInputReset } = useContext(
+    FormProdHandlersContext
+  );
+
+  if (!isFolded) {
+    return (
+      <PanelContentStyled>
+        <FormProduct
+          selectedTabID={selectedTabID}
+          formInputs={formInputs}
+          handleInputChange={handleInputChange}
+          handleInputReset={handleInputReset}
+          ref={inputRef}
+        />
+      </PanelContentStyled>
+    );
   }
-);
+  return <PanelFoldedStyled />;
+};
 
 export default PanelContent;
 

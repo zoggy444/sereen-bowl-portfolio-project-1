@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, createRef } from "react";
 import { defaultFormInputs } from "../components/pages/order/AdminPanel/getFieldConfig";
 import type { ContentTabIDType, TabIDType } from "../types";
 
@@ -6,6 +6,7 @@ export const FormProdContext = createContext({
   isFolded: false,
   selectedTabID: "add-product" as ContentTabIDType,
   formInputs: defaultFormInputs,
+  inputRef: createRef(),
 });
 
 const dummyChange = (name: string, value: string) => {

@@ -81,17 +81,6 @@ export type TabProps<T> = {
 
 // unique comp types
 
-export type AdminPanelProps = {
-  isFolded: boolean;
-  selectedTabID: ContentTabIDType;
-  addInputs: PanelFormType;
-  editInputs: PanelFormType;
-  onTabClick: (id: TabIDType) => void;
-  onAddChange: (name: string, value: string) => void;
-  onEditChange: (name: string, value: string) => void;
-  onAddReset: () => void;
-};
-
 export type FieldConfigParamType = {
   fieldValues: PanelFormType;
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -109,15 +98,13 @@ export type FieldConfigType = {
 
 export type FormFooterAddProps = {
   className: string;
-  formInputs: PanelFormType;
-  onInputReset: () => void;
 };
 
 export type FormProductProps = {
   selectedTabID: ContentTabIDType;
   formInputs: PanelFormType;
-  onInputChange: (name: string, value: string) => void;
-  onInputReset: () => void;
+  handleInputChange: (name: string, value: string) => void;
+  handleInputReset: () => void;
 };
 
 export type MenuActionType = {
@@ -132,25 +119,11 @@ export type MenuCardProps = {
   src: string;
   title: string;
   price: number;
-  isHovered: boolean;
-  isSelected: boolean;
-  onMouseEnter: (prodID: number) => void;
-  onMouseLeave: () => void;
-  onSelect: (prodID: number) => void;
 } & ComponentPropsWithoutRef<"img">;
 
 export type MenuCardStyledProps = {
   $isHovered: boolean;
   $isSelected: boolean;
-};
-
-export type MenuProps = {
-  products: ProductType[];
-  prodHoveredID: number;
-  prodSelectedID: number;
-  onCardMouseEnter: (prodID: number) => void;
-  onCardMouseLeave: () => void;
-  onCardSelect: (prodID: number) => void;
 };
 
 export type NavBarProps = {
@@ -178,14 +151,6 @@ export type PanelConfigType = {
   panelContent: string;
 };
 
-export type PanelContentProps = {
-  isFolded: boolean;
-  selectedTabID: ContentTabIDType;
-  formInputs: PanelFormType;
-  onInputChange: (name: string, value: string) => void;
-  onInputReset: () => void;
-};
-
 export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {
   price: string;
 };
@@ -204,9 +169,4 @@ export type TabConfigParamType = {
   isFolded: boolean;
   selectedTabID: ContentTabIDType;
   onTabClick: (id: TabIDType) => void;
-};
-
-export type TabContainerProps = {
-  foldTab: TabProps<FoldTabIDType>;
-  contentTabs: TabProps<ContentTabIDType>[];
 };

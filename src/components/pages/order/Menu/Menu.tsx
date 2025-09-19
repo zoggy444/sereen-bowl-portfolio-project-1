@@ -10,15 +10,6 @@ import {
 export default function Menu() {
   const products = useContext(MenuProdsContext);
   const { selectedID, handleSelect } = useContext(ProdSelectedContext);
-  const [prodHoveredID, setProdHoveredID] = useState(-1);
-
-  const handleCardMouseEnter = (id: number) => {
-    setProdHoveredID(id);
-  };
-
-  const handleCardMouseLeave = () => {
-    setProdHoveredID(-1);
-  };
 
   return (
     <MenuStyled>
@@ -30,10 +21,7 @@ export default function Menu() {
             title={title}
             src={`${imageSource}`}
             price={price}
-            isHovered={id === prodHoveredID}
             isSelected={id === selectedID}
-            onMouseEnter={handleCardMouseEnter}
-            onMouseLeave={handleCardMouseLeave}
             onSelect={handleSelect}
           />
         ))

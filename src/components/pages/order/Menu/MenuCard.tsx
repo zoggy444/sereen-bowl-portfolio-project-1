@@ -9,30 +9,32 @@ import type {
 } from "../../../../types";
 import { TiDelete } from "react-icons/ti";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
-import { useContext, type MouseEvent } from "react";
-import { MenuDispatchContext } from "../../../../context/MenuContext";
+import { useState, useContext, type MouseEvent } from "react";
+import { MenuDispatchContext, ProdSelectedContext } from "../../../../context/MenuContext";
 
-//todo : see if possible getting state down from parent : hover and select
 export default function MenuCard({
   prodID,
   src,
   title,
   price,
-  isHovered,
-  isSelected,
-  onMouseEnter,
-  onMouseLeave,
-  onSelect,
 }: MenuCardProps) {
+  const {selectedID, handleSelect} = useContext(ProdSelectedContext)
   const menuDispatch = useContext(MenuDispatchContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
+  const [isHovered, setIsHovered] = useState(false);
+
+  const isSelected = selectedID === prodID;
 
   const handleMouseEnter = () => {
-    return onMouseEnter(prodID);
+    setIsHovered(true);
   };
 
-  const handleSelect = () => {
-    return isAdminMode && onSelect(prodID);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const handleClick = () => {
+    return isAdminMode && handleSelect(prodID);
   };
 
   const onDeleteClick = (e: MouseEvent<SVGElement>) => {
@@ -47,8 +49,8 @@ export default function MenuCard({
       $isHovered={isHovered && isAdminMode}
       $isSelected={isSelected && isAdminMode}
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onClick={handleSelect}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
       <div className="delete-container">
         {isAdminMode && (

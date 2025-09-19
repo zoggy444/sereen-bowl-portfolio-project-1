@@ -6,8 +6,8 @@ export const MenuProdsContext = createContext(fakeMenu.MEDIUM);
 
 export const ProdSelectedContext = createContext({
   selectedID: -1,
-  handleSelect: (id: number) => {
-    console.log(id);
+  handleSelect: (prodID: number) => {
+    console.log(prodID);
   },
 });
 

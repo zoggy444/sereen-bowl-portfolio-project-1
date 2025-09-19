@@ -27,6 +27,7 @@ export function MenuProvider({ children }: { children: ReactNode }) {
   const [isPanelFolded, setIsPanelFolded] = useState(false);
   const [selectedTabID, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
+  // todo : useReducer
   const [addInputs, setAddInputs] = useState({ ...defaultFormInputs });
   const [editInputs, setEditInputs] = useState({ ...defaultFormInputs });
   const inputRef = useRef<Ref<HTMLInputElement | null>>(null);
@@ -115,6 +116,7 @@ export function MenuProvider({ children }: { children: ReactNode }) {
               isFolded: isPanelFolded,
               selectedTabID,
               formInputs,
+              inputRef,
             }}
           >
             <ProdSelectedContext.Provider
