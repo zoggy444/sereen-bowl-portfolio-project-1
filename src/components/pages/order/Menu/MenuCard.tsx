@@ -10,20 +10,18 @@ import type {
 import { TiDelete } from "react-icons/ti";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { useState, useContext, type MouseEvent } from "react";
-import { MenuDispatchContext, ProdSelectedContext } from "../../../../context/MenuContext";
+import {
+  MainDispatchContext,
+  ProductsContext,
+} from "../../../../context/OrderMainContext";
 
-export default function MenuCard({
-  prodID,
-  src,
-  title,
-  price,
-}: MenuCardProps) {
-  const {selectedID, handleSelect} = useContext(ProdSelectedContext)
-  const menuDispatch = useContext(MenuDispatchContext);
+export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
+  const { prodSelectedID, handleProdSelect } = useContext(ProductsContext);
+  const { menuDispatch } = useContext(MainDispatchContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
   const [isHovered, setIsHovered] = useState(false);
 
-  const isSelected = selectedID === prodID;
+  const isSelected = prodSelectedID === prodID;
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -34,7 +32,7 @@ export default function MenuCard({
   };
 
   const handleClick = () => {
-    return isAdminMode && handleSelect(prodID);
+    return isAdminMode && handleProdSelect(prodID);
   };
 
   const onDeleteClick = (e: MouseEvent<SVGElement>) => {

@@ -1,14 +1,9 @@
 import { useReducer, useRef, useState, type ReactNode, type Ref } from "react";
 import {
-  MenuDispatchContext,
-  MenuProdsContext,
-  ProdSelectedContext,
-} from "../../../context/MenuContext";
-import {
-  AdminPanelFormDispatchContext,
-  FormProdContext,
-  FormProdHandlersContext,
-} from "../../../context/AdminPanelContext";
+  ProductsContext,
+  MainDispatchContext,
+  AdminPanelContext,
+} from "../../../context/OrderMainContext";
 import type {
   AdminPanelFormActionType,
   AdminPanelFormType,
@@ -22,7 +17,7 @@ import { fakeMenu } from "../../../fakeData/fakeMenu";
 import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 import getPanelConfig from "./AdminPanel/getPanelConfig";
 
-export function MenuProvider({ children }: { children: ReactNode }) {
+export function MainProvider({ children }: { children: ReactNode }) {
   // todo: merge menuProds with prodSelectedID to fix bug when delete selected prod
   const [menuProds, menuDispatch] = useReducer(menuReducer, [
     ...fakeMenu.MEDIUM,
@@ -40,7 +35,7 @@ export function MenuProvider({ children }: { children: ReactNode }) {
     useState<ContentTabIDType>("add-product");
   const inputRef = useRef<Ref<HTMLInputElement | null>>(null);
 
-  const handleCardSelect = (id: number) => {
+  const handleProdSelect = (id: number) => {
     const selectedProd = menuProds.find((p) => p.id === id);
     const newEditInputs: PanelFormType = {
       title: selectedProd?.title || "",
@@ -81,36 +76,28 @@ export function MenuProvider({ children }: { children: ReactNode }) {
   });
 
   return (
-    //todo: rework context grouping
-    <MenuProdsContext.Provider value={menuProds}>
-      <MenuDispatchContext.Provider value={menuDispatch}>
-        <AdminPanelFormDispatchContext.Provider value={adminPanelFormDispatch}>
-          <FormProdHandlersContext.Provider
-            value={{
-              handleTabClick: handleTabClick,
-            }}
-          >
-            <FormProdContext.Provider
-              value={{
-                isFolded: isPanelFolded,
-                selectedTabID,
-                formInputs,
-                inputRef,
-              }}
-            >
-              <ProdSelectedContext.Provider
-                value={{
-                  selectedID: prodSelectedID,
-                  handleSelect: handleCardSelect,
-                }}
-              >
-                {children}
-              </ProdSelectedContext.Provider>
-            </FormProdContext.Provider>
-          </FormProdHandlersContext.Provider>
-        </AdminPanelFormDispatchContext.Provider>
-      </MenuDispatchContext.Provider>
-    </MenuProdsContext.Provider>
+    <ProductsContext.Provider
+      value={{ menuProds, prodSelectedID, handleProdSelect }}
+    >
+      <AdminPanelContext.Provider
+        value={{
+          isPanelFolded,
+          selectedTabID,
+          formInputs,
+          inputRef,
+          handleTabClick,
+        }}
+      >
+        <MainDispatchContext.Provider
+          value={{
+            menuDispatch,
+            adminPanelFormDispatch,
+          }}
+        >
+          {children}
+        </MainDispatchContext.Provider>
+      </AdminPanelContext.Provider>
+    </ProductsContext.Provider>
   );
 }
 

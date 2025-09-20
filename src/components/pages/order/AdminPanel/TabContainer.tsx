@@ -6,19 +6,16 @@ import type {
   PanelConfigType,
 } from "../../../../types";
 import Tab from "../../../reusable-ui/Tab";
-import {
-  FormProdContext,
-  FormProdHandlersContext,
-} from "../../../../context/AdminPanelContext";
 import { useContext } from "react";
 import { getTabsConfig } from "./getPanelConfig";
+import { AdminPanelContext } from "../../../../context/OrderMainContext";
 
 export default function TabContainer() {
-  const { isFolded, selectedTabID } = useContext(FormProdContext);
-  const { handleTabClick } = useContext(FormProdHandlersContext);
+  const { isPanelFolded, selectedTabID, handleTabClick } =
+    useContext(AdminPanelContext);
 
   const { foldTab, contentTabs }: PanelConfigType = getTabsConfig({
-    isFolded,
+    isFolded: isPanelFolded,
     selectedTabID,
     onTabClick: handleTabClick,
   });

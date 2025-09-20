@@ -1,28 +1,22 @@
 import styled from "styled-components";
 import MenuCard from "./MenuCard";
 import MenuEmpty from "./MenuEmpty";
-import { useContext, useState } from "react";
-import {
-  MenuProdsContext,
-  ProdSelectedContext,
-} from "../../../../context/MenuContext";
+import { useContext } from "react";
+import { ProductsContext } from "../../../../context/OrderMainContext";
 
 export default function Menu() {
-  const products = useContext(MenuProdsContext);
-  const { selectedID, handleSelect } = useContext(ProdSelectedContext);
+  const { menuProds } = useContext(ProductsContext);
 
   return (
     <MenuStyled>
-      {products.length > 0 ? (
-        products.map(({ id, title, imageSource, price }) => (
+      {menuProds.length > 0 ? (
+        menuProds.map(({ id, title, imageSource, price }) => (
           <MenuCard
             key={id}
             prodID={id}
             title={title}
             src={`${imageSource}`}
             price={price}
-            isSelected={id === selectedID}
-            onSelect={handleSelect}
           />
         ))
       ) : (

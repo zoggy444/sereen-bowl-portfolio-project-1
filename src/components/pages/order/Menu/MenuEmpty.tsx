@@ -3,11 +3,11 @@ import { theme } from "../../../../theme/theme";
 import Button from "../../../reusable-ui/Button";
 import { useContext } from "react";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
-import { MenuDispatchContext } from "../../../../context/MenuContext";
+import { MainDispatchContext } from "../../../../context/OrderMainContext";
 
 export default function MenuEmpty() {
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
-  const menuDispatch = useContext(MenuDispatchContext);
+  const { menuDispatch } = useContext(MainDispatchContext);
 
   const onRegenMenuClick = () => {
     menuDispatch({ type: "regen-menu" });

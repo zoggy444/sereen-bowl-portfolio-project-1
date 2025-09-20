@@ -2,24 +2,21 @@ import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import FormProduct from "../../../reusable-ui/FormProduct";
 import { useContext } from "react";
-import {
-  AdminPanelFormDispatchContext,
-  FormProdContext,
-} from "../../../../context/AdminPanelContext";
 import FormFooterAdd from "./FormFooterAdd";
 import FormFooterEdit from "./FormFooterEdit";
 import type { AdminPanelFormActionType } from "../../../../types";
 import {
-  MenuDispatchContext,
-  ProdSelectedContext,
-} from "../../../../context/MenuContext";
+  MainDispatchContext,
+  ProductsContext,
+  AdminPanelContext,
+} from "../../../../context/OrderMainContext";
 
 const PanelContent = () => {
-  const { isFolded, selectedTabID, formInputs, inputRef } =
-    useContext(FormProdContext);
-  const adminPanelFormDispatch = useContext(AdminPanelFormDispatchContext);
-  const { selectedID } = useContext(ProdSelectedContext);
-  const menuDispatch = useContext(MenuDispatchContext);
+  const { isPanelFolded, selectedTabID, formInputs, inputRef } =
+    useContext(AdminPanelContext);
+  const { menuDispatch, adminPanelFormDispatch } =
+    useContext(MainDispatchContext);
+  const { prodSelectedID } = useContext(ProductsContext);
 
   const handleInputChange = (name: string, value: string) => {
     const action: AdminPanelFormActionType = {
@@ -31,7 +28,7 @@ const PanelContent = () => {
     adminPanelFormDispatch(action);
     menuDispatch({
       type: "edit-product",
-      prodID: selectedID,
+      prodID: prodSelectedID,
       prodVals: { ...formInputs, [name]: value },
     });
   };
@@ -39,7 +36,7 @@ const PanelContent = () => {
   const FormFooter =
     selectedTabID === "add-product" ? FormFooterAdd : FormFooterEdit;
 
-  if (!isFolded) {
+  if (!isPanelFolded) {
     return (
       <PanelContentStyled>
         <FormProduct

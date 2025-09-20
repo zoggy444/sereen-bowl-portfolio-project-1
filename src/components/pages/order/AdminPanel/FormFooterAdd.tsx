@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import Button from "../../../reusable-ui/Button";
 import { useContext, useState, type FormEvent } from "react";
-import { MenuDispatchContext } from "../../../../context/MenuContext";
+import {
+  AdminPanelContext,
+  MainDispatchContext,
+} from "../../../../context/OrderMainContext";
 import type {
   AdminPanelFormActionType,
   FormFooterProps,
@@ -9,15 +12,11 @@ import type {
 } from "../../../../types";
 import { FiCheckCircle } from "react-icons/fi";
 import { theme } from "../../../../theme/theme";
-import {
-  AdminPanelFormDispatchContext,
-  FormProdContext,
-} from "../../../../context/AdminPanelContext";
 
 export default function FormFooterAdd({ className }: FormFooterProps) {
-  const menuDispatch = useContext(MenuDispatchContext);
-  const adminPanelFormDispatch = useContext(AdminPanelFormDispatchContext);
-  const { formInputs } = useContext(FormProdContext);
+  const { menuDispatch, adminPanelFormDispatch } =
+    useContext(MainDispatchContext);
+  const { formInputs } = useContext(AdminPanelContext);
   const [addedMsg, setaddedMsg] = useState(false);
 
   const onFormSubmit = (e?: FormEvent) => {

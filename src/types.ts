@@ -90,8 +90,8 @@ export type TabProps<T> = {
 // unique comp types
 
 export type AdminPanelFormActionType = {
-  type: "change" | "reset" | "fill";
-  formTarget: "add-product" | "edit-product";
+  type: "change" | "reset" | "fill" | "";
+  formTarget: "add-product" | "edit-product" | "";
   name?: string;
   value?: string;
   fillDict?: PanelFormType;
