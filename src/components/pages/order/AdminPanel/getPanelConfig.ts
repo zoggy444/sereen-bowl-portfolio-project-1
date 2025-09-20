@@ -40,20 +40,13 @@ export default ({
   selectedTabID,
   addInputs,
   editInputs,
-  onAddChange,
-  onEditChange,
-  onAddReset,
 }: PanelConfigParamType) => {
   if (selectedTabID === "add-product") {
     return {
       formInputs: addInputs,
-      onInputChange: onAddChange,
-      onInputReset: onAddReset,
     };
   }
   return {
     formInputs: editInputs,
-    onInputChange: onEditChange,
-    onInputReset: () => {},
   };
 };

@@ -5,10 +5,13 @@ import {
   ProdSelectedContext,
 } from "../../../context/MenuContext";
 import {
+  AdminPanelFormDispatchContext,
   FormProdContext,
   FormProdHandlersContext,
 } from "../../../context/AdminPanelContext";
 import type {
+  AdminPanelFormActionType,
+  AdminPanelFormType,
   ContentTabIDType,
   MenuActionType,
   PanelFormType,
@@ -20,16 +23,21 @@ import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 import getPanelConfig from "./AdminPanel/getPanelConfig";
 
 export function MenuProvider({ children }: { children: ReactNode }) {
+  // todo: merge menuProds with prodSelectedID to fix bug when delete selected prod
   const [menuProds, menuDispatch] = useReducer(menuReducer, [
     ...fakeMenu.MEDIUM,
   ]);
+  const [adminPanelForm, adminPanelFormDispatch] = useReducer(
+    adminPanelFormReducer,
+    {
+      addInputs: { ...defaultFormInputs },
+      editInputs: { ...defaultFormInputs },
+    }
+  );
   const [prodSelectedID, setProdSelectedID] = useState(-1);
   const [isPanelFolded, setIsPanelFolded] = useState(false);
   const [selectedTabID, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
-  // todo : useReducer
-  const [addInputs, setAddInputs] = useState({ ...defaultFormInputs });
-  const [editInputs, setEditInputs] = useState({ ...defaultFormInputs });
   const inputRef = useRef<Ref<HTMLInputElement | null>>(null);
 
   const handleCardSelect = (id: number) => {
@@ -40,7 +48,11 @@ export function MenuProvider({ children }: { children: ReactNode }) {
       price: selectedProd?.price.toString() || "",
     };
     setProdSelectedID(id);
-    setEditInputs(newEditInputs);
+    adminPanelFormDispatch({
+      type: "fill",
+      formTarget: "edit-product",
+      fillDict: newEditInputs,
+    });
     setSelectedTab("edit-product");
     toggleFolded(false);
     setTimeout(() => inputRef?.current?.focus(), 0);
@@ -62,73 +74,41 @@ export function MenuProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const handleAddChange = (name: string, value: string) => {
-    setAddInputs({ ...addInputs, [name]: value });
-  };
-
-  const handleAddReset = () => {
-    setAddInputs({ ...defaultFormInputs });
-  };
-
-  const handleEditChange = (name: string, value: string) => {
-    setEditInputs({ ...editInputs, [name]: value });
-    menuDispatch({
-      type: "edit-product",
-      prodID: prodSelectedID,
-      prodVals: { ...editInputs, [name]: value },
-    });
-  };
-
-  const handleEditReset = () => {
-    setEditInputs({ ...defaultFormInputs });
-  };
-
-  const { formInputs, onInputReset, onInputChange } = getPanelConfig({
+  const { formInputs } = getPanelConfig({
     selectedTabID,
-    addInputs,
-    editInputs,
-    onAddChange: handleAddChange,
-    onEditChange: handleEditChange,
-    onAddReset: handleAddReset,
+    addInputs: adminPanelForm.addInputs,
+    editInputs: adminPanelForm.editInputs,
   });
 
-  //todo : replace by handling in onDelete
-  if (
-    menuProds.find((p) => p.id === prodSelectedID) === undefined &&
-    prodSelectedID != -1
-  ) {
-    setProdSelectedID(-1);
-    handleEditReset();
-  }
-
   return (
+    //todo: rework context grouping
     <MenuProdsContext.Provider value={menuProds}>
       <MenuDispatchContext.Provider value={menuDispatch}>
-        <FormProdHandlersContext.Provider
-          value={{
-            handleTabClick: handleTabClick,
-            handleInputChange: onInputChange,
-            handleInputReset: onInputReset,
-          }}
-        >
-          <FormProdContext.Provider
+        <AdminPanelFormDispatchContext.Provider value={adminPanelFormDispatch}>
+          <FormProdHandlersContext.Provider
             value={{
-              isFolded: isPanelFolded,
-              selectedTabID,
-              formInputs,
-              inputRef,
+              handleTabClick: handleTabClick,
             }}
           >
-            <ProdSelectedContext.Provider
+            <FormProdContext.Provider
               value={{
-                selectedID: prodSelectedID,
-                handleSelect: handleCardSelect,
+                isFolded: isPanelFolded,
+                selectedTabID,
+                formInputs,
+                inputRef,
               }}
             >
-              {children}
-            </ProdSelectedContext.Provider>
-          </FormProdContext.Provider>
-        </FormProdHandlersContext.Provider>
+              <ProdSelectedContext.Provider
+                value={{
+                  selectedID: prodSelectedID,
+                  handleSelect: handleCardSelect,
+                }}
+              >
+                {children}
+              </ProdSelectedContext.Provider>
+            </FormProdContext.Provider>
+          </FormProdHandlersContext.Provider>
+        </AdminPanelFormDispatchContext.Provider>
       </MenuDispatchContext.Provider>
     </MenuProdsContext.Provider>
   );
@@ -182,5 +162,35 @@ const menuReducer = (menuProds: ProductType[], action: MenuActionType) => {
     }
     default:
       return menuProds;
+  }
+};
+
+const adminPanelFormReducer = (
+  adminPanelForm: AdminPanelFormType,
+  action: AdminPanelFormActionType
+) => {
+  const keyName =
+    action.formTarget === "add-product" ? "addInputs" : "editInputs";
+  switch (action.type) {
+    case "change":
+      if (!action.name || !action.value) return adminPanelForm;
+      {
+        const newInputs = {
+          ...adminPanelForm[keyName],
+          [action.name]: action.value,
+        };
+        return { ...adminPanelForm, [keyName]: newInputs };
+      }
+    case "fill": {
+      if (!action.fillDict) return adminPanelForm;
+      const newInputs = action.fillDict;
+      return { ...adminPanelForm, [keyName]: newInputs };
+    }
+    case "reset": {
+      const newInputs = { ...defaultFormInputs };
+      return { ...adminPanelForm, [keyName]: newInputs };
+    }
+    default:
+      return adminPanelForm;
   }
 };

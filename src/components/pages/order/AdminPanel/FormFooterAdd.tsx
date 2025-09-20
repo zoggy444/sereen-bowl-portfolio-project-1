@@ -2,32 +2,41 @@ import styled from "styled-components";
 import Button from "../../../reusable-ui/Button";
 import { useContext, useState, type FormEvent } from "react";
 import { MenuDispatchContext } from "../../../../context/MenuContext";
-import type { FormFooterProps, MenuActionType } from "../../../../types";
+import type {
+  AdminPanelFormActionType,
+  FormFooterProps,
+  MenuActionType,
+} from "../../../../types";
 import { FiCheckCircle } from "react-icons/fi";
 import { theme } from "../../../../theme/theme";
 import {
+  AdminPanelFormDispatchContext,
   FormProdContext,
-  FormProdHandlersContext,
 } from "../../../../context/AdminPanelContext";
 
 export default function FormFooterAdd({ className }: FormFooterProps) {
   const menuDispatch = useContext(MenuDispatchContext);
+  const adminPanelFormDispatch = useContext(AdminPanelFormDispatchContext);
   const { formInputs } = useContext(FormProdContext);
-  const { handleInputReset } = useContext(FormProdHandlersContext);
   const [addedMsg, setaddedMsg] = useState(false);
 
   const onFormSubmit = (e?: FormEvent) => {
     e?.preventDefault();
-    handleInputReset();
+
     setaddedMsg(true);
     setTimeout(() => {
       setaddedMsg(false);
     }, 2000);
-    const action: MenuActionType = {
+    const menuAction: MenuActionType = {
       type: "add-product",
       prodVals: formInputs,
     };
-    menuDispatch(action);
+    menuDispatch(menuAction);
+    const PanelAction: AdminPanelFormActionType = {
+      type: "reset",
+      formTarget: "add-product",
+    };
+    adminPanelFormDispatch(PanelAction);
   };
 
   return (

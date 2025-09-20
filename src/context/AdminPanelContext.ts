@@ -1,6 +1,10 @@
 import { createContext, createRef } from "react";
 import { defaultFormInputs } from "../components/pages/order/AdminPanel/getFieldConfig";
-import type { ContentTabIDType, TabIDType } from "../types";
+import type {
+  AdminPanelFormActionType,
+  ContentTabIDType,
+  TabIDType,
+} from "../types";
 
 export const FormProdContext = createContext({
   isFolded: false,
@@ -9,14 +13,17 @@ export const FormProdContext = createContext({
   inputRef: createRef(),
 });
 
-const dummyChange = (name: string, value: string) => {
-  console.log(name, value);
-};
-
 export const FormProdHandlersContext = createContext({
   handleTabClick: (id: TabIDType) => {
     console.log(id);
   },
-  handleInputChange: dummyChange,
-  handleInputReset: () => {},
 });
+
+const fakeDispatch = function ({
+  type = "reset",
+  formTarget = "add-product",
+}: AdminPanelFormActionType) {
+  console.log(type, formTarget);
+};
+
+export const AdminPanelFormDispatchContext = createContext(fakeDispatch);

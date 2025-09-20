@@ -8,7 +8,7 @@ import type { FormProductProps } from "../../types";
 
 const FormProduct = forwardRef(
   (
-    { formInputs, Footer, handleInputChange }: FormProductProps,
+    { formInputs, Footer, onInputChange }: FormProductProps,
     ref: Ref<HTMLInputElement | null>
   ) => {
     const imageProps = {
@@ -17,14 +17,14 @@ const FormProduct = forwardRef(
       className: "product-image",
     };
 
-    const onInputChange = (e: ChangeEvent) => {
+    const handleInputChange = (e: ChangeEvent) => {
       const { name, value } = e.target as HTMLInputElement;
-      handleInputChange(name, value);
+      onInputChange(name, value);
     };
 
     const fieldConfig = getFieldConfig({
       fieldValues: formInputs,
-      onChange: onInputChange,
+      onChange: handleInputChange,
     });
 
     return (
