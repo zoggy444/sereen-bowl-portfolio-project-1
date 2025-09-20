@@ -3,18 +3,38 @@ import { theme } from "../../../../theme/theme";
 import FormProduct from "../../../reusable-ui/FormProduct";
 import { useContext } from "react";
 import {
+  AdminPanelFormDispatchContext,
   FormProdContext,
-  FormProdHandlersContext,
 } from "../../../../context/AdminPanelContext";
 import FormFooterAdd from "./FormFooterAdd";
 import FormFooterEdit from "./FormFooterEdit";
+import type { AdminPanelFormActionType } from "../../../../types";
+import {
+  MenuDispatchContext,
+  ProdSelectedContext,
+} from "../../../../context/MenuContext";
 
 const PanelContent = () => {
   const { isFolded, selectedTabID, formInputs, inputRef } =
     useContext(FormProdContext);
-  const { handleInputChange, handleInputReset } = useContext(
-    FormProdHandlersContext
-  );
+  const adminPanelFormDispatch = useContext(AdminPanelFormDispatchContext);
+  const { selectedID } = useContext(ProdSelectedContext);
+  const menuDispatch = useContext(MenuDispatchContext);
+
+  const handleInputChange = (name: string, value: string) => {
+    const action: AdminPanelFormActionType = {
+      type: "change",
+      formTarget: selectedTabID,
+      name,
+      value,
+    };
+    adminPanelFormDispatch(action);
+    menuDispatch({
+      type: "edit-product",
+      prodID: selectedID,
+      prodVals: { ...formInputs, [name]: value },
+    });
+  };
 
   const FormFooter =
     selectedTabID === "add-product" ? FormFooterAdd : FormFooterEdit;
@@ -26,8 +46,7 @@ const PanelContent = () => {
           selectedTabID={selectedTabID}
           formInputs={formInputs}
           Footer={FormFooter}
-          handleInputChange={handleInputChange}
-          handleInputReset={handleInputReset}
+          onInputChange={handleInputChange}
           ref={inputRef}
         />
       </PanelContentStyled>

@@ -51,6 +51,13 @@ export type ButtonToggleProps = {
   labelIfUnchecked: string;
 };
 
+export type FormProductProps = {
+  selectedTabID: ContentTabIDType;
+  formInputs: PanelFormType;
+  Footer: FC<FormFooterProps>;
+  onInputChange: (name: string, value: string) => void;
+};
+
 export type ImageType = ComponentPropsWithoutRef<"img">;
 
 export type InputTextProps = {
@@ -82,6 +89,19 @@ export type TabProps<T> = {
 
 // unique comp types
 
+export type AdminPanelFormActionType = {
+  type: "change" | "reset" | "fill";
+  formTarget: "add-product" | "edit-product";
+  name?: string;
+  value?: string;
+  fillDict?: PanelFormType;
+};
+
+export type AdminPanelFormType = {
+  addInputs: PanelFormType;
+  editInputs: PanelFormType;
+};
+
 export type FieldConfigParamType = {
   fieldValues: PanelFormType;
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -99,14 +119,6 @@ export type FieldConfigType = {
 
 export type FormFooterProps = {
   className: string;
-};
-
-export type FormProductProps = {
-  selectedTabID: ContentTabIDType;
-  formInputs: PanelFormType;
-  Footer: FC<FormFooterProps>;
-  handleInputChange: (name: string, value: string) => void;
-  handleInputReset: () => void;
 };
 
 export type MenuActionType = {
@@ -142,9 +154,6 @@ export type PanelConfigParamType = {
   selectedTabID: ContentTabIDType;
   addInputs: PanelFormType;
   editInputs: PanelFormType;
-  onAddChange: (name: string, value: string) => void;
-  onEditChange: (name: string, value: string) => void;
-  onAddReset: () => void;
 };
 
 export type PanelConfigType = {
