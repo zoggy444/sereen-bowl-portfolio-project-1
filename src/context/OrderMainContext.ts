@@ -32,7 +32,7 @@ export const AdminPanelContext = createContext({
   isPanelFolded: false,
   selectedTabID: "add-product" as ContentTabIDType,
   formInputs: defaultFormInputs,
-  inputRef: createRef(),
+  inputRef: createRef<HTMLInputElement>(),
   handleTabClick: (id: TabIDType) => {
     console.log(id);
   },

@@ -1,4 +1,4 @@
-import { useReducer, useRef, useState, type ReactNode, type Ref } from "react";
+import { useReducer, useRef, useState, type ReactNode } from "react";
 import {
   ProductsContext,
   MainDispatchContext,
@@ -33,7 +33,7 @@ export function MainProvider({ children }: { children: ReactNode }) {
   const [isPanelFolded, setIsPanelFolded] = useState(false);
   const [selectedTabID, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
-  const inputRef = useRef<Ref<HTMLInputElement | null>>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleProdSelect = (id: number) => {
     const selectedProd = menuProds.find((p) => p.id === id);
@@ -50,7 +50,7 @@ export function MainProvider({ children }: { children: ReactNode }) {
     });
     setSelectedTab("edit-product");
     toggleFolded(false);
-    setTimeout(() => inputRef?.current?.focus(), 0);
+    setTimeout(() => inputRef.current?.focus(), 0);
   };
 
   const toggleFolded = (force?: boolean) => {
