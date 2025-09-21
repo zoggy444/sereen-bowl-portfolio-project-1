@@ -3,12 +3,14 @@ import { theme } from "../../../theme/theme";
 import "../../../index.css";
 import Menu from "./Menu/Menu";
 import Basket from "./Basket/Basket";
+import AdminPanel from "./AdminPanel/AdminPanel";
 
 export default function Main() {
   return (
     <MainStyled>
       <Basket />
       <Menu />
+      <AdminPanel />
     </MainStyled>
   );
 }

@@ -34,6 +34,7 @@ export default function Menu() {
 }
 
 const MenuStyled = styled.div`
+  grid-column: 2/ 3;
   padding: 50px;
   box-shadow: ${theme.shadows.strong};
   display: grid;
