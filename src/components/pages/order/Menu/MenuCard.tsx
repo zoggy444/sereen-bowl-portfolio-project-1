@@ -21,7 +21,7 @@ export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
   const [isHovered, setIsHovered] = useState(false);
 
-  const isSelected = prodSelectedID === prodID;
+  const isSelected = prodSelectedID === prodID && isAdminMode;
 
   const handleMouseEnter = () => {
     setIsHovered(true);

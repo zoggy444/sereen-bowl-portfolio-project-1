@@ -18,7 +18,6 @@ import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 import getPanelConfig from "./AdminPanel/getPanelConfig";
 
 export function MainProvider({ children }: { children: ReactNode }) {
-  // todo: merge menuProds with prodSelectedID to fix bug when delete selected prod
   const [menuProds, menuDispatch] = useReducer(menuReducer, [
     ...fakeMenu.MEDIUM,
   ]);
@@ -34,6 +33,11 @@ export function MainProvider({ children }: { children: ReactNode }) {
   const [selectedTabID, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  // Workaround not to keep a prod selected when regenerating the menu
+  if (prodSelectedID !== -1 && menuProds.length === 0) {
+    setProdSelectedID(-1);
+  }
 
   const handleProdSelect = (id: number) => {
     const selectedProd = menuProds.find((p) => p.id === id);
