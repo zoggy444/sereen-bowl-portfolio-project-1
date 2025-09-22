@@ -29,6 +29,7 @@ export default function BasketCard({ product, qty }: BasketCardProps) {
       <TitleAndPriceReStyled
         id={product.id}
         title={product.title}
+        isSelected={false}
         price={product.price}
       />
       <BasketCardRight

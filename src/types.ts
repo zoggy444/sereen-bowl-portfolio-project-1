@@ -108,6 +108,10 @@ export type TitleAndPriceProps = {
   onButtonClick?: (id: string) => void;
 };
 
+export type TitleAndPriceStyledProps = {
+  $isSelected: boolean;
+};
+
 // unique comp types
 
 export type AdminPanelFormActionType = {

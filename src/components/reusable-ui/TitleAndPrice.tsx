@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import ButtonPrimary from "./ButtonPrimary";
+import Button from "./Button";
 import { theme } from "../../theme/theme";
-import type { TitleAndPriceProps } from "../../types";
+import type { TitleAndPriceProps, TitleAndPriceStyledProps } from "../../types";
 import { formatPrice } from "../../utils/maths";
 import type { FormEvent } from "react";
 
@@ -9,6 +9,7 @@ export default function TitleAndPrice({
   id,
   title,
   price,
+  isSelected,
   className,
   buttonLabel,
   onButtonClick,
@@ -19,13 +20,14 @@ export default function TitleAndPrice({
   };
 
   return (
-    <TitleAndPriceStyled className={className}>
+    <TitleAndPriceStyled $isSelected={isSelected} className={className}>
       <div className="product-title amatic-sc-bold">{title}</div>
       <div className="product-detail">
         <div className="product-price">{formatPrice(price)}</div>
         {onButtonClick !== undefined && (
-          <ButtonPrimary
+          <Button
             label={buttonLabel || ""}
+            variant={isSelected ? "default" : "primary"}
             className="product-button"
             onClick={onClick}
           />
@@ -35,7 +37,7 @@ export default function TitleAndPrice({
   );
 }
 
-const TitleAndPriceStyled = styled.div`
+const TitleAndPriceStyled = styled.div<TitleAndPriceStyledProps>`
   overflow: hidden;
 
   .product-title {
@@ -55,7 +57,8 @@ const TitleAndPriceStyled = styled.div`
     padding: ${theme.spacing.xxs};
 
     .product-price {
-      color: ${theme.colors.primary};
+      color: ${({ $isSelected }) =>
+        $isSelected ? `${theme.colors.white}` : `${theme.colors.primary}`};
     }
 
     .product-button {

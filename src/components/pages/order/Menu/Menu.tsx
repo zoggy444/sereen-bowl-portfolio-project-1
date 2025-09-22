@@ -6,14 +6,13 @@ import { ProductsContext } from "../../../../context/OrderMainContext";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { theme } from "../../../../theme/theme";
 
-export default function Menu({ onAdd }: MenuProps) {
+export default function Menu() {
   const { menuProds, handleProdSelect } = useContext(ProductsContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
 
   const handleClick = () => {
     return isAdminMode && handleProdSelect("");
   };
-
   return (
     <MenuStyled onClick={handleClick}>
       {menuProds.length > 0 ? (
@@ -24,7 +23,6 @@ export default function Menu({ onAdd }: MenuProps) {
             title={title}
             src={`${imageSource}`}
             price={price}
-            onAdd={onAdd}
           />
         ))
       ) : (

@@ -4,7 +4,7 @@ import "../../../index.css";
 import Menu from "./Menu/Menu";
 import Basket from "./Basket/Basket";
 import AdminPanel from "./AdminPanel/AdminPanel";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ProductsContext } from "../../../context/OrderMainContext";
 import { BasketProvider } from "./BasketProvider";
 
