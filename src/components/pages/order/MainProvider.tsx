@@ -164,7 +164,7 @@ const adminPanelFormReducer = (
     action.formTarget === "add-product" ? "addInputs" : "editInputs";
   switch (action.type) {
     case "change":
-      if (!action.name || !action.value) return adminPanelForm;
+      if (!action.name || action.value === undefined ) return {...adminPanelForm};
       {
         const newInputs = {
           ...adminPanelForm[keyName],
@@ -182,6 +182,6 @@ const adminPanelFormReducer = (
       return { ...adminPanelForm, [keyName]: newInputs };
     }
     default:
-      return adminPanelForm;
+      return {...adminPanelForm};
   }
 };
