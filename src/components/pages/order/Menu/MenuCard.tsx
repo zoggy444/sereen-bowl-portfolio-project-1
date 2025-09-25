@@ -9,7 +9,7 @@ import type {
 } from "../../../../types";
 import { TiDelete } from "react-icons/ti";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
-import { useState, useContext, type MouseEvent } from "react";
+import { useState, useContext, type MouseEvent, type FormEvent } from "react";
 import {
   MainDispatchContext,
   ProductsContext,
@@ -31,7 +31,8 @@ export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
     setIsHovered(false);
   };
 
-  const handleClick = () => {
+  const handleClick = (e: FormEvent) => {
+    e.stopPropagation();
     return isAdminMode && handleProdSelect(prodID);
   };
 

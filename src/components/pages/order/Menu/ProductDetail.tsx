@@ -7,6 +7,7 @@ import type {
   ProductDetailStyledProps,
 } from "../../../../types";
 import { formatPrice } from "../../../../utils/maths";
+import type { FormEvent } from "react";
 
 export default function ProductDetail({
   title,
@@ -14,6 +15,11 @@ export default function ProductDetail({
   isSelected,
 }: ProductDetailProps) {
   const buttonVariant: ButtonVariantType = isSelected ? "default" : "primary";
+
+  const handleClick = (e?: FormEvent) => {
+    e?.stopPropagation();
+  };
+
   return (
     <ProductDetailStyled $isSelected={isSelected}>
       <div className="product-name amatic-sc-bold">{title}</div>
@@ -23,6 +29,7 @@ export default function ProductDetail({
           label="Ajouter"
           className="button-buy"
           variant={buttonVariant}
+          onClick={handleClick}
         />
       </div>
     </ProductDetailStyled>

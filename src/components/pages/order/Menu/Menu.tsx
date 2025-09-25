@@ -3,12 +3,18 @@ import MenuCard from "./MenuCard";
 import MenuEmpty from "./MenuEmpty";
 import { useContext } from "react";
 import { ProductsContext } from "../../../../context/OrderMainContext";
+import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 
 export default function Menu() {
-  const { menuProds } = useContext(ProductsContext);
+  const { menuProds, handleProdSelect } = useContext(ProductsContext);
+  const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
+
+  const handleClick = () => {
+    return isAdminMode && handleProdSelect(-1);
+  };
 
   return (
-    <MenuStyled>
+    <MenuStyled onClick={handleClick}>
       {menuProds.length > 0 ? (
         menuProds.map(({ id, title, imageSource, price }) => (
           <MenuCard
