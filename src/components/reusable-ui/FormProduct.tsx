@@ -52,6 +52,7 @@ const FormProduct = forwardRef(
 export default FormProduct;
 
 const FormProductStyled = styled.form`
+  flex: 1;
   max-width: 880px;
 
   display: grid;

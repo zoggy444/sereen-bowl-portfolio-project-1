@@ -39,13 +39,19 @@ const PanelContent = () => {
   if (!isPanelFolded) {
     return (
       <PanelContentStyled>
-        <FormProduct
-          selectedTabID={selectedTabID}
-          formInputs={formInputs}
-          Footer={FormFooter}
-          onInputChange={handleInputChange}
-          ref={inputRef}
-        />
+        {prodSelectedID === -1 && selectedTabID === "edit-product" ? (
+          <h2 className="no-prod-select amatic-sc-regular">
+            Click on a product to start editing it
+          </h2>
+        ) : (
+          <FormProduct
+            selectedTabID={selectedTabID}
+            formInputs={formInputs}
+            Footer={FormFooter}
+            onInputChange={handleInputChange}
+            ref={inputRef}
+          />
+        )}
       </PanelContentStyled>
     );
   }
@@ -61,8 +67,15 @@ const PanelContentStyled = styled.div`
   border-bottom-right-radius: ${theme.borderRadius.extraRound};
   padding: ${theme.spacing.md};
   background-color: ${theme.colors.white};
+  display: flex;
+  align-items: center;
 
   font-size: ${theme.fonts.size.P0};
+  .no-prod-select {
+    padding-left: ${theme.spacing.xl};
+    color: ${theme.colors.greyBlue};
+    font-size: ${theme.fonts.size.P3};
+  }
 `;
 
 const PanelFoldedStyled = styled.div`
