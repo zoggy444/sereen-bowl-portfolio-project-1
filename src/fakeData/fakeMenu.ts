@@ -4,7 +4,7 @@ const EMPTY: ProductType[] = [];
 
 const SMALL: ProductType[] = [
   {
-    id: 1,
+    id: crypto.randomUUID(),
     imageSource: "/images/poke-saumon.png",
     title: "POKE SAUMON",
     price: 8.297,
@@ -13,7 +13,7 @@ const SMALL: ProductType[] = [
     isAdvertised: false,
   },
   {
-    id: 2,
+    id: crypto.randomUUID(),
     imageSource: "/images/poke-poulet.png",
     title: "POKE POULET",
     price: 6.556,
@@ -25,7 +25,7 @@ const SMALL: ProductType[] = [
 
 const MEDIUM: ProductType[] = [
   {
-    id: 1,
+    id: crypto.randomUUID(),
     imageSource: "/images/poke-saumon.png",
     title: "POKE SAUMON",
     price: 8.598,
@@ -34,7 +34,7 @@ const MEDIUM: ProductType[] = [
     isAdvertised: false,
   },
   {
-    id: 2,
+    id: crypto.randomUUID(),
     imageSource: "/images/poke-poulet.png",
     title: "POKE POULET",
     price: 7.4985,
@@ -43,7 +43,7 @@ const MEDIUM: ProductType[] = [
     isAdvertised: false,
   },
   {
-    id: 3,
+    id: crypto.randomUUID(),
     imageSource: "/images/poke-veggie.png",
     title: "POKE VEGGIE",
     price: 6.367,
@@ -52,7 +52,7 @@ const MEDIUM: ProductType[] = [
     isAdvertised: false,
   },
   {
-    id: 4,
+    id: crypto.randomUUID(),
     imageSource: "/images/the-vert-menthe.png",
     title: "THÉ VERT MENTHE",
     price: 3.568,
@@ -61,7 +61,7 @@ const MEDIUM: ProductType[] = [
     isAdvertised: false,
   },
   {
-    id: 5,
+    id: crypto.randomUUID(),
     imageSource: "/images/the-vert-gingembre.png",
     title: "THÉ VERT GINGEMBRE",
     price: 3.487,

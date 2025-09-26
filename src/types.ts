@@ -17,7 +17,7 @@ export type FoldTabIDType = "fold";
 export type IntentType = "primary" | "success";
 
 export type ProductType = {
-  id: number;
+  id: string;
   title: string;
   price: number;
   quantity: number;
@@ -124,12 +124,12 @@ export type FormFooterProps = {
 export type MenuActionType = {
   type: "add-product" | "edit-product" | "delete-product" | "regen-menu" | "";
   prodVals?: PanelFormType;
-  prodID?: number;
+  prodID?: string;
 };
 
 export type MenuCardProps = {
   // "id" would conflict with img id prop
-  prodID: number;
+  prodID: string;
   src: string;
   title: string;
   price: number;

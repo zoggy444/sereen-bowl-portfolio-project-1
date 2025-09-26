@@ -28,18 +28,18 @@ export function MainProvider({ children }: { children: ReactNode }) {
       editInputs: { ...defaultFormInputs },
     }
   );
-  const [prodSelectedID, setProdSelectedID] = useState(-1);
+  const [prodSelectedID, setProdSelectedID] = useState("");
   const [isPanelFolded, setIsPanelFolded] = useState(false);
   const [selectedTabID, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   // Workaround not to keep a prod selected when regenerating the menu
-  if (prodSelectedID !== -1 && menuProds.length === 0) {
-    setProdSelectedID(-1);
+  if (prodSelectedID !== "" && menuProds.length === 0) {
+    setProdSelectedID("");
   }
 
-  const handleProdSelect = (id: number) => {
+  const handleProdSelect = (id: string) => {
     const selectedProd = menuProds.find((p) => p.id === id);
     const newEditInputs: PanelFormType = {
       title: selectedProd?.title || "",
@@ -110,7 +110,7 @@ const menuReducer = (menuProds: ProductType[], action: MenuActionType) => {
     case "add-product": {
       const newVals = action.prodVals;
       if (!newVals) return [...menuProds];
-      const nextId = menuProds.length + 1;
+      const nextId = crypto.randomUUID();
 
       let priceNumber = parseFloat(newVals.price.replace(",", "."));
       if (isNaN(priceNumber)) priceNumber = 0;
@@ -164,7 +164,8 @@ const adminPanelFormReducer = (
     action.formTarget === "add-product" ? "addInputs" : "editInputs";
   switch (action.type) {
     case "change":
-      if (!action.name || action.value === undefined ) return {...adminPanelForm};
+      if (!action.name || action.value === undefined)
+        return { ...adminPanelForm };
       {
         const newInputs = {
           ...adminPanelForm[keyName],
@@ -182,6 +183,6 @@ const adminPanelFormReducer = (
       return { ...adminPanelForm, [keyName]: newInputs };
     }
     default:
-      return {...adminPanelForm};
+      return { ...adminPanelForm };
   }
 };

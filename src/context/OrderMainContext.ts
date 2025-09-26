@@ -6,8 +6,8 @@ import type { ContentTabIDType, TabIDType } from "../types";
 
 export const ProductsContext = createContext({
   menuProds: fakeMenu.MEDIUM,
-  prodSelectedID: -1,
-  handleProdSelect: (prodID: number) => {
+  prodSelectedID: "",
+  handleProdSelect: (prodID: string) => {
     console.log(prodID);
   },
 });

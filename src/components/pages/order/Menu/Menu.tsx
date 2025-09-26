@@ -10,7 +10,7 @@ export default function Menu() {
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
 
   const handleClick = () => {
-    return isAdminMode && handleProdSelect(-1);
+    return isAdminMode && handleProdSelect("");
   };
 
   return (

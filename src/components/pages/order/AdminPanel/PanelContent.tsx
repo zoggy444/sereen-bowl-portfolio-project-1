@@ -39,7 +39,7 @@ const PanelContent = () => {
   if (!isPanelFolded) {
     return (
       <PanelContentStyled>
-        {prodSelectedID === -1 && selectedTabID === "edit-product" ? (
+        {prodSelectedID === "" && selectedTabID === "edit-product" ? (
           <h2 className="no-prod-select amatic-sc-regular">
             Click on a product to start editing it
           </h2>
