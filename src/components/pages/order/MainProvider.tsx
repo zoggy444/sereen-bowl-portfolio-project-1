@@ -16,11 +16,13 @@ import type {
 import { fakeMenu } from "../../../fakeData/fakeMenu";
 import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 import getPanelConfig from "./AdminPanel/getPanelConfig";
+import { deepCopy } from "../../../utils/collection";
 
 export function MainProvider({ children }: { children: ReactNode }) {
-  const [menuProds, menuDispatch] = useReducer(menuReducer, [
-    ...fakeMenu.MEDIUM,
-  ]);
+  const [menuProds, menuDispatch] = useReducer(
+    menuReducer,
+    deepCopy(fakeMenu.MEDIUM)
+  );
   const [adminPanelForm, adminPanelFormDispatch] = useReducer(
     adminPanelFormReducer,
     {
