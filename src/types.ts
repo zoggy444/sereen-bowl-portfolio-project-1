@@ -135,6 +135,15 @@ export type MenuCardProps = {
   price: number;
 } & ComponentPropsWithoutRef<"img">;
 
+export type MenuCardDeleteProps = {
+  prodID: string;
+  isSelected: boolean;
+};
+
+export type MenuCardDeleteStyledProps = {
+  $isSelected: boolean;
+};
+
 export type MenuCardStyledProps = {
   $isHovered: boolean;
   $isSelected: boolean;

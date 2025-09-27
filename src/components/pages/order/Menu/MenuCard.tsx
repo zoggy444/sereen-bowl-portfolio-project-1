@@ -2,22 +2,14 @@ import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import Image from "../../../reusable-ui/Image";
 import ProductDetail from "./ProductDetail";
-import type {
-  MenuActionType,
-  MenuCardProps,
-  MenuCardStyledProps,
-} from "../../../../types";
-import { TiDelete } from "react-icons/ti";
+import type { MenuCardProps, MenuCardStyledProps } from "../../../../types";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
-import { useState, useContext, type MouseEvent, type FormEvent } from "react";
-import {
-  MainDispatchContext,
-  ProductsContext,
-} from "../../../../context/OrderMainContext";
+import { useState, useContext, type FormEvent } from "react";
+import { ProductsContext } from "../../../../context/OrderMainContext";
+import MenuCardDelete from "./MenuCardDelete";
 
 export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
   const { prodSelectedID, handleProdSelect } = useContext(ProductsContext);
-  const { menuDispatch } = useContext(MainDispatchContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
   const [isHovered, setIsHovered] = useState(false);
 
@@ -36,13 +28,6 @@ export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
     return isAdminMode && handleProdSelect(prodID);
   };
 
-  const onDeleteClick = (e: MouseEvent<SVGElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const action: MenuActionType = { type: "delete-product", prodID: prodID };
-    menuDispatch(action);
-  };
-
   return (
     <MenuCardStyled
       $isHovered={isHovered && isAdminMode}
@@ -51,13 +36,7 @@ export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
-      <div className="delete-container">
-        {isAdminMode && (
-          <button className="product-delete">
-            <TiDelete className="button-icon" onClick={onDeleteClick} />
-          </button>
-        )}
-      </div>
+      <MenuCardDelete prodID={prodID} isSelected={isSelected} />
       <Image
         src={src || "/images/coming-soon.png"}
         alt="product-image"
@@ -91,24 +70,6 @@ const MenuCardStyled = styled.div<MenuCardStyledProps>`
     $isSelected ? `${theme.colors.primary}` : `${theme.colors.white}`};
   box-shadow: ${({ $isHovered }) =>
     $isHovered ? `${theme.shadows.hoveredCard}` : `${theme.shadows.card}`};
-
-  .delete-container {
-    height: ${theme.gridUnit * 4}px;
-    align-self: flex-end;
-    .product-delete {
-      background: none;
-      border: none;
-      .button-icon {
-        cursor: pointer;
-        color: ${({ $isSelected }) =>
-          $isSelected ? `${theme.colors.white}` : `${theme.colors.primary}`};
-        font-size: ${theme.fonts.size.P2};
-      }
-      .button-icon:hover {
-        color: ${theme.colors.red};
-      }
-    }
-  }
 
   .product-image {
     height: 145px;
