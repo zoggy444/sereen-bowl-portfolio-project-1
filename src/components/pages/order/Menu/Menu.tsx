@@ -1,17 +1,22 @@
 import styled from "styled-components";
 import MenuCard from "./MenuCard";
-import { useContext } from "react";
-import { MenuProdsContext } from "../../../../context/MenuContext";
 import MenuEmpty from "./MenuEmpty";
-import type { ProductType } from "../../../../types";
+import { useContext } from "react";
+import { ProductsContext } from "../../../../context/OrderMainContext";
+import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 
 export default function Menu() {
-  const products: ProductType[] = useContext(MenuProdsContext);
+  const { menuProds, handleProdSelect } = useContext(ProductsContext);
+  const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
+
+  const handleClick = () => {
+    return isAdminMode && handleProdSelect("");
+  };
 
   return (
-    <MenuStyled>
-      {products.length > 0 ? (
-        products.map(({ id, title, imageSource, price }) => (
+    <MenuStyled onClick={handleClick}>
+      {menuProds.length > 0 ? (
+        menuProds.map(({ id, title, imageSource, price }) => (
           <MenuCard
             key={id}
             prodID={id}

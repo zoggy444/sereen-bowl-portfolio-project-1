@@ -2,21 +2,30 @@ import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import type {
   TabProps,
-  TabContainerProps,
   ContentTabIDType,
+  PanelConfigType,
 } from "../../../../types";
 import Tab from "../../../reusable-ui/Tab";
+import { useContext } from "react";
+import { getTabsConfig } from "./getPanelConfig";
+import { AdminPanelContext } from "../../../../context/OrderMainContext";
 
-export default function TabContainer({
-  foldTab,
-  contentTabs,
-}: TabContainerProps) {
+export default function TabContainer() {
+  const { isPanelFolded, selectedTabID, handleTabClick } =
+    useContext(AdminPanelContext);
+
+  const { foldTab, contentTabs }: PanelConfigType = getTabsConfig({
+    isFolded: isPanelFolded,
+    selectedTabID,
+    onTabClick: handleTabClick,
+  });
+
   return (
     <TabContainerStyled>
       <>
         <Tab {...foldTab} />
         {contentTabs.map(({ ...props }: TabProps<ContentTabIDType>) => (
-          <Tab key={props.id} {...props} />
+          <Tab key={props.id} {...props} onClick={handleTabClick} />
         ))}
       </>
     </TabContainerStyled>

@@ -1,39 +1,52 @@
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import type { PanelConfigParamType, PanelConfigType } from "../../../../types";
+import type { PanelConfigParamType, PanelConfigType, TabConfigParamType } from "../../../../types";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 
-export default ({
+export const getTabsConfig = ({
   isFolded,
-  selectedTab,
-  handleTabClick,
-}: PanelConfigParamType) =>
+  selectedTabID,
+  onTabClick,
+}: TabConfigParamType) =>
   ({
     foldTab: {
       id: "fold",
       isActive: isFolded,
       IconIfChecked: FaChevronUp,
       IconIfUnchecked: FaChevronDown,
-      onClick: handleTabClick,
+      onClick: onTabClick,
     },
     contentTabs: [
       {
         id: "add-product",
         label: "Add a product",
-        isActive: selectedTab === "add-product",
+        isActive: selectedTabID === "add-product",
         IconIfChecked: AiOutlinePlus,
         IconIfUnchecked: AiOutlinePlus,
-        onClick: handleTabClick,
+        onClick: onTabClick,
       },
       {
         id: "edit-product",
         label: "Edit a product",
-        isActive: selectedTab === "edit-product",
+        isActive: selectedTabID === "edit-product",
         IconIfChecked: MdModeEditOutline,
         IconIfUnchecked: MdModeEditOutline,
-        onClick: handleTabClick,
+        onClick: onTabClick,
       },
     ],
-    panelContent:
-      selectedTab === "add-product" ? "Add a product" : "Edit a product",
   } as PanelConfigType);
+
+export default ({
+  selectedTabID,
+  addInputs,
+  editInputs,
+}: PanelConfigParamType) => {
+  if (selectedTabID === "add-product") {
+    return {
+      formInputs: addInputs,
+    };
+  }
+  return {
+    formInputs: editInputs,
+  };
+};

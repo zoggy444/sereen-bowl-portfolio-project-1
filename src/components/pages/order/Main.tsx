@@ -3,16 +3,13 @@ import { theme } from "../../../theme/theme";
 import "../../../index.css";
 import Menu from "./Menu/Menu";
 import AdminPanel from "./AdminPanel/AdminPanel";
-import { MenuProvider } from "./MenuProvider";
 
 export default function Main() {
   return (
     <MainStyled>
-      <MenuProvider>
-        {/* <div className="basket"/> */}
-        <Menu />
-        <AdminPanel />
-      </MenuProvider>
+      {/* <div className="basket"/> */}
+      <Menu />
+      <AdminPanel />
     </MainStyled>
   );
 }

@@ -1,7 +1,13 @@
 import { BsFillCameraFill } from "react-icons/bs";
 import { FaHamburger } from "react-icons/fa";
 import { MdOutlineEuro } from "react-icons/md";
-import type { FieldConfigParamType, FieldConfigType } from "../../../../types";
+import type { FieldConfigParamType, FieldConfigType, PanelFormType } from "../../../../types";
+
+export const defaultFormInputs: PanelFormType = {
+  title: "",
+  imageSource: "",
+  price: "",
+};
 
 export default ({ fieldValues, onChange }: FieldConfigParamType) =>
   [

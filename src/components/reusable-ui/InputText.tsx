@@ -1,28 +1,37 @@
 import type { InputTextProps, InputTextStyledProps } from "../../types";
 import styled, { css } from "styled-components";
 import { theme } from "../../theme/theme";
+import { forwardRef, type Ref } from "react";
 
-export default function InputText({
-  Icon,
-  value,
-  variant = "normal",
-  onChange,
-  ...otherProps
-}: InputTextProps) {
-  const className = otherProps.className ?? "";
-  otherProps = { ...otherProps, className: "" };
-  return (
-    <InputTextStyled $variant={variant} className={className}>
-      <Icon className="input-icon" />
-      <input
-        value={value}
-        onChange={onChange}
-        type="text"
-        {...otherProps}
-      ></input>
-    </InputTextStyled>
-  );
-}
+const InputText = forwardRef(
+  (
+    {
+      Icon,
+      value,
+      variant = "normal",
+      onChange,
+      ...otherProps
+    }: InputTextProps,
+    ref: Ref<HTMLInputElement | null>
+  ) => {
+    const className = otherProps.className ?? "";
+    otherProps = { ...otherProps, className: "" };
+    return (
+      <InputTextStyled $variant={variant} className={className}>
+        <Icon className="input-icon" />
+        <input
+          value={value}
+          onChange={onChange}
+          type="text"
+          {...otherProps}
+          ref={ref}
+        ></input>
+      </InputTextStyled>
+    );
+  }
+);
+
+export default InputText;
 
 const InputTextStyled = styled.div<InputTextStyledProps>`
   ${({ $variant }) => extraStyle[$variant].base}

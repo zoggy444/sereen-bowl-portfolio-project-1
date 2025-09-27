@@ -1,7 +1,14 @@
-import type { ChangeEventHandler, ComponentPropsWithoutRef } from "react";
+import type {
+  ChangeEventHandler,
+  ComponentPropsWithoutRef,
+  FC,
+  FormEvent,
+} from "react";
 import type { IconType } from "react-icons";
 
 // data types
+
+export type ButtonVariantType = "primary" | "default";
 
 export type ContentTabIDType = "add-product" | "edit-product";
 
@@ -10,7 +17,7 @@ export type FoldTabIDType = "fold";
 export type IntentType = "primary" | "success";
 
 export type ProductType = {
-  id: number;
+  id: string;
   title: string;
   price: number;
   quantity: number;
@@ -25,14 +32,16 @@ export type TabIDType = FoldTabIDType | ContentTabIDType;
 
 export type ButtonProps = {
   label: string;
+  variant?: ButtonVariantType;
   intent?: IntentType;
   className?: string;
   Icon?: IconType;
-  onClick?: () => void;
-};
+  onClick?: (e?: FormEvent) => void;
+} & ComponentPropsWithoutRef<"button">;
 
 export type ButtonStyledProps = {
   $intent: IntentType;
+  $variant: ButtonVariantType;
 };
 
 export type ButtonToggleProps = {
@@ -40,6 +49,13 @@ export type ButtonToggleProps = {
   onToggle: () => void;
   labelIfChecked: string;
   labelIfUnchecked: string;
+};
+
+export type FormProductProps = {
+  selectedTabID: ContentTabIDType;
+  formInputs: PanelFormType;
+  Footer: FC<FormFooterProps>;
+  onInputChange: (name: string, value: string) => void;
 };
 
 export type ImageType = ComponentPropsWithoutRef<"img">;
@@ -73,6 +89,19 @@ export type TabProps<T> = {
 
 // unique comp types
 
+export type AdminPanelFormActionType = {
+  type: "change" | "reset" | "fill" | "";
+  formTarget: "add-product" | "edit-product" | "";
+  name?: string;
+  value?: string;
+  fillDict?: PanelFormType;
+};
+
+export type AdminPanelFormType = {
+  addInputs: PanelFormType;
+  editInputs: PanelFormType;
+};
+
 export type FieldConfigParamType = {
   fieldValues: PanelFormType;
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -88,25 +117,37 @@ export type FieldConfigType = {
   onChange: ChangeEventHandler<HTMLInputElement>;
 };
 
-export type FormProductProps = {
-  formInputs: PanelFormType;
-  handleInputChange: (name: string, value: string) => void;
-  handleInputReset: () => void;
+export type FormFooterProps = {
+  className: string;
 };
 
 export type MenuActionType = {
-  type: "add-product" | "delete-product" | "regen-menu" | "";
-  prodAdd?: PanelFormType;
-  deleteID?: number;
+  type: "add-product" | "edit-product" | "delete-product" | "regen-menu" | "";
+  prodVals?: PanelFormType;
+  prodID?: string;
 };
 
 export type MenuCardProps = {
   // "id" would conflict with img id prop
-  prodID: number;
+  prodID: string;
   src: string;
   title: string;
   price: number;
 } & ComponentPropsWithoutRef<"img">;
+
+export type MenuCardDeleteProps = {
+  prodID: string;
+  isSelected: boolean;
+};
+
+export type MenuCardDeleteStyledProps = {
+  $isSelected: boolean;
+};
+
+export type MenuCardStyledProps = {
+  $isHovered: boolean;
+  $isSelected: boolean;
+};
 
 export type NavBarProps = {
   labelIfChecked: string;
@@ -119,23 +160,15 @@ export type NavRightProps = {
 };
 
 export type PanelConfigParamType = {
-  isFolded: boolean;
-  selectedTab: ContentTabIDType;
-  handleTabClick: (id: TabIDType) => void;
+  selectedTabID: ContentTabIDType;
+  addInputs: PanelFormType;
+  editInputs: PanelFormType;
 };
 
 export type PanelConfigType = {
   foldTab: TabProps<FoldTabIDType>;
   contentTabs: TabProps<ContentTabIDType>[];
   panelContent: string;
-};
-
-export type PanelContentProps = {
-  isFolded: boolean;
-  content: string;
-  formInputs: PanelFormType;
-  handleInputChange: (name: string, value: string) => void;
-  handleInputReset: () => void;
 };
 
 export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {
@@ -145,9 +178,15 @@ export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {
 export type ProductDetailProps = {
   title: string;
   price: number;
+  isSelected: boolean;
 };
 
-export type TabContainerProps = {
-  foldTab: TabProps<FoldTabIDType>;
-  contentTabs: TabProps<ContentTabIDType>[];
+export type ProductDetailStyledProps = {
+  $isSelected: boolean;
+};
+
+export type TabConfigParamType = {
+  isFolded: boolean;
+  selectedTabID: ContentTabIDType;
+  onTabClick: (id: TabIDType) => void;
 };
