@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 
-export default function BasketMain() {
+export default function BasketBody() {
   return (
-    <BasketMainStyled>
+    <BasketBodyStyled>
       <h2>Your basket is empty</h2>
-    </BasketMainStyled>
+    </BasketBodyStyled>
   );
 }
 
-const BasketMainStyled = styled.div`
+const BasketBodyStyled = styled.div`
   color: ${theme.colors.greyBlue};
   background-color: ${theme.colors.background_white};
   display: flex;

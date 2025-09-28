@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import BasketHeader from "./BasketHeader";
-import BasketMain from "./BasketMain";
+import BasketBody from "./BasketBody";
 import BasketFooter from "./BasketFooter";
 
 export default function Basket() {
   return (
     <BasketStyled className="basket amatic-sc-regular">
       <BasketHeader />
-      <BasketMain />
+      <BasketBody />
       <BasketFooter />
     </BasketStyled>
   );
