@@ -63,7 +63,6 @@ export default PanelContent;
 const PanelContentStyled = styled.div`
   min-height: ${theme.gridUnit * 25}px;
   border-top: 1px solid ${theme.colors.greyLight};
-  border-bottom-left-radius: ${theme.borderRadius.extraRound};
   border-bottom-right-radius: ${theme.borderRadius.extraRound};
   padding: ${theme.spacing.md};
   background-color: ${theme.colors.white};

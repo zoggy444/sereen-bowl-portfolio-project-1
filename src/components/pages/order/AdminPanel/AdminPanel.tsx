@@ -21,12 +21,11 @@ const AdminPanel = () => {
 export default AdminPanel;
 
 const AdminPanelStyled = styled.div`
-  position: absolute;
-  bottom: calc(1vh - 1px);
+  position: sticky;
+  bottom: 0px;
+  grid-column: 2 / 3;
 
   max-height: 264px;
-  width: 95vw;
-  max-width: 1400px;
 
   display: flex;
   flex-direction: column;
