@@ -3,10 +3,21 @@ import type {
   ComponentPropsWithoutRef,
   FC,
   FormEvent,
+  MouseEventHandler,
 } from "react";
 import type { IconType } from "react-icons";
 
 // data types
+
+export type BasketProdType = {
+  id: string;
+  qty: number;
+};
+
+export type BasketActionType = {
+  type: "add-product" | "delete-product" | "";
+  id: string;
+};
 
 export type ButtonVariantType = "primary" | "default";
 
@@ -87,6 +98,20 @@ export type TabProps<T> = {
   onClick: (id: T) => void;
 };
 
+export type TitleAndPriceProps = {
+  id: string;
+  title: string;
+  price: number;
+  isSelected: boolean;
+  className?: string;
+  buttonLabel?: string;
+  onButtonClick?: (id: string) => void;
+};
+
+export type TitleAndPriceStyledProps = {
+  $isSelected: boolean;
+};
+
 // unique comp types
 
 export type AdminPanelFormActionType = {
@@ -100,6 +125,17 @@ export type AdminPanelFormActionType = {
 export type AdminPanelFormType = {
   addInputs: PanelFormType;
   editInputs: PanelFormType;
+};
+
+export type BasketCardProps = {
+  product: ProductType;
+  qty: number;
+};
+
+export type BasketCardRightProps = {
+  qty: number;
+  isHovered: boolean;
+  onDelClick: MouseEventHandler<HTMLButtonElement>;
 };
 
 export type FieldConfigParamType = {
@@ -159,6 +195,11 @@ export type NavRightProps = {
   labelIfUnchecked: string;
 };
 
+export type PanelContentProps = {
+  isFolded: boolean;
+  content: string;
+};
+
 export type PanelConfigParamType = {
   selectedTabID: ContentTabIDType;
   addInputs: PanelFormType;
@@ -176,9 +217,11 @@ export type PanelFormType = Pick<ProductType, "title" | "imageSource"> & {
 };
 
 export type ProductDetailProps = {
+  id: number;
   title: string;
   price: number;
   isSelected: boolean;
+  onAdd: (id: number) => void;
 };
 
 export type ProductDetailStyledProps = {

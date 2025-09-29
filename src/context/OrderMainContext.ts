@@ -1,11 +1,19 @@
 import { createContext, createRef } from "react";
-import type { AdminPanelFormActionType, MenuActionType } from "../types";
+import type {
+  AdminPanelFormActionType,
+  BasketActionType,
+  BasketProdType,
+  MenuActionType,
+} from "../types";
 import { fakeMenu } from "../fakeData/fakeMenu";
 import { defaultFormInputs } from "../components/pages/order/AdminPanel/getFieldConfig";
 import type { ContentTabIDType, TabIDType } from "../types";
 
+const defaultBasketProds: BasketProdType[] = [];
+
 export const ProductsContext = createContext({
   menuProds: fakeMenu.MEDIUM,
+  basketProds: defaultBasketProds,
   prodSelectedID: "",
   handleProdSelect: (prodID: string) => {
     console.log(prodID);
@@ -14,6 +22,10 @@ export const ProductsContext = createContext({
 
 const fakeMenuDispatch = function ({ type = "" }: MenuActionType) {
   console.log(type);
+};
+
+const fakeBasketDispatch = function ({ type = "", id = "" }: BasketActionType) {
+  console.log(type, id);
 };
 
 const fakePanelDispatch = function ({
@@ -25,6 +37,7 @@ const fakePanelDispatch = function ({
 
 export const MainDispatchContext = createContext({
   menuDispatch: fakeMenuDispatch,
+  basketDispatch: fakeBasketDispatch,
   adminPanelFormDispatch: fakePanelDispatch,
 });
 

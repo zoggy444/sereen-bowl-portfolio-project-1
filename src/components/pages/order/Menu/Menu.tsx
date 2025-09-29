@@ -13,7 +13,6 @@ export default function Menu() {
   const handleClick = () => {
     return isAdminMode && handleProdSelect("");
   };
-
   return (
     <MenuStyled onClick={handleClick}>
       {menuProds.length > 0 ? (

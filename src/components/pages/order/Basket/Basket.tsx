@@ -6,7 +6,7 @@ import BasketFooter from "./BasketFooter";
 
 export default function Basket() {
   return (
-    <BasketStyled className="basket amatic-sc-regular">
+    <BasketStyled>
       <BasketHeader />
       <BasketBody />
       <BasketFooter />

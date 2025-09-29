@@ -7,6 +7,8 @@ import {
 import type {
   AdminPanelFormActionType,
   AdminPanelFormType,
+  BasketActionType,
+  BasketProdType,
   ContentTabIDType,
   MenuActionType,
   PanelFormType,
@@ -23,6 +25,7 @@ export function MainProvider({ children }: { children: ReactNode }) {
     menuReducer,
     deepCopy(fakeMenu.MEDIUM)
   );
+  const [basketProds, basketDispatch] = useReducer(basketReducer, []);
   const [adminPanelForm, adminPanelFormDispatch] = useReducer(
     adminPanelFormReducer,
     {
@@ -83,7 +86,7 @@ export function MainProvider({ children }: { children: ReactNode }) {
 
   return (
     <ProductsContext.Provider
-      value={{ menuProds, prodSelectedID, handleProdSelect }}
+      value={{ menuProds, basketProds, prodSelectedID, handleProdSelect }}
     >
       <AdminPanelContext.Provider
         value={{
@@ -97,6 +100,7 @@ export function MainProvider({ children }: { children: ReactNode }) {
         <MainDispatchContext.Provider
           value={{
             menuDispatch,
+            basketDispatch,
             adminPanelFormDispatch,
           }}
         >
@@ -155,6 +159,36 @@ const menuReducer = (menuProds: ProductType[], action: MenuActionType) => {
     }
     default:
       return menuProds;
+  }
+};
+
+const basketReducer = (
+  basketProds: BasketProdType[],
+  action: BasketActionType
+) => {
+  switch (action.type) {
+    case "add-product": {
+      const newBasket = [...basketProds];
+      const existingIndex = newBasket.findIndex((el) => el.id === action.id);
+      if (existingIndex !== -1) {
+        // Product already in basket
+        const updatedProd: BasketProdType = { ...newBasket[existingIndex] };
+        updatedProd.qty++;
+        return newBasket.map((el, index) => {
+          if (index === existingIndex) return updatedProd;
+          return el;
+        });
+      } else {
+        const newProd = { id: action.id, qty: 1 };
+        return [newProd, ...newBasket];
+      }
+    }
+    case "delete-product": {
+      const newBasket = [...basketProds];
+      return newBasket.filter((el) => el.id !== action.id);
+    }
+    default:
+      return basketProds;
   }
 };
 
