@@ -4,15 +4,11 @@ import "../../../index.css";
 import Menu from "./Menu/Menu";
 import Basket from "./Basket/Basket";
 import AdminPanel from "./AdminPanel/AdminPanel";
-import { useContext } from "react";
-import { ProductsContext } from "../../../context/OrderMainContext";
 
 export default function Main() {
-  const { menuProds } = useContext(ProductsContext);
-
   return (
     <MainStyled>
-      <Basket products={menuProds} />
+      <Basket />
       <Menu />
       <AdminPanel />
     </MainStyled>

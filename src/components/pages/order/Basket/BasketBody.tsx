@@ -1,18 +1,17 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
-import type { BasketBodyProps } from "../../../../types";
 import BasketCard from "./BasketCard";
 import { useContext } from "react";
 import { ProductsContext } from "../../../../context/OrderMainContext";
 
-export default function BasketBody({ products }: BasketBodyProps) {
-  const { basketProds } = useContext(ProductsContext);
+export default function BasketBody() {
+  const { menuProds, basketProds } = useContext(ProductsContext);
 
   return (
     <BasketBodyStyled>
       {basketProds.length > 0 ? (
         basketProds.map((el) => {
-          const p = products.filter((p) => p.id === el.id)[0];
+          const p = menuProds.filter((p) => p.id === el.id)[0];
           return <BasketCard key={el.id} product={p} qty={el.qty} />;
         })
       ) : (

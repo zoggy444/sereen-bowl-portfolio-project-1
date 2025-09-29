@@ -127,10 +127,6 @@ export type AdminPanelFormType = {
   editInputs: PanelFormType;
 };
 
-export type BasketBodyProps = {
-  products: ProductType[];
-};
-
 export type BasketCardProps = {
   product: ProductType;
   qty: number;
@@ -140,14 +136,6 @@ export type BasketCardRightProps = {
   qty: number;
   isHovered: boolean;
   onDelClick: MouseEventHandler<HTMLButtonElement>;
-};
-
-export type BasketHeaderProps = {
-  amount: number;
-};
-
-export type BasketProps = {
-  products: ProductType[];
 };
 
 export type FieldConfigParamType = {

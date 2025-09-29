@@ -3,25 +3,12 @@ import { theme } from "../../../../theme/theme";
 import BasketHeader from "./BasketHeader";
 import BasketBody from "./BasketBody";
 import BasketFooter from "./BasketFooter";
-import type { BasketProps } from "../../../../types";
-import { useContext } from "react";
-import { ProductsContext } from "../../../../context/OrderMainContext";
 
-export default function Basket({ products }: BasketProps) {
-  const { basketProds } = useContext(ProductsContext);
-  let amountTotal = 0.0;
-  for (let i = 0; i < basketProds.length; i++) {
-    const prod = products.find((p) => p.id === basketProds[i].id);
-    // Mak sure prod price is already rounded to 2 decimal before adding to amount
-    if (prod !== undefined)
-      amountTotal +=
-        (Math.round((prod.price + Number.EPSILON) * 100) / 100) *
-        basketProds[i].qty;
-  }
+export default function Basket() {
   return (
     <BasketStyled>
-      <BasketHeader amount={amountTotal} />
-      <BasketBody products={products} />
+      <BasketHeader />
+      <BasketBody />
       <BasketFooter />
     </BasketStyled>
   );
