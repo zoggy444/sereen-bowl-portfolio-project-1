@@ -6,14 +6,16 @@ import type { MenuCardProps, MenuCardStyledProps } from "../../../../types";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { useState, useContext, type FormEvent } from "react";
 import MenuCardDelete from "./MenuCardDelete";
-import { ProductsContext } from "../../../../context/OrderMainContext";
-import { BasketDispatchContext } from "../../../../context/BasketContext";
+import {
+  MainDispatchContext,
+  ProductsContext,
+} from "../../../../context/OrderMainContext";
 
 export default function MenuCard({ prodID, src, title, price }: MenuCardProps) {
   const { prodSelectedID, handleProdSelect } = useContext(ProductsContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
   const [isHovered, setIsHovered] = useState(false);
-  const basketDispatch = useContext(BasketDispatchContext);
+  const { basketDispatch } = useContext(MainDispatchContext);
 
   const isSelected = prodSelectedID === prodID && isAdminMode;
 

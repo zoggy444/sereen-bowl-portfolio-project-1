@@ -5,11 +5,11 @@ import BasketCardRight from "./BasketCardRight";
 import TitleAndPrice from "../../../reusable-ui/TitleAndPrice";
 import type { BasketCardProps } from "../../../../types";
 import { useContext, useState, type MouseEventHandler } from "react";
-import { BasketDispatchContext } from "../../../../context/BasketContext";
+import { MainDispatchContext } from "../../../../context/OrderMainContext";
 
 export default function BasketCard({ product, qty }: BasketCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const basketDispatch = useContext(BasketDispatchContext);
+  const { basketDispatch } = useContext(MainDispatchContext);
 
   const onDelClick: MouseEventHandler<HTMLButtonElement> = () => {
     basketDispatch({ type: "delete-product", id: product.id });

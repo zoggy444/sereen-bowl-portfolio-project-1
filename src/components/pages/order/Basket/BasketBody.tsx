@@ -3,10 +3,10 @@ import { theme } from "../../../../theme/theme";
 import type { BasketBodyProps } from "../../../../types";
 import BasketCard from "./BasketCard";
 import { useContext } from "react";
-import { BasketProdsContext } from "../../../../context/BasketContext";
+import { ProductsContext } from "../../../../context/OrderMainContext";
 
 export default function BasketBody({ products }: BasketBodyProps) {
-  const basketProds = useContext(BasketProdsContext);
+  const { basketProds } = useContext(ProductsContext);
 
   return (
     <BasketBodyStyled>

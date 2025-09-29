@@ -4,11 +4,11 @@ import BasketHeader from "./BasketHeader";
 import BasketBody from "./BasketBody";
 import BasketFooter from "./BasketFooter";
 import type { BasketProps } from "../../../../types";
-import { BasketProdsContext } from "../../../../context/BasketContext";
 import { useContext } from "react";
+import { ProductsContext } from "../../../../context/OrderMainContext";
 
 export default function Basket({ products }: BasketProps) {
-  const basketProds = useContext(BasketProdsContext);
+  const { basketProds } = useContext(ProductsContext);
   let amountTotal = 0.0;
   for (let i = 0; i < basketProds.length; i++) {
     const prod = products.find((p) => p.id === basketProds[i].id);
@@ -21,9 +21,7 @@ export default function Basket({ products }: BasketProps) {
   return (
     <BasketStyled>
       <BasketHeader amount={amountTotal} />
-      <BasketBody
-        products={products}
-      />
+      <BasketBody products={products} />
       <BasketFooter />
     </BasketStyled>
   );
