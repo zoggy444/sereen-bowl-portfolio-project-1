@@ -25,7 +25,10 @@ export default function BasketCard({ product, qty }: BasketCardProps) {
 
   return (
     <BasketCardStyled onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-      <ImageReStyled src={product.imageSource} alt="product-image" />
+      <ImageReStyled
+        src={product.imageSource || "/images/coming-soon.png"}
+        alt="product-image"
+      />
       <TitleAndPriceReStyled
         id={product.id}
         title={product.title}

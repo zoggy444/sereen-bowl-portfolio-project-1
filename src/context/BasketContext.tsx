@@ -1,12 +1,9 @@
 import { createContext } from "react";
 import type { BasketActionType, BasketProdType } from "../types";
 
-export const defaultBasketProds: BasketProdType[] = [
-  { id: 1, qty: 3 },
-  { id: 4, qty: 2 },
-];
+export const defaultBasketProds: BasketProdType[] = [];
 
-const fakeDispatch = function ({ type = "", id = -1 }: BasketActionType) {
+const fakeDispatch = function ({ type = "", id = "" }: BasketActionType) {
   console.log(type, id);
 };
 

@@ -39,6 +39,9 @@ export default function TitleAndPrice({
 
 const TitleAndPriceStyled = styled.div<TitleAndPriceStyledProps>`
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .product-title {
     color: ${theme.colors.dark};
