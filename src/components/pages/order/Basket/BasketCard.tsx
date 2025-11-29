@@ -4,8 +4,16 @@ import Image from "../../../reusable-ui/Image";
 import BasketCardRight from "./BasketCardRight";
 import TitleAndPrice from "../../../reusable-ui/TitleAndPrice";
 import type { BasketCardProps, BasketCardStyledProps } from "../../../../types";
-import { useContext, useState, type MouseEventHandler } from "react";
-import { MainDispatchContext, ProductsContext } from "../../../../context/OrderMainContext";
+import {
+  useContext,
+  useState,
+  type FormEvent,
+  type MouseEventHandler,
+} from "react";
+import {
+  MainDispatchContext,
+  ProductsContext,
+} from "../../../../context/OrderMainContext";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 
 export default function BasketCard({ product, qty }: BasketCardProps) {
@@ -16,7 +24,8 @@ export default function BasketCard({ product, qty }: BasketCardProps) {
 
   const isSelected = prodSelectedID === product.id && isAdminMode;
 
-  const onDelClick: MouseEventHandler<HTMLButtonElement> = () => {
+  const onDelClick: MouseEventHandler<HTMLButtonElement> = (e: FormEvent) => {
+    e.stopPropagation();
     basketDispatch({ type: "delete-product", id: product.id });
   };
 
@@ -28,11 +37,17 @@ export default function BasketCard({ product, qty }: BasketCardProps) {
     setIsHovered(false);
   };
 
+  const handleClick = (e: FormEvent) => {
+    e.stopPropagation();
+    return isAdminMode && handleProdSelect(product.id);
+  };
+
   return (
-    <BasketCardStyled 
+    <BasketCardStyled
       $isSelected={isSelected}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
+      onClick={handleClick}
     >
       <ImageReStyled
         src={product.imageSource || "/images/coming-soon.png"}
