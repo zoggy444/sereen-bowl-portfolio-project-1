@@ -3,13 +3,18 @@ import { theme } from "../../../../theme/theme";
 import Image from "../../../reusable-ui/Image";
 import BasketCardRight from "./BasketCardRight";
 import TitleAndPrice from "../../../reusable-ui/TitleAndPrice";
-import type { BasketCardProps } from "../../../../types";
+import type { BasketCardProps, BasketCardStyledProps } from "../../../../types";
 import { useContext, useState, type MouseEventHandler } from "react";
-import { MainDispatchContext } from "../../../../context/OrderMainContext";
+import { MainDispatchContext, ProductsContext } from "../../../../context/OrderMainContext";
+import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 
 export default function BasketCard({ product, qty }: BasketCardProps) {
+  const { prodSelectedID, handleProdSelect } = useContext(ProductsContext);
+  const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
   const [isHovered, setIsHovered] = useState(false);
   const { basketDispatch } = useContext(MainDispatchContext);
+
+  const isSelected = prodSelectedID === product.id && isAdminMode;
 
   const onDelClick: MouseEventHandler<HTMLButtonElement> = () => {
     basketDispatch({ type: "delete-product", id: product.id });
@@ -24,7 +29,11 @@ export default function BasketCard({ product, qty }: BasketCardProps) {
   };
 
   return (
-    <BasketCardStyled onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+    <BasketCardStyled 
+      $isSelected={isSelected}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       <ImageReStyled
         src={product.imageSource || "/images/coming-soon.png"}
         alt="product-image"
@@ -32,11 +41,12 @@ export default function BasketCard({ product, qty }: BasketCardProps) {
       <TitleAndPriceReStyled
         id={product.id}
         title={product.title}
-        isSelected={false}
+        isSelected={isSelected}
         price={product.price}
       />
       <BasketCardRight
         qty={qty}
+        isSelected={isSelected}
         isHovered={isHovered}
         onDelClick={onDelClick}
       />
@@ -44,12 +54,13 @@ export default function BasketCard({ product, qty }: BasketCardProps) {
   );
 }
 
-const BasketCardStyled = styled.div`
+const BasketCardStyled = styled.div<BasketCardStyledProps>`
   min-height: 86px;
   box-sizing: border-box;
   box-shadow: ${theme.shadows.card};
   border-radius: ${theme.borderRadius.round};
-  background-color: ${theme.colors.white};
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? `${theme.colors.primary}` : `${theme.colors.white}`};
   padding: ${theme.spacing.xs};
   padding-right: 0px;
   padding-left: ${theme.spacing.sm};
