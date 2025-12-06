@@ -134,8 +134,17 @@ export type BasketCardProps = {
 
 export type BasketCardRightProps = {
   qty: number;
+  isSelected: boolean;
   isHovered: boolean;
   onDelClick: MouseEventHandler<HTMLButtonElement>;
+};
+
+export type BasketCardStyledProps = {
+  $isSelected: boolean;
+};
+
+export type BasketCardRightStyledProps = {
+  $isSelected: boolean;
 };
 
 export type FieldConfigParamType = {

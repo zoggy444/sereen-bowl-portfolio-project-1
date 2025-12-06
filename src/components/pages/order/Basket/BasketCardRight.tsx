@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
-import type { BasketCardRightProps } from "../../../../types";
+import type { BasketCardRightProps, BasketCardRightStyledProps } from "../../../../types";
 import { TbTrashXFilled } from "react-icons/tb";
 
 export default function BasketCardRight({
   qty,
+  isSelected,
   isHovered,
   onDelClick,
 }: BasketCardRightProps) {
   return (
-    <BasketCardRightStyled>
+    <BasketCardRightStyled $isSelected={isSelected}>
       {isHovered ? (
         <button className="basket-card-del" onClick={onDelClick}>
           <TbTrashXFilled />
@@ -21,13 +22,16 @@ export default function BasketCardRight({
   );
 }
 
-const BasketCardRightStyled = styled.div`
+const BasketCardRightStyled = styled.div<BasketCardRightStyledProps>`
   display: flex;
   justify-content: center;
   align-items: center;
 
   .basket-card-qty {
-    color: ${theme.colors.primary};
+    color: ${({ $isSelected }) =>
+      $isSelected ? `${theme.colors.white}` : `${theme.colors.primary}`};
+    background-color: ${({ $isSelected }) =>
+      $isSelected ? `${theme.colors.primary}` : `${theme.colors.white}`};
     font-size: ${theme.fonts.size.P0};
   }
 
