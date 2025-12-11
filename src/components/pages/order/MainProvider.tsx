@@ -19,6 +19,7 @@ import { fakeMenu } from "../../../fakeData/fakeMenu";
 import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 import getPanelConfig from "./AdminPanel/getPanelConfig";
 import { deepCopy } from "../../../utils/collection";
+import { createUser, getUserData } from "../../../api/user";
 
 export function MainProvider({ children }: { children: ReactNode }) {
   const [menuProds, menuDispatch] = useReducer(
@@ -38,6 +39,10 @@ export function MainProvider({ children }: { children: ReactNode }) {
   const [selectedTabID, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const userData = getUserData("eYoYOVRk8djGKYAk3VQY");
+  console.log("User data:", userData);
+  createUser("newUser123");
 
   // Workaround not to keep a prod selected when regenerating the menu
   if (prodSelectedID !== "" && menuProds.length === 0) {
