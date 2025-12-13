@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import BasketCard from "./BasketCard";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { ProductsContext } from "../../../../context/OrderMainContext";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 export default function BasketBody() {
   const { menuProds, basketProds } = useContext(ProductsContext);
+  const basketTransRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <BasketBodyStyled>
@@ -17,10 +18,15 @@ export default function BasketBody() {
             return (
               <CSSTransition
                 key={el.id}
-                classNames="iiiiiiii"
+                nodeRef={basketTransRef}
+                appear={true}
+                exit={true}
+                classNames="basket-card-trans"
                 timeout={{ enter: 2000, exit: 2000 }}
               >
+                <div ref={basketTransRef}>
                   <BasketCard key={el.id} product={p} qty={el.qty} />
+                </div>
               </CSSTransition>
             );
           })}
@@ -49,26 +55,24 @@ const BasketBodyStyled = styled.div`
   flex-wrap: nowrap;
   gap: ${theme.gridUnit * 2.5}px;
 
-  .basket-cart-trans-enter {
+  .basket-card-trans-appear {
+    opacity: 0;
+  }
+  .basket-card-trans-appear-active {
+    transition: 200ms;
+    opacity: 0.5;
+  }
+
+  .basket-card-trans-enter {
     opacity: 0;
   }
   .basket-card-trans-enter-active {
     transition: 200ms;
-    opacity: 1;
+    opacity: 0.5;
   }
-  .basket-cart-trans-enter-done {
+  .basket-card-trans-enter-done {
     background-color: aliceblue;
-  }
-
-  .basket-cart-trans-exit {
     opacity: 1;
-  }
-  .basket-card-trans-exit-active {
-    transition: 200ms;
-    opacity: 0;
-  }
-  .basket-cart-trans-exit-done {
-    background-color: burlywood;
   }
 
   .basket-empty {

@@ -48,7 +48,6 @@ export default function BasketCard({ product, qty }: BasketCardProps) {
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
       onClick={handleClick}
-      className="hoho"
     >
       <ImageReStyled
         src={product.imageSource || "/images/coming-soon.png"}
