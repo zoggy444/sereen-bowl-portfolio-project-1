@@ -1,13 +1,39 @@
 import styled from "styled-components";
 import { theme } from "../../../../theme/theme";
 import BasketCard from "./BasketCard";
-import { useContext, useRef } from "react";
-import { ProductsContext } from "../../../../context/OrderMainContext";
+import { useContext, useRef, useState } from "react";
+import {
+  MainDispatchContext,
+  ProductsContext,
+} from "../../../../context/OrderMainContext";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 
 export default function BasketBody() {
-  const { menuProds, basketProds } = useContext(ProductsContext);
+  const { menuProds, basketProds, prodSelectedID, handleProdSelect } =
+    useContext(ProductsContext);
+  const { basketDispatch } = useContext(MainDispatchContext);
+  const [productHoveredID, setProductHoveredID] = useState<string | null>(null);
+
+  const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
+
   const basketTransRef = useRef<HTMLDivElement | null>(null);
+
+  const handleCardDel = (id: string) => {
+    basketDispatch({ type: "delete-product", id: id });
+  };
+
+  const handleCardClick = (id: string) => {
+    return isAdminMode && handleProdSelect(id);
+  };
+
+  const handleCardHover = (id: string) => {
+    setProductHoveredID(id);
+  };
+
+  const handleCardLeave = () => {
+    setProductHoveredID(null);
+  };
 
   return (
     <BasketBodyStyled>
@@ -20,12 +46,21 @@ export default function BasketBody() {
                 key={el.id}
                 nodeRef={basketTransRef}
                 appear={true}
-                exit={true}
                 classNames="basket-card-trans"
-                timeout={{ enter: 2000, exit: 2000 }}
+                timeout={{ enter: 1000, exit: 1000 }}
               >
                 <div ref={basketTransRef}>
-                  <BasketCard key={el.id} product={p} qty={el.qty} />
+                  <BasketCard
+                    key={el.id}
+                    product={p}
+                    qty={el.qty}
+                    isSelected={prodSelectedID === el.id}
+                    isHovered={productHoveredID === el.id}
+                    onMouseOver={handleCardHover}
+                    onMouseLeave={handleCardLeave}
+                    onDelClick={handleCardDel}
+                    onClick={handleCardClick}
+                  />
                 </div>
               </CSSTransition>
             );

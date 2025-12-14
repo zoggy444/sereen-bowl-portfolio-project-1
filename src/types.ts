@@ -3,7 +3,6 @@ import type {
   ComponentPropsWithoutRef,
   FC,
   FormEvent,
-  MouseEventHandler,
 } from "react";
 import type { IconType } from "react-icons";
 
@@ -130,13 +129,20 @@ export type AdminPanelFormType = {
 export type BasketCardProps = {
   product: ProductType;
   qty: number;
+  isSelected: boolean;
+  isHovered: boolean;
+  onMouseOver: (id: string) => void;
+  onMouseLeave: () => void;
+  onDelClick: (id: string) => void;
+  onClick: (id: string) => void;
 };
 
 export type BasketCardRightProps = {
+  productID: string;
   qty: number;
   isSelected: boolean;
   isHovered: boolean;
-  onDelClick: MouseEventHandler<HTMLButtonElement>;
+  onClick: (id: string) => void;
 };
 
 export type BasketCardStyledProps = {

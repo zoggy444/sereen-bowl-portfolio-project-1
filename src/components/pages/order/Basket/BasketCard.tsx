@@ -5,47 +5,33 @@ import BasketCardRight from "./BasketCardRight";
 import TitleAndPrice from "../../../reusable-ui/TitleAndPrice";
 import type { BasketCardProps, BasketCardStyledProps } from "../../../../types";
 import {
-  useContext,
-  useState,
   type FormEvent,
   type MouseEventHandler,
 } from "react";
-import {
-  MainDispatchContext,
-  ProductsContext,
-} from "../../../../context/OrderMainContext";
-import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 
-export default function BasketCard({ product, qty }: BasketCardProps) {
-  const { prodSelectedID, handleProdSelect } = useContext(ProductsContext);
-  const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
-  const [isHovered, setIsHovered] = useState(false);
-  const { basketDispatch } = useContext(MainDispatchContext);
-
-  const isSelected = prodSelectedID === product.id && isAdminMode;
-
-  const onDelClick: MouseEventHandler<HTMLButtonElement> = (e: FormEvent) => {
-    e.stopPropagation();
-    basketDispatch({ type: "delete-product", id: product.id });
-  };
-
-  const onMouseOver: MouseEventHandler<HTMLDivElement> = () => {
-    setIsHovered(true);
-  };
-
-  const onMouseLeave: MouseEventHandler<HTMLDivElement> = () => {
-    setIsHovered(false);
+export default function BasketCard({
+  product,
+  qty,
+  isSelected,
+  isHovered,
+  onMouseOver,
+  onMouseLeave,
+  onDelClick,
+  onClick,
+}: BasketCardProps) {
+  const handleMouseOver: MouseEventHandler<HTMLDivElement> = () => {
+    onMouseOver(product.id);
   };
 
   const handleClick = (e: FormEvent) => {
     e.stopPropagation();
-    return isAdminMode && handleProdSelect(product.id);
+    return onClick(product.id);
   };
 
   return (
     <BasketCardStyled
       $isSelected={isSelected}
-      onMouseOver={onMouseOver}
+      onMouseOver={handleMouseOver}
       onMouseLeave={onMouseLeave}
       onClick={handleClick}
     >
@@ -60,10 +46,11 @@ export default function BasketCard({ product, qty }: BasketCardProps) {
         price={product.price}
       />
       <BasketCardRight
+        productID={product.id}
         qty={qty}
         isSelected={isSelected}
         isHovered={isHovered}
-        onDelClick={onDelClick}
+        onClick={onDelClick}
       />
     </BasketCardStyled>
   );
