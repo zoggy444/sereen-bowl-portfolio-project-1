@@ -25,7 +25,7 @@ import { useParams } from "react-router";
 export function MainProvider({ children }: { children: ReactNode }) {
   const [menuProds, menuDispatch] = useReducer(
     menuReducer,
-    deepCopy(fakeMenu.MEDIUM)
+    deepCopy(fakeMenu.GHOST)
   );
   const [basketProds, basketDispatch] = useReducer(basketReducer, []);
   const [adminPanelForm, adminPanelFormDispatch] = useReducer(

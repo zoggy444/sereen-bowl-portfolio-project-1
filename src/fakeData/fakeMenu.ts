@@ -1,5 +1,17 @@
 import type { ProductType } from "../types";
 
+const GHOST: ProductType[] = [
+  {
+    id: "ghost-product-id",
+    imageSource: "",
+    title: "Waiting for product...",
+    price: 0,
+    quantity: 0,
+    isAvailable: true,
+    isAdvertised: false,
+  },
+];
+
 const EMPTY: ProductType[] = [];
 
 const SMALL: ProductType[] = [
@@ -72,6 +84,7 @@ const MEDIUM: ProductType[] = [
 ];
 
 export const fakeMenu = {
+  GHOST,
   EMPTY,
   SMALL,
   MEDIUM,

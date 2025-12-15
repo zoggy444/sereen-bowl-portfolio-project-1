@@ -10,12 +10,14 @@ export default function Menu() {
   const { menuProds, handleProdSelect } = useContext(ProductsContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
 
+  const menuGhost = menuProds && menuProds[0].id === "ghost-product-id";
+
   const handleClick = () => {
     return isAdminMode && handleProdSelect("");
   };
   return (
     <MenuStyled onClick={handleClick}>
-      {menuProds.length > 0 ? (
+      {menuProds.length > 0 && !menuGhost ? (
         menuProds.map(({ id, title, imageSource, price }) => (
           <MenuCard
             key={id}
@@ -26,7 +28,7 @@ export default function Menu() {
           />
         ))
       ) : (
-        <MenuEmpty />
+        <MenuEmpty isMenuGhost={menuGhost} />
       )}
     </MenuStyled>
   );

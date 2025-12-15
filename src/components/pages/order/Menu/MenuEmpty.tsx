@@ -5,7 +5,7 @@ import { useContext } from "react";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { MainDispatchContext } from "../../../../context/OrderMainContext";
 
-export default function MenuEmpty() {
+export default function MenuEmpty({ isMenuGhost }: { isMenuGhost: boolean }) {
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
   const { menuDispatch } = useContext(MainDispatchContext);
 
@@ -15,7 +15,9 @@ export default function MenuEmpty() {
 
   return (
     <MenuEmptyStyled>
-      {isAdminMode ? (
+      {isMenuGhost ? (
+        <h1 className="amatic-sc-bold">Loading menu...</h1>
+      ) : isAdminMode ? (
         <>
           <h1 className="amatic-sc-bold">Empty menu ?</h1>
           <h2 className="amatic-sc-regular">Click below to reinitialize it</h2>
