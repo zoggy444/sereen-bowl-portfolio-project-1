@@ -169,6 +169,7 @@ export type FormFooterProps = {
 export type MenuActionType = {
   type: "add-product" | "edit-product" | "delete-product" | "regen-menu" | "";
   prodVals?: PanelFormType;
+  prod?: ProductType;
   prodID?: string;
 };
 

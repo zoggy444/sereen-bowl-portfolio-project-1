@@ -1,6 +1,7 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { fakeMenu } from "../fakeData/fakeMenu";
+import type { ProductType } from "../types";
 
 export const userExists = async (userId: string): Promise<boolean> => {
   const docRef = doc(db, "users", userId);
@@ -34,7 +35,23 @@ export const createUser = async (userId: string):Promise<boolean> => {
     console.log("User created successfully");
     return true
   } catch (e) {
-    console.error("Error adding document: ", e);
+    console.error("Error creating user: ", e);
+    return false
+  }
+};
+
+export const createProduct = async (userId: string, menu: ProductType[]):Promise<boolean> => {
+  try {
+    const docRef = doc(db, "users", userId);
+    const userData = {
+      username: userId,
+      menu: menu,
+    };
+    await setDoc(docRef, userData);
+    console.log("Product created successfully");
+    return true
+  } catch (e) {
+    console.error("Error creating poduct: ", e);
     return false
   }
 };

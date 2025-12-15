@@ -19,7 +19,7 @@ import { fakeMenu } from "../../../fakeData/fakeMenu";
 import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 import getPanelConfig from "./AdminPanel/getPanelConfig";
 import { deepCopy } from "../../../utils/collection";
-import { createUser, getUserData } from "../../../api/user";
+import { createProduct, createUser, getUserData } from "../../../api/user";
 import { useParams } from "react-router";
 
 export function MainProvider({ children }: { children: ReactNode }) {
@@ -42,14 +42,33 @@ export function MainProvider({ children }: { children: ReactNode }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { userName } = useParams();
 
-  const userData = getUserData(userName);
-  console.log("User data:", userData);
-  createUser("newUser123");
-
   // Workaround not to keep a prod selected when regenerating the menu
   if (prodSelectedID !== "" && menuProds.length === 0) {
     setProdSelectedID("");
   }
+
+  const handleProdAdd = async (prodVals: PanelFormType) => {
+    if (!prodVals || !userName) return;
+    const nextId = crypto.randomUUID();
+
+    let priceNumber = parseFloat(prodVals.price.replace(",", "."));
+    if (isNaN(priceNumber)) priceNumber = 0;
+
+    const newProduct: ProductType = {
+      id: nextId,
+      title: prodVals.title,
+      imageSource: prodVals.imageSource,
+      price: priceNumber,
+      quantity: 0,
+      isAvailable: true,
+      isAdvertised: false,
+    };
+    const newMenu = [newProduct, ...menuProds];
+    const created = await createProduct(userName, newMenu);
+    if (created) {
+      menuDispatch({ type: "add-product", prod: newProduct });
+    }
+  };
 
   const handleProdSelect = (id: string) => {
     const selectedProd = menuProds.find((p) => p.id === id);
@@ -106,6 +125,7 @@ export function MainProvider({ children }: { children: ReactNode }) {
       >
         <MainDispatchContext.Provider
           value={{
+            handleProdAdd,
             menuDispatch,
             basketDispatch,
             adminPanelFormDispatch,
@@ -121,22 +141,8 @@ export function MainProvider({ children }: { children: ReactNode }) {
 const menuReducer = (menuProds: ProductType[], action: MenuActionType) => {
   switch (action.type) {
     case "add-product": {
-      const newVals = action.prodVals;
-      if (!newVals) return [...menuProds];
-      const nextId = crypto.randomUUID();
-
-      let priceNumber = parseFloat(newVals.price.replace(",", "."));
-      if (isNaN(priceNumber)) priceNumber = 0;
-
-      const newProduct: ProductType = {
-        id: nextId,
-        title: newVals.title,
-        imageSource: newVals.imageSource,
-        price: priceNumber,
-        quantity: 0,
-        isAvailable: true,
-        isAdvertised: false,
-      };
+      const newProduct = action.prod;
+      if (!newProduct) return [...menuProds];
       return [newProduct, ...menuProds];
     }
     case "edit-product": {

@@ -14,7 +14,7 @@ import { FiCheckCircle } from "react-icons/fi";
 import { theme } from "../../../../theme/theme";
 
 export default function FormFooterAdd({ className }: FormFooterProps) {
-  const { menuDispatch, adminPanelFormDispatch } =
+  const { handleProdAdd, menuDispatch, adminPanelFormDispatch } =
     useContext(MainDispatchContext);
   const { formInputs } = useContext(AdminPanelContext);
   const [addedMsg, setaddedMsg] = useState(false);
@@ -26,11 +26,7 @@ export default function FormFooterAdd({ className }: FormFooterProps) {
     setTimeout(() => {
       setaddedMsg(false);
     }, 2000);
-    const menuAction: MenuActionType = {
-      type: "add-product",
-      prodVals: formInputs,
-    };
-    menuDispatch(menuAction);
+    handleProdAdd(formInputs);
     const PanelAction: AdminPanelFormActionType = {
       type: "reset",
       formTarget: "add-product",
