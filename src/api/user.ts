@@ -9,7 +9,7 @@ export const userExists = async (userId: string): Promise<boolean> => {
   return res.exists();
 };
 
-export const getUserData = async (userId: string | undefined) => {
+export const fetchUserData = async (userId: string | undefined) => {
   if (!userId) {
     console.error("User ID is undefined");
     return null;

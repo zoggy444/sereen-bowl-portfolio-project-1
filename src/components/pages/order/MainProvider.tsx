@@ -1,4 +1,4 @@
-import { useReducer, useRef, useState, type ReactNode } from "react";
+import { useEffect, useReducer, useRef, useState, type ReactNode } from "react";
 import {
   ProductsContext,
   MainDispatchContext,
@@ -19,7 +19,7 @@ import { fakeMenu } from "../../../fakeData/fakeMenu";
 import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 import getPanelConfig from "./AdminPanel/getPanelConfig";
 import { deepCopy } from "../../../utils/collection";
-import { createProduct, createUser, getUserData } from "../../../api/user";
+import { createProduct, createUser, fetchUserData } from "../../../api/user";
 import { useParams } from "react-router";
 
 export function MainProvider({ children }: { children: ReactNode }) {
@@ -41,6 +41,17 @@ export function MainProvider({ children }: { children: ReactNode }) {
     useState<ContentTabIDType>("add-product");
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { userName } = useParams();
+
+  useEffect(() => {
+    if (menuProds.length > 0 && menuProds[0].id === "ghost-product-id") {
+      fetchUserData(userName).then((userData) => {
+        if (userData) {
+          const userMenu = userData.menu as ProductType[];
+          menuDispatch({ type: "set-menu", menuProds: userMenu });
+        }
+      });
+    }
+  }, [menuProds, userName]);
 
   // Workaround not to keep a prod selected when regenerating the menu
   if (prodSelectedID !== "" && menuProds.length === 0) {
@@ -169,6 +180,9 @@ const menuReducer = (menuProds: ProductType[], action: MenuActionType) => {
     case "regen-menu": {
       const newMenu = fakeMenu.MEDIUM;
       return newMenu;
+    }
+    case "set-menu": {
+      return action.menuProds || menuProds;
     }
     default:
       return menuProds;

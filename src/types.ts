@@ -167,10 +167,17 @@ export type FormFooterProps = {
 };
 
 export type MenuActionType = {
-  type: "add-product" | "edit-product" | "delete-product" | "regen-menu" | "";
+  type:
+    | "add-product"
+    | "edit-product"
+    | "delete-product"
+    | "regen-menu"
+    | "set-menu"
+    | "";
   prodVals?: PanelFormType;
   prod?: ProductType;
   prodID?: string;
+  menuProds?: ProductType[];
 };
 
 export type MenuCardProps = {
