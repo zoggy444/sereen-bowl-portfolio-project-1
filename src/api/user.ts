@@ -24,7 +24,7 @@ export const fetchUserData = async (userId: string | undefined) => {
   }
 };
 
-export const createUser = async (userId: string):Promise<boolean> => {
+export const createUser = async (userId: string): Promise<boolean> => {
   try {
     const docRef = doc(db, "users", userId);
     const userData = {
@@ -33,14 +33,17 @@ export const createUser = async (userId: string):Promise<boolean> => {
     };
     await setDoc(docRef, userData);
     console.log("User created successfully");
-    return true
+    return true;
   } catch (e) {
     console.error("Error creating user: ", e);
-    return false
+    return false;
   }
 };
 
-export const createProduct = async (userId: string, menu: ProductType[]):Promise<boolean> => {
+export const updateMenu = async (
+  userId: string,
+  menu: ProductType[]
+): Promise<boolean> => {
   try {
     const docRef = doc(db, "users", userId);
     const userData = {
@@ -48,10 +51,10 @@ export const createProduct = async (userId: string, menu: ProductType[]):Promise
       menu: menu,
     };
     await setDoc(docRef, userData);
-    console.log("Product created successfully");
-    return true
+    console.log("Menu updated successfully");
+    return true;
   } catch (e) {
-    console.error("Error creating poduct: ", e);
-    return false
+    console.error("Error creating product: ", e);
+    return false;
   }
 };

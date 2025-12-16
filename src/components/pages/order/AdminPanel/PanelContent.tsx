@@ -14,7 +14,7 @@ import {
 const PanelContent = () => {
   const { isPanelFolded, selectedTabID, formInputs, inputRef } =
     useContext(AdminPanelContext);
-  const { menuDispatch, adminPanelFormDispatch } =
+  const { handleProdUpdate, adminPanelFormDispatch } =
     useContext(MainDispatchContext);
   const { prodSelectedID } = useContext(ProductsContext);
 
@@ -26,11 +26,7 @@ const PanelContent = () => {
       value,
     };
     adminPanelFormDispatch(action);
-    menuDispatch({
-      type: "edit-product",
-      prodID: prodSelectedID,
-      prodVals: { ...formInputs, [name]: value },
-    });
+    handleProdUpdate({ ...formInputs, [name]: value }, prodSelectedID);
   };
 
   const FormFooter =

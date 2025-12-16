@@ -19,7 +19,7 @@ import { fakeMenu } from "../../../fakeData/fakeMenu";
 import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 import getPanelConfig from "./AdminPanel/getPanelConfig";
 import { deepCopy } from "../../../utils/collection";
-import { createProduct, createUser, fetchUserData } from "../../../api/user";
+import { fetchUserData, updateMenu } from "../../../api/user";
 import { useParams } from "react-router";
 
 export function MainProvider({ children }: { children: ReactNode }) {
@@ -75,9 +75,30 @@ export function MainProvider({ children }: { children: ReactNode }) {
       isAdvertised: false,
     };
     const newMenu = [newProduct, ...menuProds];
-    const created = await createProduct(userName, newMenu);
+    const created = await updateMenu(userName, newMenu);
     if (created) {
       menuDispatch({ type: "add-product", prod: newProduct });
+    }
+  };
+
+  const handleProdUpdate = async (prodVals: PanelFormType, prodID: string) => {
+    if (!prodVals || !prodID || !userName) return;
+    const toUpdProd = menuProds.find((p) => p.id === prodID);
+    if (!toUpdProd) return;
+
+    let priceNumber = parseFloat(prodVals.price.replace(",", "."));
+    if (isNaN(priceNumber)) priceNumber = 0;
+
+    const updedProd = {
+      ...toUpdProd,
+      title: prodVals.title,
+      imageSource: prodVals.imageSource,
+      price: priceNumber,
+    };
+    const newMenu = menuProds.map((p) => (p.id === prodID ? updedProd : p));
+    const updated = await updateMenu(userName, newMenu);
+    if (updated) {
+      menuDispatch({ type: "edit-product", prod: updedProd, prodID: prodID });
     }
   };
 
@@ -137,6 +158,7 @@ export function MainProvider({ children }: { children: ReactNode }) {
         <MainDispatchContext.Provider
           value={{
             handleProdAdd,
+            handleProdUpdate,
             menuDispatch,
             basketDispatch,
             adminPanelFormDispatch,
@@ -157,21 +179,9 @@ const menuReducer = (menuProds: ProductType[], action: MenuActionType) => {
       return [newProduct, ...menuProds];
     }
     case "edit-product": {
-      const newVals = action.prodVals;
+      const updedProd = action.prod;
       const prodID = action.prodID;
-      if (!newVals || !prodID) return [...menuProds];
-      const toUpdProd = menuProds.find((p) => p.id === prodID);
-      if (!toUpdProd) return [...menuProds];
-
-      let priceNumber = parseFloat(newVals.price.replace(",", "."));
-      if (isNaN(priceNumber)) priceNumber = 0;
-
-      const updedProd = {
-        ...toUpdProd,
-        title: newVals.title,
-        imageSource: newVals.imageSource,
-        price: priceNumber,
-      };
+      if (!updedProd || !prodID) return [...menuProds];
       return menuProds.map((p) => (p.id === prodID ? updedProd : p));
     }
     case "delete-product": {
