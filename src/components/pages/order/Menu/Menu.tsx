@@ -10,7 +10,8 @@ export default function Menu() {
   const { menuProds, handleProdSelect } = useContext(ProductsContext);
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
 
-  const menuGhost = menuProds && menuProds[0].id === "ghost-product-id";
+  const menuGhost =
+    menuProds.length > 0 && menuProds[0].id === "ghost-product-id";
 
   const handleClick = () => {
     return isAdminMode && handleProdSelect("");

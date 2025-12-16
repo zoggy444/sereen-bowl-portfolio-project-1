@@ -102,6 +102,18 @@ export function MainProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const handleProdDelete = async (prodID: string) => {
+    if (!prodID || !userName) return;
+    const toDelProd = menuProds.find((p) => p.id === prodID);
+    if (!toDelProd) return;
+
+    const newMenu = menuProds.filter((p) => p.id !== prodID);
+    const updated = await updateMenu(userName, newMenu);
+    if (updated) {
+      menuDispatch({ type: "delete-product", prodID: prodID });
+    }
+  };
+
   const handleProdSelect = (id: string) => {
     const selectedProd = menuProds.find((p) => p.id === id);
     const newEditInputs: PanelFormType = {
@@ -159,6 +171,7 @@ export function MainProvider({ children }: { children: ReactNode }) {
           value={{
             handleProdAdd,
             handleProdUpdate,
+            handleProdDelete,
             menuDispatch,
             basketDispatch,
             adminPanelFormDispatch,

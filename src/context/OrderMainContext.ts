@@ -39,6 +39,7 @@ const fakePanelDispatch = function ({
 export const MainDispatchContext = createContext({
   handleProdUpdate: (prodVals: PanelFormType, prodID: string) => {console.log(prodVals,prodID)},
   handleProdAdd: (prodVals: PanelFormType) => {console.log(prodVals)},
+  handleProdDelete: (prodID: string) => {console.log(prodID)},
   menuDispatch: fakeMenuDispatch,
   basketDispatch: fakeBasketDispatch,
   adminPanelFormDispatch: fakePanelDispatch,
