@@ -114,6 +114,15 @@ export function MainProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const handleProdRegen = async () => {
+    if (!userName) return;
+    const newMenu = fakeMenu.MEDIUM;
+    const regened = await updateMenu(userName, newMenu);
+    if (regened) {
+      menuDispatch({ type: "regen-menu", menuProds: newMenu });
+    }
+  };
+
   const handleProdSelect = (id: string) => {
     const selectedProd = menuProds.find((p) => p.id === id);
     const newEditInputs: PanelFormType = {
@@ -172,6 +181,7 @@ export function MainProvider({ children }: { children: ReactNode }) {
             handleProdAdd,
             handleProdUpdate,
             handleProdDelete,
+            handleProdRegen,
             menuDispatch,
             basketDispatch,
             adminPanelFormDispatch,

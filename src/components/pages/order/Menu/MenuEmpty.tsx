@@ -7,10 +7,10 @@ import { MainDispatchContext } from "../../../../context/OrderMainContext";
 
 export default function MenuEmpty({ isMenuGhost }: { isMenuGhost: boolean }) {
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
-  const { menuDispatch } = useContext(MainDispatchContext);
+  const { handleProdRegen } = useContext(MainDispatchContext);
 
   const onRegenMenuClick = () => {
-    menuDispatch({ type: "regen-menu" });
+    handleProdRegen();
   };
 
   return (
