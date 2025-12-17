@@ -67,6 +67,7 @@ export type FormProductProps = {
   formInputs: PanelFormType;
   Footer: FC<FormFooterProps>;
   onInputChange: (name: string, value: string) => void;
+  onInputBlur: () => void;
 };
 
 export type ImageType = ComponentPropsWithoutRef<"img">;
@@ -170,6 +171,7 @@ export type MenuActionType = {
   type:
     | "add-product"
     | "edit-product"
+    | "notify-edit"
     | "delete-product"
     | "regen-menu"
     | "set-menu"
@@ -253,4 +255,8 @@ export type TabConfigParamType = {
 
 // hooks types
 
-export type MenuHookType = [ProductType[], (action: MenuActionType) => void];
+export type MenuHookType = [
+  ProductType[],
+  string,
+  (action: MenuActionType) => void
+];

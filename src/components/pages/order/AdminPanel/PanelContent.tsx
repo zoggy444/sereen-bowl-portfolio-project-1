@@ -37,6 +37,11 @@ const PanelContent = () => {
     menuDispatch(menuAction);
   };
 
+  const handleInputBlur = () => {
+    const menuAction: MenuActionType = { type: "notify-edit" };
+    menuDispatch(menuAction);
+  };
+
   const FormFooter =
     selectedTabID === "add-product" ? FormFooterAdd : FormFooterEdit;
 
@@ -53,6 +58,7 @@ const PanelContent = () => {
             formInputs={formInputs}
             Footer={FormFooter}
             onInputChange={handleInputChange}
+            onInputBlur={handleInputBlur}
             ref={inputRef}
           />
         )}

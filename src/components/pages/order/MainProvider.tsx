@@ -19,7 +19,7 @@ import useBasket from "../../../hooks/useBasket";
 
 export function MainProvider({ children }: { children: ReactNode }) {
   const { userName } = useParams();
-  const [menuProds, menuDispatch] = useMenu(userName || "");
+  const [menuProds, lastMenuAction, menuDispatch] = useMenu(userName || "");
   const [basketProds, basketDispatch] = useBasket(userName || "");
   const [adminPanelForm, adminPanelFormDispatch] = useReducer(
     adminPanelFormReducer,
@@ -81,7 +81,13 @@ export function MainProvider({ children }: { children: ReactNode }) {
 
   return (
     <ProductsContext.Provider
-      value={{ menuProds, basketProds, prodSelectedID, handleProdSelect }}
+      value={{
+        menuProds,
+        basketProds,
+        prodSelectedID,
+        lastMenuAction,
+        handleProdSelect,
+      }}
     >
       <AdminPanelContext.Provider
         value={{

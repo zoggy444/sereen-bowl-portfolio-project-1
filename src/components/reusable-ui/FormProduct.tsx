@@ -8,7 +8,7 @@ import type { FormProductProps } from "../../types";
 
 const FormProduct = forwardRef(
   (
-    { formInputs, Footer, onInputChange }: FormProductProps,
+    { formInputs, Footer, onInputChange, onInputBlur }: FormProductProps,
     ref: Ref<HTMLInputElement | null>
   ) => {
     const imageProps = {
@@ -38,8 +38,15 @@ const FormProduct = forwardRef(
         <div className="fields">
           {fieldConfig.map((field) => {
             if (field.id === "title")
-              return <InputText key={field.id} {...field} ref={ref} />;
-            return <InputText key={field.id} {...field} />;
+              return (
+                <InputText
+                  key={field.id}
+                  {...field}
+                  ref={ref}
+                  onBlur={onInputBlur}
+                />
+              );
+            return <InputText key={field.id} {...field} onBlur={onInputBlur} />;
           })}
         </div>
 

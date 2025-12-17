@@ -5,18 +5,28 @@ import { fakeMenu } from "../fakeData/fakeMenu";
 import { deepCopy } from "../utils/collection";
 
 const useMenu = (userName: string): MenuHookType => {
-  const [menuProds, setMenuProds] = useState(deepCopy(fakeMenu.GHOST));
+  const [menuProds, setMenuProds] = useState<ProductType[]>(
+    deepCopy(fakeMenu.GHOST)
+  );
+  const [lastAction, setLastAction] = useState("");
 
   useEffect(() => {
     if (menuProds.length > 0 && menuProds[0].id === "ghost-product-id") {
       fetchUserData(userName).then((userData) => {
         if (userData) {
-          const userMenu = userData.menu as ProductType[];
+          const userMenu = userData.menu;
           setMenuProds(userMenu);
         }
       });
     }
   }, [menuProds, userName]);
+
+  useEffect(() => {
+    if (lastAction === "updated-notify") {
+      const timer = setTimeout(() => setLastAction(""), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [lastAction]);
 
   const dispatch = async (action: MenuActionType) => {
     switch (action.type) {
@@ -40,6 +50,9 @@ const useMenu = (userName: string): MenuHookType => {
         const created = await updateMenu(userName, newMenu);
         if (created) {
           setMenuProds(newMenu);
+          setLastAction("created");
+        } else {
+          setLastAction("failed");
         }
         break;
       }
@@ -63,6 +76,15 @@ const useMenu = (userName: string): MenuHookType => {
         const updated = await updateMenu(userName, newMenu);
         if (updated) {
           setMenuProds(newMenu);
+          setLastAction("updated");
+        } else {
+          setLastAction("failed");
+        }
+        break;
+      }
+      case "notify-edit": {
+        if (lastAction === "updated") {
+          setLastAction("updated-notify");
         }
         break;
       }
@@ -75,6 +97,9 @@ const useMenu = (userName: string): MenuHookType => {
         const updated = await updateMenu(userName, newMenu);
         if (updated) {
           setMenuProds(newMenu);
+          setLastAction("deleted");
+        } else {
+          setLastAction("failed");
         }
         break;
       }
@@ -84,6 +109,9 @@ const useMenu = (userName: string): MenuHookType => {
         const regened = await updateMenu(userName, newMenu);
         if (regened) {
           setMenuProds(newMenu);
+          setLastAction("regenerated");
+        } else {
+          setLastAction("failed");
         }
         break;
       }
@@ -94,7 +122,7 @@ const useMenu = (userName: string): MenuHookType => {
     }
   };
 
-  return [menuProds, dispatch];
+  return [menuProds, lastAction, dispatch];
 };
 
 export default useMenu;

@@ -15,6 +15,7 @@ export const ProductsContext = createContext({
   menuProds: fakeMenu.MEDIUM,
   basketProds: defaultBasketProds,
   prodSelectedID: "",
+  lastMenuAction: "",
   handleProdSelect: (prodID: string) => {
     console.log(prodID);
   },
