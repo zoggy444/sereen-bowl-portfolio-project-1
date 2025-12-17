@@ -7,8 +7,6 @@ import {
 import type {
   AdminPanelFormActionType,
   AdminPanelFormType,
-  BasketActionType,
-  BasketProdType,
   ContentTabIDType,
   PanelFormType,
   TabIDType,
@@ -17,11 +15,12 @@ import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 import getPanelConfig from "./AdminPanel/getPanelConfig";
 import { useParams } from "react-router";
 import useMenu from "../../../hooks/useMenu";
+import useBasket from "../../../hooks/useBasket";
 
 export function MainProvider({ children }: { children: ReactNode }) {
   const { userName } = useParams();
   const [menuProds, menuDispatch] = useMenu(userName || "");
-  const [basketProds, basketDispatch] = useReducer(basketReducer, []);
+  const [basketProds, basketDispatch] = useBasket(userName || "");
   const [adminPanelForm, adminPanelFormDispatch] = useReducer(
     adminPanelFormReducer,
     {
@@ -106,36 +105,6 @@ export function MainProvider({ children }: { children: ReactNode }) {
     </ProductsContext.Provider>
   );
 }
-
-const basketReducer = (
-  basketProds: BasketProdType[],
-  action: BasketActionType
-) => {
-  switch (action.type) {
-    case "add-product": {
-      const newBasket = [...basketProds];
-      const existingIndex = newBasket.findIndex((el) => el.id === action.id);
-      if (existingIndex !== -1) {
-        // Product already in basket
-        const updatedProd: BasketProdType = { ...newBasket[existingIndex] };
-        updatedProd.qty++;
-        return newBasket.map((el, index) => {
-          if (index === existingIndex) return updatedProd;
-          return el;
-        });
-      } else {
-        const newProd = { id: action.id, qty: 1 };
-        return [newProd, ...newBasket];
-      }
-    }
-    case "delete-product": {
-      const newBasket = [...basketProds];
-      return newBasket.filter((el) => el.id !== action.id);
-    }
-    default:
-      return basketProds;
-  }
-};
 
 const adminPanelFormReducer = (
   adminPanelForm: AdminPanelFormType,

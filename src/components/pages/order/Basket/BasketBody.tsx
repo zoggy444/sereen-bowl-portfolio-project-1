@@ -9,7 +9,9 @@ export default function BasketBody() {
 
   return (
     <BasketBodyStyled>
-      {basketProds.length > 0 ? (
+      {menuProds.length > 0 && menuProds[0].id === "ghost-product-id" ? (
+        <div className="basket-empty amatic-sc-regular">Loading basket...</div>
+      ) : basketProds.length > 0 ? (
         basketProds.map((el) => {
           const p = menuProds.filter((p) => p.id === el.id)[0];
           return <BasketCard key={el.id} product={p} qty={el.qty} />;
