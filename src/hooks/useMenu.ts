@@ -1,52 +1,18 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useState } from "react";
 import { fetchUserData, updateMenu } from "../api/user";
 import type { MenuActionType, ProductType, MenuHookType } from "../types";
 import { fakeMenu } from "../fakeData/fakeMenu";
 import { deepCopy } from "../utils/collection";
 
-const menuReducer = (
-  menuProds: ProductType[],
-  action: MenuActionType
-): ProductType[] => {
-  switch (action.type) {
-    case "add-product": {
-      const newProduct = action.prod;
-      if (!newProduct) return [...menuProds];
-      return [newProduct, ...menuProds];
-    }
-    case "edit-product": {
-      const updedProd = action.prod;
-      const prodID = action.prodID;
-      if (!updedProd || !prodID) return [...menuProds];
-      return menuProds.map((p) => (p.id === prodID ? updedProd : p));
-    }
-    case "delete-product": {
-      return [...menuProds].filter((el) => el.id !== action.prodID);
-    }
-    case "regen-menu": {
-      const newMenu = fakeMenu.MEDIUM;
-      return newMenu;
-    }
-    case "set-menu": {
-      return action.menuProds || menuProds;
-    }
-    default:
-      return menuProds;
-  }
-};
-
 const useMenu = (userName: string): MenuHookType => {
-  const [menuProds, menuDispatch] = useReducer(
-    menuReducer,
-    deepCopy(fakeMenu.GHOST)
-  );
+  const [menuProds, setMenuProds] = useState(deepCopy(fakeMenu.GHOST));
 
   useEffect(() => {
     if (menuProds.length > 0 && menuProds[0].id === "ghost-product-id") {
       fetchUserData(userName).then((userData) => {
         if (userData) {
           const userMenu = userData.menu as ProductType[];
-          menuDispatch({ type: "set-menu", menuProds: userMenu });
+          setMenuProds(userMenu);
         }
       });
     }
@@ -73,7 +39,7 @@ const useMenu = (userName: string): MenuHookType => {
         const newMenu = [newProduct, ...menuProds];
         const created = await updateMenu(userName, newMenu);
         if (created) {
-          menuDispatch({ type: "add-product", prod: newProduct });
+          setMenuProds(newMenu);
         }
         break;
       }
@@ -96,11 +62,7 @@ const useMenu = (userName: string): MenuHookType => {
         );
         const updated = await updateMenu(userName, newMenu);
         if (updated) {
-          menuDispatch({
-            type: "edit-product",
-            prod: updedProd,
-            prodID: action.prodID,
-          });
+          setMenuProds(newMenu);
         }
         break;
       }
@@ -112,7 +74,7 @@ const useMenu = (userName: string): MenuHookType => {
         const newMenu = menuProds.filter((p) => p.id !== action.prodID);
         const updated = await updateMenu(userName, newMenu);
         if (updated) {
-          menuDispatch({ type: "delete-product", prodID: action.prodID });
+          setMenuProds(newMenu);
         }
         break;
       }
@@ -121,17 +83,14 @@ const useMenu = (userName: string): MenuHookType => {
         const newMenu = fakeMenu.MEDIUM;
         const regened = await updateMenu(userName, newMenu);
         if (regened) {
-          menuDispatch({ type: "regen-menu", menuProds: newMenu });
+          setMenuProds(newMenu);
         }
         break;
       }
       case "set-menu": {
-        menuDispatch(action);
+        setMenuProds(action.menuProds || menuProds);
         break;
       }
-      default:
-        menuDispatch(action);
-        break;
     }
   };
 
