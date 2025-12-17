@@ -4,7 +4,10 @@ import FormProduct from "../../../reusable-ui/FormProduct";
 import { useContext } from "react";
 import FormFooterAdd from "./FormFooterAdd";
 import FormFooterEdit from "./FormFooterEdit";
-import type { AdminPanelFormActionType } from "../../../../types";
+import type {
+  AdminPanelFormActionType,
+  MenuActionType,
+} from "../../../../types";
 import {
   MainDispatchContext,
   ProductsContext,
@@ -14,7 +17,7 @@ import {
 const PanelContent = () => {
   const { isPanelFolded, selectedTabID, formInputs, inputRef } =
     useContext(AdminPanelContext);
-  const { handleProdUpdate, adminPanelFormDispatch } =
+  const { menuDispatch, adminPanelFormDispatch } =
     useContext(MainDispatchContext);
   const { prodSelectedID } = useContext(ProductsContext);
 
@@ -26,7 +29,12 @@ const PanelContent = () => {
       value,
     };
     adminPanelFormDispatch(action);
-    handleProdUpdate({ ...formInputs, [name]: value }, prodSelectedID);
+    const menuAction: MenuActionType = {
+      type: "edit-product",
+      prodVals: { ...formInputs, [name]: value },
+      prodID: prodSelectedID,
+    };
+    menuDispatch(menuAction);
   };
 
   const FormFooter =

@@ -15,12 +15,16 @@ export default function MenuCardDelete({
   isSelected,
 }: MenuCardDeleteProps) {
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
-  const { handleProdDelete } = useContext(MainDispatchContext);
+  const { menuDispatch } = useContext(MainDispatchContext);
 
   const onDeleteClick: MouseEventHandler<SVGElement> = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    handleProdDelete(prodID);
+    const menuAction: MenuActionType = {
+      type: "delete-product",
+      prodID,
+    };
+    menuDispatch(menuAction);
   };
 
   return (

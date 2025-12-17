@@ -250,3 +250,7 @@ export type TabConfigParamType = {
   selectedTabID: ContentTabIDType;
   onTabClick: (id: TabIDType) => void;
 };
+
+// hooks types
+
+export type MenuHookType = [ProductType[], (action: MenuActionType) => void];

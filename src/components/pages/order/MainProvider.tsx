@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState, type ReactNode } from "react";
+import { useReducer, useRef, useState, type ReactNode } from "react";
 import {
   ProductsContext,
   MainDispatchContext,
@@ -10,23 +10,17 @@ import type {
   BasketActionType,
   BasketProdType,
   ContentTabIDType,
-  MenuActionType,
   PanelFormType,
-  ProductType,
   TabIDType,
 } from "../../../types";
-import { fakeMenu } from "../../../fakeData/fakeMenu";
 import { defaultFormInputs } from "./AdminPanel/getFieldConfig";
 import getPanelConfig from "./AdminPanel/getPanelConfig";
-import { deepCopy } from "../../../utils/collection";
-import { fetchUserData, updateMenu } from "../../../api/user";
 import { useParams } from "react-router";
+import useMenu from "../../../hooks/useMenu";
 
 export function MainProvider({ children }: { children: ReactNode }) {
-  const [menuProds, menuDispatch] = useReducer(
-    menuReducer,
-    deepCopy(fakeMenu.GHOST)
-  );
+  const { userName } = useParams();
+  const [menuProds, menuDispatch] = useMenu(userName || "");
   const [basketProds, basketDispatch] = useReducer(basketReducer, []);
   const [adminPanelForm, adminPanelFormDispatch] = useReducer(
     adminPanelFormReducer,
@@ -40,88 +34,11 @@ export function MainProvider({ children }: { children: ReactNode }) {
   const [selectedTabID, setSelectedTab] =
     useState<ContentTabIDType>("add-product");
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const { userName } = useParams();
-
-  useEffect(() => {
-    if (menuProds.length > 0 && menuProds[0].id === "ghost-product-id") {
-      fetchUserData(userName).then((userData) => {
-        if (userData) {
-          const userMenu = userData.menu as ProductType[];
-          menuDispatch({ type: "set-menu", menuProds: userMenu });
-        }
-      });
-    }
-  }, [menuProds, userName]);
 
   // Workaround not to keep a prod selected when regenerating the menu
   if (prodSelectedID !== "" && menuProds.length === 0) {
     setProdSelectedID("");
   }
-
-  const handleProdAdd = async (prodVals: PanelFormType) => {
-    if (!prodVals || !userName) return;
-    const nextId = crypto.randomUUID();
-
-    let priceNumber = parseFloat(prodVals.price.replace(",", "."));
-    if (isNaN(priceNumber)) priceNumber = 0;
-
-    const newProduct: ProductType = {
-      id: nextId,
-      title: prodVals.title,
-      imageSource: prodVals.imageSource,
-      price: priceNumber,
-      quantity: 0,
-      isAvailable: true,
-      isAdvertised: false,
-    };
-    const newMenu = [newProduct, ...menuProds];
-    const created = await updateMenu(userName, newMenu);
-    if (created) {
-      menuDispatch({ type: "add-product", prod: newProduct });
-    }
-  };
-
-  const handleProdUpdate = async (prodVals: PanelFormType, prodID: string) => {
-    if (!prodVals || !prodID || !userName) return;
-    const toUpdProd = menuProds.find((p) => p.id === prodID);
-    if (!toUpdProd) return;
-
-    let priceNumber = parseFloat(prodVals.price.replace(",", "."));
-    if (isNaN(priceNumber)) priceNumber = 0;
-
-    const updedProd = {
-      ...toUpdProd,
-      title: prodVals.title,
-      imageSource: prodVals.imageSource,
-      price: priceNumber,
-    };
-    const newMenu = menuProds.map((p) => (p.id === prodID ? updedProd : p));
-    const updated = await updateMenu(userName, newMenu);
-    if (updated) {
-      menuDispatch({ type: "edit-product", prod: updedProd, prodID: prodID });
-    }
-  };
-
-  const handleProdDelete = async (prodID: string) => {
-    if (!prodID || !userName) return;
-    const toDelProd = menuProds.find((p) => p.id === prodID);
-    if (!toDelProd) return;
-
-    const newMenu = menuProds.filter((p) => p.id !== prodID);
-    const updated = await updateMenu(userName, newMenu);
-    if (updated) {
-      menuDispatch({ type: "delete-product", prodID: prodID });
-    }
-  };
-
-  const handleProdRegen = async () => {
-    if (!userName) return;
-    const newMenu = fakeMenu.MEDIUM;
-    const regened = await updateMenu(userName, newMenu);
-    if (regened) {
-      menuDispatch({ type: "regen-menu", menuProds: newMenu });
-    }
-  };
 
   const handleProdSelect = (id: string) => {
     const selectedProd = menuProds.find((p) => p.id === id);
@@ -178,10 +95,6 @@ export function MainProvider({ children }: { children: ReactNode }) {
       >
         <MainDispatchContext.Provider
           value={{
-            handleProdAdd,
-            handleProdUpdate,
-            handleProdDelete,
-            handleProdRegen,
             menuDispatch,
             basketDispatch,
             adminPanelFormDispatch,
@@ -193,34 +106,6 @@ export function MainProvider({ children }: { children: ReactNode }) {
     </ProductsContext.Provider>
   );
 }
-
-const menuReducer = (menuProds: ProductType[], action: MenuActionType) => {
-  switch (action.type) {
-    case "add-product": {
-      const newProduct = action.prod;
-      if (!newProduct) return [...menuProds];
-      return [newProduct, ...menuProds];
-    }
-    case "edit-product": {
-      const updedProd = action.prod;
-      const prodID = action.prodID;
-      if (!updedProd || !prodID) return [...menuProds];
-      return menuProds.map((p) => (p.id === prodID ? updedProd : p));
-    }
-    case "delete-product": {
-      return [...menuProds].filter((el) => el.id !== action.prodID);
-    }
-    case "regen-menu": {
-      const newMenu = fakeMenu.MEDIUM;
-      return newMenu;
-    }
-    case "set-menu": {
-      return action.menuProds || menuProds;
-    }
-    default:
-      return menuProds;
-  }
-};
 
 const basketReducer = (
   basketProds: BasketProdType[],
