@@ -7,7 +7,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { theme } from "../../../theme/theme.ts";
 import Button from "../../reusable-ui/Button.tsx";
 import InputText from "../../reusable-ui/InputText.tsx";
-import { createUser, userExists } from "../../../api/user.ts";
+import { authenticateUser } from "../../../api/user.ts";
 
 export default function LoginForm() {
   const [userName, setUserName] = useState("");
@@ -16,10 +16,7 @@ export default function LoginForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setUserName("");
-    const exists = await userExists(userName);
-    if (!exists) {
-      createUser(userName);
-    }
+    await authenticateUser(userName);
     navigate(`/order/${userName}`);
   };
 

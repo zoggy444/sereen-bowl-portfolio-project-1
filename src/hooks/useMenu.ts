@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUserData, updateMenu } from "../api/user";
+import { authenticateUser, updateMenu } from "../api/user";
 import type { MenuActionType, ProductType, MenuHookType } from "../types";
 import { fakeMenu } from "../fakeData/fakeMenu";
 import { deepCopy } from "../utils/collection";
@@ -12,10 +12,9 @@ const useMenu = (userName: string): MenuHookType => {
 
   useEffect(() => {
     if (menuProds.length > 0 && menuProds[0].id === "ghost-product-id") {
-      fetchUserData(userName).then((userData) => {
-        if (userData) {
-          const userMenu = userData.menu;
-          setMenuProds(userMenu);
+      authenticateUser(userName).then((menu) => {
+        if (menu) {
+          setMenuProds(menu);
         }
       });
     }
