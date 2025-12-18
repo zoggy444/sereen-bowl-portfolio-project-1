@@ -3,6 +3,7 @@ import styled from "styled-components";
 import IsAdminModeContext from "../../../../context/IsAdminModeContext";
 import { MainDispatchContext } from "../../../../context/OrderMainContext";
 import type {
+  BasketActionType,
   MenuActionType,
   MenuCardDeleteProps,
   MenuCardDeleteStyledProps,
@@ -15,11 +16,16 @@ export default function MenuCardDelete({
   isSelected,
 }: MenuCardDeleteProps) {
   const isAdminMode = useContext(IsAdminModeContext).isAdminMode;
-  const { menuDispatch } = useContext(MainDispatchContext);
+  const { menuDispatch, basketDispatch } = useContext(MainDispatchContext);
 
   const onDeleteClick: MouseEventHandler<SVGElement> = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    const basketAction: BasketActionType = {
+      type: "delete-product",
+      id: prodID,
+    };
+    basketDispatch(basketAction);
     const menuAction: MenuActionType = {
       type: "delete-product",
       prodID,

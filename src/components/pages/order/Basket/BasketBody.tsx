@@ -14,7 +14,7 @@ export default function BasketBody() {
       ) : basketProds.length > 0 ? (
         basketProds.map((el) => {
           const p = menuProds.filter((p) => p.id === el.id)[0];
-          return <BasketCard key={el.id} product={p} qty={el.qty} />;
+          return p && <BasketCard key={el.id} product={p} qty={el.qty} />;
         })
       ) : (
         <div className="basket-empty amatic-sc-regular">
